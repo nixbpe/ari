@@ -1,0 +1,4 @@
+=== RUN   TestModelInitialView
+--- PASS: TestModelInitialView (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/tui	0.620s

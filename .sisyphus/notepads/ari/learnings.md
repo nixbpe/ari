@@ -94,3 +94,19 @@
 - ✓ (U+2713), ✗ (U+2717), ↷ (U+21B7) are fine UTF-8 chars
 - Output format: header with repo/language/level/pass-rate, pillars with criteria, suggestions, footer with version/timestamp
 - TextReporter implements Reporter interface: Report(ctx context.Context, report *Report, w io.Writer) error
+
+## [T22] TUI (Bubbletea v2)
+- Import: charm.land/bubbletea/v2
+- View() on root Model returns tea.View (use tea.NewView(content))
+- Sub-models (ProgressModel, ReportModel) return string from View()
+- Init() returns tea.Cmd in bubbletea v2 interface; root update still follows Elm-style state transitions
+- Message types defined in internal/tui/messages.go
+- views package: internal/tui/views/
+
+## [T24] LLM Providers
+- Use net/http directly (no SDK deps) — httptest.NewServer for all tests
+- OpenAI: POST /v1/chat/completions, Authorization: Bearer header
+- Anthropic: POST /v1/messages, x-api-key header, anthropic-version: 2023-06-01
+- Ollama: POST /api/chat, no auth, stream: false
+- Rate limiting: exponential backoff (1s, 2s, 4s), max 3 retries
+- Default models: OpenAI=gpt-4o-mini, Anthropic=claude-sonnet-4-20250514, Ollama=llama3

@@ -1,0 +1,4 @@
+=== RUN   TestProgressToReport
+--- PASS: TestProgressToReport (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/tui	0.480s
