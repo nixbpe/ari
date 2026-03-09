@@ -1,0 +1,17 @@
+# Binaries
+ari
+*.test
+build.test
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Sisyphus orchestration state
+.sisyphus/

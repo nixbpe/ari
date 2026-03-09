@@ -1,4 +1,0 @@
-=== RUN   TestHTMLReporterLevel
---- PASS: TestHTMLReporterLevel (0.00s)
-PASS
-ok  	github.com/bbik/ari/internal/reporter	0.252s

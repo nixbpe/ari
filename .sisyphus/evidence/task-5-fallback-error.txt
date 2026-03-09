@@ -1,4 +1,0 @@
-=== RUN   TestFallbackOnError
---- PASS: TestFallbackOnError (0.00s)
-PASS
-ok  	github.com/bbik/ari/internal/llm	0.195s

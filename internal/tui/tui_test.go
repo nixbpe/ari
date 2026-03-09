@@ -6,6 +6,7 @@ import (
 
 	tea "charm.land/bubbletea/v2"
 	"github.com/bbik/ari/internal/checker"
+	"github.com/bbik/ari/internal/scorer"
 )
 
 func TestModelInitialView(t *testing.T) {
@@ -61,5 +62,140 @@ func TestQuitMsg(t *testing.T) {
 	}
 	if cmd == nil {
 		t.Fatal("expected quit command")
+	}
+}
+
+func TestReportViewPillars(t *testing.T) {
+	score := &scorer.Score{
+		Level:    checker.LevelDocumented,
+		PassRate: 0.73,
+		PillarScores: map[checker.Pillar]scorer.PillarScore{
+			checker.PillarStyleValidation: {Passed: 7, Total: 10, Rate: 0.7},
+			checker.PillarBuildSystem:     {Passed: 8, Total: 10, Rate: 0.8},
+			checker.PillarTesting:         {Passed: 6, Total: 10, Rate: 0.6},
+			checker.PillarDocumentation:   {Passed: 9, Total: 10, Rate: 0.9},
+		},
+	}
+	model := NewModel()
+	next, _ := model.Update(ScanCompleteMsg{Score: score})
+	updated := next.(Model)
+
+	if updated.currentView != ReportView {
+		t.Fatalf("expected ReportView, got %v", updated.currentView)
+	}
+
+	content := updated.View().Content
+	for _, name := range []string{"Style & Validation", "Build System", "Testing", "Documentation"} {
+		if !strings.Contains(content, name) {
+			t.Errorf("View() missing pillar %q\ncontent:\n%s", name, content)
+		}
+	}
+	if !strings.Contains(content, "73%") {
+		t.Errorf("View() missing pass rate 73%%\ncontent:\n%s", content)
+	}
+}
+
+func TestDetailViewCriteria(t *testing.T) {
+	results := []*checker.Result{
+		{
+			ID:       "lint_config",
+			Name:     "lint_config",
+			Passed:   true,
+			Evidence: "golangci.yml found",
+			Level:    checker.LevelFunctional,
+			Pillar:   checker.PillarStyleValidation,
+		},
+		{
+			ID:         "unit_tests_exist",
+			Name:       "unit_tests_exist",
+			Passed:     false,
+			Evidence:   "no test files found",
+			Level:      checker.LevelFunctional,
+			Pillar:     checker.PillarStyleValidation,
+			Suggestion: "Add *_test.go files",
+		},
+	}
+
+	model := NewModel()
+	// Transition to report view with results
+	next, _ := model.Update(ScanCompleteMsg{Results: results})
+	updated := next.(Model)
+
+	// Drill down into Style & Validation
+	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarStyleValidation})
+	drilled := next2.(Model)
+
+	if drilled.currentView != DetailView {
+		t.Fatalf("expected DetailView, got %v", drilled.currentView)
+	}
+
+	content := drilled.View().Content
+	if !strings.Contains(content, "lint_config") {
+		t.Errorf("detail view missing lint_config\ncontent:\n%s", content)
+	}
+	if !strings.Contains(content, "unit_tests_exist") {
+		t.Errorf("detail view missing unit_tests_exist\ncontent:\n%s", content)
+	}
+	if !strings.Contains(content, "✓") {
+		t.Errorf("detail view missing pass indicator ✓\ncontent:\n%s", content)
+	}
+	if !strings.Contains(content, "✗") {
+		t.Errorf("detail view missing fail indicator ✗\ncontent:\n%s", content)
+	}
+}
+
+func TestReportNavigation(t *testing.T) {
+	score := &scorer.Score{
+		Level:    checker.LevelFunctional,
+		PassRate: 0.5,
+		PillarScores: map[checker.Pillar]scorer.PillarScore{
+			checker.PillarStyleValidation: {Passed: 5, Total: 10, Rate: 0.5},
+		},
+	}
+	model := NewModel()
+	next, _ := model.Update(ScanCompleteMsg{Score: score})
+	updated := next.(Model)
+
+	// Initial selected pillar should be 0
+	if updated.report.SelectedPillar != 0 {
+		t.Fatalf("expected SelectedPillar=0, got %d", updated.report.SelectedPillar)
+	}
+
+	// Press down
+	next2, _ := updated.Update(tea.KeyPressMsg(tea.Key{Code: tea.KeyDown}))
+	updated2 := next2.(Model)
+	if updated2.report.SelectedPillar != 1 {
+		t.Fatalf("expected SelectedPillar=1 after down, got %d", updated2.report.SelectedPillar)
+	}
+
+	// Press up
+	next3, _ := updated2.Update(tea.KeyPressMsg(tea.Key{Code: tea.KeyUp}))
+	updated3 := next3.(Model)
+	if updated3.report.SelectedPillar != 0 {
+		t.Fatalf("expected SelectedPillar=0 after up, got %d", updated3.report.SelectedPillar)
+	}
+}
+
+func TestDetailBack(t *testing.T) {
+	model := NewModel()
+	next, _ := model.Update(ScanCompleteMsg{})
+	updated := next.(Model)
+
+	// Drill down
+	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarTesting})
+	drilled := next2.(Model)
+	if drilled.currentView != DetailView {
+		t.Fatalf("expected DetailView, got %v", drilled.currentView)
+	}
+
+	// Press Esc — should return BackMsg cmd
+	_, cmd := drilled.Update(tea.KeyPressMsg(tea.Key{Code: tea.KeyEscape}))
+	if cmd == nil {
+		t.Fatal("expected a cmd from Esc key in DetailView")
+	}
+	// Execute the cmd to get the BackMsg
+	backMsg := cmd()
+	if _, ok := backMsg.(BackMsg); !ok {
+		t.Fatalf("expected BackMsg, got %T", backMsg)
 	}
 }

@@ -1,8 +1,0 @@
-=== RUN   TestCyclomaticComplexityGo
---- PASS: TestCyclomaticComplexityGo (0.00s)
-=== RUN   TestCyclomaticComplexityGoMissing
---- PASS: TestCyclomaticComplexityGoMissing (0.00s)
-=== RUN   TestCyclomaticComplexityGoGocognit
---- PASS: TestCyclomaticComplexityGoGocognit (0.00s)
-PASS
-ok  	github.com/bbik/ari/internal/checker/style	0.419s

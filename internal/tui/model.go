@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	tea "charm.land/bubbletea/v2"
+	"github.com/bbik/ari/internal/checker"
 	"github.com/bbik/ari/internal/tui/views"
 )
 
@@ -24,6 +25,7 @@ type Model struct {
 	progress    ProgressModel
 	report      *ReportModel
 	detail      *DetailModel
+	results     []*checker.Result
 	err         error
 	quitting    bool
 	width       int
@@ -46,27 +48,100 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 		m.height = msg.Height
+
 	case ScanStartMsg:
 		m.progress.SetTotal(msg.Total)
+
 	case CheckerStartMsg:
 		m.progress.SetCurrent(msg.Name)
+
 	case CheckerCompleteMsg:
 		m.progress.UpdateProgress(msg.Result, msg.Done, msg.Total)
+
 	case ScanCompleteMsg:
 		report := ReportModel{Score: msg.Score, Report: msg.Report}
 		m.report = &report
+		m.results = msg.Results
 		m.currentView = ReportView
+
+	case DrillDownMsg:
+		var pillarResults []*checker.Result
+		for _, r := range m.results {
+			if r != nil && r.Pillar == msg.Pillar {
+				pillarResults = append(pillarResults, r)
+			}
+		}
+		detail := DetailModel{Pillar: msg.Pillar, Results: pillarResults}
+		m.detail = &detail
+		m.currentView = DetailView
+
+	case BackMsg:
+		m.currentView = ReportView
+
 	case ErrorMsg:
 		m.err = msg.Err
+
 	case tea.KeyMsg:
 		key := msg.Key()
-		switch {
-		case msg.String() == "q":
+		// Ctrl+C always quits
+		if key.Mod&tea.ModCtrl != 0 && key.Code == 'c' {
 			m.quitting = true
 			return m, tea.Quit
-		case key.Mod&tea.ModCtrl != 0 && key.Code == 'c':
-			m.quitting = true
-			return m, tea.Quit
+		}
+
+		keyStr := msg.String()
+
+		switch m.currentView {
+		case ReportView:
+			if m.report != nil {
+				switch keyStr {
+				case "up":
+					m.report.MoveUp()
+				case "down":
+					m.report.MoveDown()
+				case "enter":
+					pillar := m.report.CurrentPillar()
+					return m, func() tea.Msg { return DrillDownMsg{Pillar: pillar} }
+				case "h":
+					return m, func() tea.Msg { return OpenBrowserMsg{} }
+				case "J":
+					return m, func() tea.Msg { return ExportJSONMsg{} }
+				case "q":
+					m.quitting = true
+					return m, tea.Quit
+				}
+			} else {
+				if keyStr == "q" {
+					m.quitting = true
+					return m, tea.Quit
+				}
+			}
+
+		case DetailView:
+			if m.detail != nil {
+				switch keyStr {
+				case "up":
+					m.detail.ScrollUp()
+				case "down":
+					m.detail.ScrollDown()
+				case "esc", "backspace":
+					return m, func() tea.Msg { return BackMsg{} }
+				case "q":
+					m.quitting = true
+					return m, tea.Quit
+				}
+			} else {
+				if keyStr == "q" {
+					m.quitting = true
+					return m, tea.Quit
+				}
+			}
+
+		default:
+			if keyStr == "q" {
+				m.quitting = true
+				return m, tea.Quit
+			}
 		}
 	}
 

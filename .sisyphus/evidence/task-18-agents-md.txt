@@ -1,6 +1,0 @@
-=== RUN   TestAgentsMd
---- PASS: TestAgentsMd (0.00s)
-=== RUN   TestAgentsMdMissing
---- PASS: TestAgentsMdMissing (0.00s)
-PASS
-ok  	github.com/bbik/ari/internal/checker/docs	0.194s

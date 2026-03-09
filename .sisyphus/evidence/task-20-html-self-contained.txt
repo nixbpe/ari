@@ -1,4 +1,0 @@
-=== RUN   TestHTMLReporterSelfContained
---- PASS: TestHTMLReporterSelfContained (0.00s)
-PASS
-ok  	github.com/bbik/ari/internal/reporter	0.415s

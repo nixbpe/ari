@@ -1,4 +1,0 @@
-=== RUN   TestBuildCmdDocMissing
---- PASS: TestBuildCmdDocMissing (0.00s)
-PASS
-ok  	github.com/bbik/ari/internal/checker/build	0.206s

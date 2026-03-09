@@ -1,4 +1,0 @@
-=== RUN   TestGatedProgression
---- PASS: TestGatedProgression (0.00s)
-PASS
-ok  	github.com/bbik/ari/internal/scorer	0.177s
