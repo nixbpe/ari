@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ari Report</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #f8f9fa;
+  padding: 24px;
+}
+.container { max-width: 960px; margin: 0 auto; }
+h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #333; }
+.meta { color: #666; font-size: 0.85rem; margin-bottom: 4px; }
+.card {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 20px;
+}
+.score-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
+.level-badge {
+  display: inline-block;
+  background: #9e9e9e;
+  color: #fff;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.level-badge.l1 { background: #ef6c00; }
+.level-badge.l2 { background: #f9a825; color: #1a1a1a; }
+.level-badge.l3 { background: #2e7d32; }
+.level-badge.l4 { background: #1565c0; }
+.level-badge.l5 { background: #6a1b9a; }
+.pass-rate-label { font-size: 1.6rem; font-weight: 700; }
+.pass-rate-sub { color: #666; font-size: 0.85rem; }
+.progress-bar-wrap { background: #e8e8e8; border-radius: 4px; height: 8px; margin-top: 12px; }
+.progress-bar { height: 8px; border-radius: 4px; background: #2e7d32; }
+table { width: 100%; border-collapse: collapse; }
+th {
+  text-align: left;
+  padding: 8px 10px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #555;
+  border-bottom: 2px solid #e0e0e0;
+}
+td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #fafafa; }
+.status-pass { color: #2e7d32; font-weight: 700; }
+.status-fail { color: #c62828; font-weight: 700; }
+.status-skip { color: #9e9e9e; }
+.achieved-yes { color: #2e7d32; font-weight: 600; }
+.achieved-no { color: #9e9e9e; }
+.mini-bar-wrap {
+  background: #eee;
+  border-radius: 3px;
+  height: 5px;
+  width: 80px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.mini-bar { height: 5px; border-radius: 3px; background: #2e7d32; }
+.suggestion {
+  padding: 10px 14px;
+  border-left: 3px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 0 4px 4px 0;
+}
+.suggestion.high { border-color: #c62828; background: #fff8f8; }
+.suggestion.medium { border-color: #ef6c00; background: #fff9f5; }
+.suggestion.low { border-color: #1976d2; background: #f5f9ff; }
+.suggestion-title { font-weight: 600; margin-bottom: 2px; }
+.suggestion-desc { color: #555; font-size: 0.88rem; }
+.priority-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-right: 6px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+.priority-high { background: #fde8e8; color: #c62828; }
+.priority-medium { background: #fde8d8; color: #bf5000; }
+.priority-low { background: #e3eeff; color: #1565c0; }
+.evidence {
+  font-size: 0.78rem;
+  color: #555;
+  font-family: ui-monospace, monospace;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.empty-note { color: #999; font-style: italic; padding: 12px 0; }
+footer {
+  color: #999;
+  font-size: 0.78rem;
+  text-align: center;
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  
+  <div class="card">
+    <h1>ari Readiness Report</h1>
+    <p class="meta"><strong>Repository:</strong> .</p>
+    <p class="meta"><strong>Language:</strong> Go &nbsp;&middot;&nbsp; <strong>Scanned:</strong> 2026-03-09 16:05:14 UTC &nbsp;&middot;&nbsp; <strong>ari v0.1.0</strong></p>
+  </div>
+
+  
+  <div class="card">
+    <h2>Overall Score</h2>
+    <div class="score-header">
+      <span class="level-badge l1">L1 — Functional</span>
+      <div>
+        <div class="pass-rate-label">50%</div>
+        <div class="pass-rate-sub">criteria passing</div>
+      </div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar" style="width:50%"></div>
+    </div>
+  </div>
+
+  
+  <div class="card">
+    <h2>Level Progression</h2>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Level</th>
+          <th>Passed / Total</th>
+          <th>Pass Rate</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>LFunctional &#8212; Functional</strong></td>
+          <td>7 / 7</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:100%"></span></span>100%
+          </td>
+          <td>
+            <span class="achieved-yes">&#10003; Achieved</span>
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>LDocumented &#8212; Documented</strong></td>
+          <td>6 / 8</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:75%"></span></span>75%
+          </td>
+          <td>
+            <span class="achieved-no">Not Achieved</span>
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>LStandardized &#8212; Standardized</strong></td>
+          <td>4 / 9</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:44%"></span></span>44%
+          </td>
+          <td>
+            <span class="achieved-no">Not Achieved</span>
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>LOptimized &#8212; Optimized</strong></td>
+          <td>3 / 12</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:25%"></span></span>25%
+          </td>
+          <td>
+            <span class="achieved-no">Not Achieved</span>
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>LAutonomous &#8212; Autonomous</strong></td>
+          <td>0 / 4</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:0%"></span></span>0%
+          </td>
+          <td>
+            <span class="achieved-no">Not Achieved</span>
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+  
+  <div class="card">
+    <h2>Pillar Breakdown</h2>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Pillar</th>
+          <th>Passed</th>
+          <th>Total</th>
+          <th>Pass Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td><strong>Style &amp; Validation</strong></td>
+          <td>7</td>
+          <td>12</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:58%"></span></span>58%
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Build System</strong></td>
+          <td>4</td>
+          <td>13</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:30%"></span></span>31%
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Testing</strong></td>
+          <td>5</td>
+          <td>8</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:62%"></span></span>62%
+          </td>
+        </tr>
+        
+        <tr>
+          <td><strong>Documentation</strong></td>
+          <td>4</td>
+          <td>7</td>
+          <td>
+            <span class="mini-bar-wrap"><span class="mini-bar" style="width:57%"></span></span>57%
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+  
+  <div class="card">
+    <h2>Criteria Details</h2>
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Status</th>
+          <th>Name</th>
+          <th>Pillar</th>
+          <th>Level</th>
+          <th>Evidence</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Dependencies Pinned</td>
+          <td>Build System</td>
+          <td>L1</td>
+          <td class="evidence">Found go.sum — dependencies pinned with exact versions</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Build Command Documentation</td>
+          <td>Build System</td>
+          <td>L1</td>
+          <td class="evidence">Build command documented in README.md: go build</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Single Command Setup</td>
+          <td>Build System</td>
+          <td>L2</td>
+          <td class="evidence">No single command setup found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Agentic Development Support</td>
+          <td>Build System</td>
+          <td>L3</td>
+          <td class="evidence">Found AGENTS.md — AI agent documentation present</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Release Automation</td>
+          <td>Build System</td>
+          <td>L3</td>
+          <td class="evidence">Found .goreleaser.yml — release automation configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Fast CI Feedback</td>
+          <td>Build System</td>
+          <td>L3</td>
+          <td class="evidence">No CI configuration found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Deployment Frequency</td>
+          <td>Build System</td>
+          <td>L4</td>
+          <td class="evidence">No releases found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Build Performance Tracking</td>
+          <td>Build System</td>
+          <td>L4</td>
+          <td class="evidence">No build performance tracking found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Automated PR Review</td>
+          <td>Build System</td>
+          <td>L4</td>
+          <td class="evidence">No automated PR review configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Release Notes Automation</td>
+          <td>Build System</td>
+          <td>L4</td>
+          <td class="evidence">No release notes automation found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Feature Flag Infrastructure</td>
+          <td>Build System</td>
+          <td>L4</td>
+          <td class="evidence">No feature flag infrastructure found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>VCS CLI Tools</td>
+          <td>Build System</td>
+          <td>L5</td>
+          <td class="evidence">No VCS CLI tool usage found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Unused Dependencies Detection</td>
+          <td>Build System</td>
+          <td>L5</td>
+          <td class="evidence">No unused dependency detection found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>README Exists</td>
+          <td>Documentation</td>
+          <td>L1</td>
+          <td class="evidence">Found README.md (5225 bytes) with headings</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Documentation Freshness</td>
+          <td>Documentation</td>
+          <td>L2</td>
+          <td class="evidence">Documentation last updated 0 days ago — documentation is fresh</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>AI Agent Documentation</td>
+          <td>Documentation</td>
+          <td>L2</td>
+          <td class="evidence">Found AGENTS.md — AI agent documentation present</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Service Flow Documentation</td>
+          <td>Documentation</td>
+          <td>L3</td>
+          <td class="evidence">No architecture documentation found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>API Schema Documentation</td>
+          <td>Documentation</td>
+          <td>L3</td>
+          <td class="evidence">No API schema documentation found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Automated Documentation Generation</td>
+          <td>Documentation</td>
+          <td>L4</td>
+          <td class="evidence">Found //go:generate directives in 1 Go file(s) — automated generation configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>AI Skills Configured</td>
+          <td>Documentation</td>
+          <td>L4</td>
+          <td class="evidence">No AI skills configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Lint Configuration</td>
+          <td>Style &amp; Validation</td>
+          <td>L1</td>
+          <td class="evidence">Found .golangci.yml — golangci-lint configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Code Formatter</td>
+          <td>Style &amp; Validation</td>
+          <td>L1</td>
+          <td class="evidence">Go uses built-in gofmt formatter</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Type Checking</td>
+          <td>Style &amp; Validation</td>
+          <td>L1</td>
+          <td class="evidence">Go is statically typed</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Strict Type Enforcement</td>
+          <td>Style &amp; Validation</td>
+          <td>L2</td>
+          <td class="evidence">Go enforces strict typing by default</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Pre-commit Hooks</td>
+          <td>Style &amp; Validation</td>
+          <td>L2</td>
+          <td class="evidence">No pre-commit hook configuration found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Naming Consistency</td>
+          <td>Style &amp; Validation</td>
+          <td>L2</td>
+          <td class="evidence">Naming follows Go conventions</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Dead Code Detection</td>
+          <td>Style &amp; Validation</td>
+          <td>L3</td>
+          <td class="evidence">Found unused — dead code detection configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Cyclomatic Complexity Analysis</td>
+          <td>Style &amp; Validation</td>
+          <td>L3</td>
+          <td class="evidence">No complexity analysis tools configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Code Modularization</td>
+          <td>Style &amp; Validation</td>
+          <td>L4</td>
+          <td class="evidence">Found internal/ directory — Go module boundary pattern used</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Duplicate Code Detection</td>
+          <td>Style &amp; Validation</td>
+          <td>L4</td>
+          <td class="evidence">No duplicate code detection tools found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Large File Detection</td>
+          <td>Style &amp; Validation</td>
+          <td>L5</td>
+          <td class="evidence">No large file detection configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Tech Debt Tracking</td>
+          <td>Style &amp; Validation</td>
+          <td>L5</td>
+          <td class="evidence">No tech debt tracking configured</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Unit Tests Exist</td>
+          <td>Testing</td>
+          <td>L1</td>
+          <td class="evidence">Found 24 test files (*_test.go) across the repository</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Test Naming Conventions</td>
+          <td>Testing</td>
+          <td>L2</td>
+          <td class="evidence">All 24 test files follow Go *_test.go convention</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Unit Tests Runnable</td>
+          <td>Testing</td>
+          <td>L2</td>
+          <td class="evidence">Test command documented in AGENTS.md: go test</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Integration Tests Exist</td>
+          <td>Testing</td>
+          <td>L3</td>
+          <td class="evidence">Found //go:build integration tag in internal/checker/testing/integration_tests_exist.go</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Test Coverage Thresholds</td>
+          <td>Testing</td>
+          <td>L3</td>
+          <td class="evidence">No test coverage threshold configuration found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Test Performance Tracking</td>
+          <td>Testing</td>
+          <td>L4</td>
+          <td class="evidence">No test performance tracking found</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-pass">&#10003;</span>
+          </td>
+          <td>Test Isolation</td>
+          <td>Testing</td>
+          <td>L4</td>
+          <td class="evidence">Found t.Parallel() usage in test files — test isolation enabled</td>
+        </tr>
+        
+        <tr>
+          <td>
+            <span class="status-fail">&#10007;</span>
+          </td>
+          <td>Flaky Test Detection</td>
+          <td>Testing</td>
+          <td>L4</td>
+          <td class="evidence">No flaky test handling configured</td>
+        </tr>
+        
+      </tbody>
+    </table>
+    
+  </div>
+
+  
+  <div class="card">
+    <h2>Suggestions</h2>
+    
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>1. API Schema Documentation
+      </div>
+      <div class="suggestion-desc">Document your API with OpenAPI/Swagger specification</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>2. Automated PR Review
+      </div>
+      <div class="suggestion-desc">Set up automated PR review. Add CODEOWNERS and CI checks that run on pull requests</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>3. Build Performance Tracking
+      </div>
+      <div class="suggestion-desc">Add build caching. For Go: use GitHub Actions cache for Go modules. For JS: use Turborepo</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>4. Cyclomatic Complexity Analysis
+      </div>
+      <div class="suggestion-desc">Add complexity analysis. For Go: add gocyclo to golangci-lint. For TS: enable complexity ESLint rule</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>5. Deployment Frequency
+      </div>
+      <div class="suggestion-desc">Increase deployment frequency. Aim for at least one release per 90 days</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>6. Duplicate Code Detection
+      </div>
+      <div class="suggestion-desc">Add duplicate code detection. For Go: add dupl to golangci-lint. For all: use jscpd</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>7. Fast CI Feedback
+      </div>
+      <div class="suggestion-desc">Set up CI/CD. For GitHub: create .github/workflows/ci.yml with test and lint steps</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>8. Feature Flag Infrastructure
+      </div>
+      <div class="suggestion-desc">Add feature flags. Consider OpenFeature SDK for language-agnostic feature flags</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>9. Flaky Test Detection
+      </div>
+      <div class="suggestion-desc">Add flaky test handling. For Go: use --count flag for stress testing. For TS: add retries to Playwright config</div>
+    </div>
+    
+    <div class="suggestion low">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-low">[LOW]</span>10. Large File Detection
+      </div>
+      <div class="suggestion-desc">Add Git LFS for large files: git lfs install &amp;&amp; git lfs track &#39;*.bin&#39;</div>
+    </div>
+    
+    <div class="suggestion high">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-high">[HIGH]</span>11. Pre-commit Hooks
+      </div>
+      <div class="suggestion-desc">Add pre-commit hooks. Install: pip install pre-commit &amp;&amp; pre-commit install or use Husky for JS projects</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>12. Release Notes Automation
+      </div>
+      <div class="suggestion-desc">Automate release notes. Use git-cliff, release-please, or semantic-release</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>13. Service Flow Documentation
+      </div>
+      <div class="suggestion-desc">Document service flows. Create architecture diagrams using PlantUML or Mermaid in docs/</div>
+    </div>
+    
+    <div class="suggestion high">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-high">[HIGH]</span>14. Single Command Setup
+      </div>
+      <div class="suggestion-desc">Add a single setup command. Create a Makefile with make setup or a script/setup script</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>15. AI Skills Configured
+      </div>
+      <div class="suggestion-desc">Create AI skills in .claude/skills/ to teach agents project-specific workflows</div>
+    </div>
+    
+    <div class="suggestion low">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-low">[LOW]</span>16. Tech Debt Tracking
+      </div>
+      <div class="suggestion-desc">Add tech debt tracking. Use linter rules to enforce TODO(JIRA-123) format</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>17. Test Coverage Thresholds
+      </div>
+      <div class="suggestion-desc">Add coverage thresholds. For Go: add -coverprofile to CI. For TS: add coverageThreshold to jest config</div>
+    </div>
+    
+    <div class="suggestion medium">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-medium">[MEDIUM]</span>18. Test Performance Tracking
+      </div>
+      <div class="suggestion-desc">Add test performance tracking. For Go: add go test -bench to CI. For TS: add performance budgets</div>
+    </div>
+    
+    <div class="suggestion low">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-low">[LOW]</span>19. Unused Dependencies Detection
+      </div>
+      <div class="suggestion-desc">Add unused dependency detection. For Go: add go mod tidy to CI. For TS: npm install -D depcheck</div>
+    </div>
+    
+    <div class="suggestion low">
+      <div class="suggestion-title">
+        <span class="priority-badge priority-low">[LOW]</span>20. VCS CLI Tools
+      </div>
+      <div class="suggestion-desc">Install GitHub CLI: brew install gh and document its usage in AGENTS.md</div>
+    </div>
+    
+    
+  </div>
+
+  <footer>Generated by ari v0.1.0 at 2026-03-09 16:05:14 UTC</footer>
+
+</div>
+</body>
+</html>

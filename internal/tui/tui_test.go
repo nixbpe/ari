@@ -52,7 +52,7 @@ func TestProgressUpdates(t *testing.T) {
 
 func TestQuitMsg(t *testing.T) {
 	model := NewModel()
-	msg := tea.KeyPressMsg(tea.Key{Text: "c", Code: 'c', Mod: tea.ModCtrl})
+	msg := tea.KeyPressMsg(tea.Key{Code: 'c', Mod: tea.ModCtrl})
 
 	next, cmd := model.Update(msg)
 	updated := next.(Model)

@@ -81,15 +81,18 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	case ErrorMsg:
 		m.err = msg.Err
 
-	case tea.KeyMsg:
-		key := msg.Key()
-		// Ctrl+C always quits
-		if key.Mod&tea.ModCtrl != 0 && key.Code == 'c' {
+	case tea.InterruptMsg:
+		m.quitting = true
+		return m, tea.Quit
+
+	case tea.KeyPressMsg:
+		keyStr := msg.String()
+
+		// Ctrl+C / q always quit
+		if keyStr == "ctrl+c" || keyStr == "q" {
 			m.quitting = true
 			return m, tea.Quit
 		}
-
-		keyStr := msg.String()
 
 		switch m.currentView {
 		case ReportView:
@@ -106,14 +109,6 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					return m, func() tea.Msg { return OpenBrowserMsg{} }
 				case "J":
 					return m, func() tea.Msg { return ExportJSONMsg{} }
-				case "q":
-					m.quitting = true
-					return m, tea.Quit
-				}
-			} else {
-				if keyStr == "q" {
-					m.quitting = true
-					return m, tea.Quit
 				}
 			}
 
@@ -126,21 +121,7 @@ func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.detail.ScrollDown()
 				case "esc", "backspace":
 					return m, func() tea.Msg { return BackMsg{} }
-				case "q":
-					m.quitting = true
-					return m, tea.Quit
 				}
-			} else {
-				if keyStr == "q" {
-					m.quitting = true
-					return m, tea.Quit
-				}
-			}
-
-		default:
-			if keyStr == "q" {
-				m.quitting = true
-				return m, tea.Quit
 			}
 		}
 	}
