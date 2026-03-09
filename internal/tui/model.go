@@ -2,11 +2,20 @@ package tui
 
 import (
 	"fmt"
+	"time"
 
 	tea "charm.land/bubbletea/v2"
 	"github.com/nixbpe/ari/internal/checker"
 	"github.com/nixbpe/ari/internal/tui/views"
 )
+
+type tickMsg struct{}
+
+func tickCmd() tea.Cmd {
+	return tea.Tick(150*time.Millisecond, func(time.Time) tea.Msg {
+		return tickMsg{}
+	})
+}
 
 type ProgressModel = views.ProgressModel
 type ReportModel = views.ReportModel
@@ -40,11 +49,18 @@ func NewModel() Model {
 }
 
 func (m Model) Init() tea.Cmd {
-	return nil
+	return tickCmd()
 }
 
 func (m Model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
+	case tickMsg:
+		if m.currentView == ProgressView {
+			m.progress.Tick()
+			return m, tickCmd()
+		}
+		return m, nil
+
 	case tea.WindowSizeMsg:
 		m.width = msg.Width
 		m.height = msg.Height

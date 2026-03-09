@@ -54,6 +54,10 @@ func (m *ProgressModel) SetCurrent(name string) {
 	m.spinner = (m.spinner + 1) % len(spinnerFrames)
 }
 
+func (m *ProgressModel) Tick() {
+	m.spinner = (m.spinner + 1) % len(spinnerFrames)
+}
+
 func (m *ProgressModel) UpdateProgress(result *checker.Result, done, total int) {
 	if total >= 0 {
 		m.total = total
@@ -70,7 +74,12 @@ func (m *ProgressModel) UpdateProgress(result *checker.Result, done, total int) 
 			icon = BrightRed + "✗" + Reset
 		}
 
-		m.completed = append(m.completed, fmt.Sprintf("%s %s%s%s", icon, Dim, result.Name, Reset))
+		modeTag := ""
+		if result.Mode == "llm" {
+			modeTag = " " + BrightMagenta + "[llm]" + Reset
+		}
+
+		m.completed = append(m.completed, fmt.Sprintf("%s %s%s%s%s", icon, Dim, result.Name, Reset, modeTag))
 		if len(m.completed) > 5 {
 			m.completed = m.completed[len(m.completed)-5:]
 		}
