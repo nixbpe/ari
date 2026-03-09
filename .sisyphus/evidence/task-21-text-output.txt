@@ -1,0 +1,18 @@
+=== RUN   TestTextReporterOutput
+--- PASS: TestTextReporterOutput (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/reporter	0.175s
+
+All tests for TextReporter passed successfully.
+
+Test Coverage:
+- TestTextReporterOutput: Verifies no ANSI codes, contains repo path, level, pass rate
+- TestTextReporterPillars: Verifies all pillar names present in output
+- TestTextReporterSuggestions: Verifies failing criteria appear in Suggestions section
+- TestTextReporterSkipped: Verifies skipped criteria show ↷ symbol
+- TestTextReporterHeader: Verifies header format and labels
+- TestTextReporterFooter: Verifies footer with version and timestamp
+- TestTextReporterEmptyResults: Verifies output for empty results
+
+Build Status: SUCCESS
+All packages compiled without errors.

@@ -87,3 +87,10 @@
 - Use fs.WalkDir with early exit via sentinel errors.New("found") pattern
 - t19_test.go created separately (docs_test.go already existed from T18); both in same package `docs`
 - ctx variable already declared in docs_test.go — do NOT redeclare in t19_test.go
+
+## [T21] Text Reporter
+- Pure text, no ANSI codes (no `\x1b[`, no `\033[`)
+- Group criteria by pillar using CriteriaResults[i].Pillar field
+- ✓ (U+2713), ✗ (U+2717), ↷ (U+21B7) are fine UTF-8 chars
+- Output format: header with repo/language/level/pass-rate, pillars with criteria, suggestions, footer with version/timestamp
+- TextReporter implements Reporter interface: Report(ctx context.Context, report *Report, w io.Writer) error
