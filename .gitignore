@@ -3,6 +3,9 @@ ari
 *.test
 build.test
 
+# Generated reports
+ari-report.html
+
 # IDE
 .idea/
 .vscode/
