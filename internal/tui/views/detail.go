@@ -35,13 +35,13 @@ func (m DetailModel) View() string {
 	var sb strings.Builder
 	sb.WriteString(CyberHeader)
 
-	sb.WriteString(fmt.Sprintf("  %s>> PILLAR DETAILS:%s %s%s%s  %s(%sEsc%s to go back)%s\n\n",
+	fmt.Fprintf(&sb, "  %s>> PILLAR DETAILS:%s %s%s%s  %s(%sEsc%s to go back)%s\n\n",
 		BrightMagenta, Reset,
 		BrightCyan+Bold, m.Pillar.String(), Reset,
-		Dim, White, Dim, Reset))
+		Dim, White, Dim, Reset)
 
 	if len(m.Results) == 0 {
-		sb.WriteString(fmt.Sprintf("  %s(no criteria for this pillar)%s\n", Dim, Reset))
+		fmt.Fprintf(&sb, "  %s(no criteria for this pillar)%s\n", Dim, Reset)
 	} else {
 		end := m.Offset + detailPageSize
 		if end > len(m.Results) {
@@ -99,38 +99,38 @@ func (m DetailModel) View() string {
 			evidence = strings.ReplaceAll(evidence, "\n", " ")
 
 			// Main Row
-			sb.WriteString(fmt.Sprintf("  %s%s%s │ %s%s%s │ %s%-28s%s │ %s%s%s\n",
+			fmt.Fprintf(&sb, "  %s%s%s │ %s%s%s │ %s%-28s%s │ %s%s%s\n",
 				statusColor, statusRaw, Dim+Cyan,
 				lvlColor, lvlRaw, Dim+Cyan,
 				nameColor, nameRaw, Dim+Cyan,
 				evColor, evidence, Reset,
-			))
+			)
 
 			// Suggestion Row (if failed)
 			if !r.Passed && r.Suggestion != "" {
 				sugg := strings.ReplaceAll(r.Suggestion, "\n", " ")
-				sb.WriteString(fmt.Sprintf("  %s   %s │ %s   %s │ %s%-28s%s │ %s⚡ %s%s%s\n",
+				fmt.Fprintf(&sb, "  %s   %s │ %s   %s │ %s%-28s%s │ %s⚡ %s%s%s\n",
 					Dim+Cyan, Dim+Cyan,
 					Dim+Cyan, Dim+Cyan,
 					Dim+Cyan, "", Dim+Cyan,
 					BrightYellow, Dim+Yellow, sugg, Reset,
-				))
+				)
 			}
 		}
 
 		// Table Footer / Pagination
 		if len(m.Results) > detailPageSize {
-			sb.WriteString(fmt.Sprintf("\n  %sShowing %s%d–%d%s of %s%d%s\n",
+			fmt.Fprintf(&sb, "\n  %sShowing %s%d–%d%s of %s%d%s\n",
 				Dim,
 				BrightCyan, m.Offset+1, end, Dim,
-				BrightCyan, len(m.Results), Reset))
+				BrightCyan, len(m.Results), Reset)
 		}
 	}
 
-	sb.WriteString(fmt.Sprintf("\n  %s[%sARI%s]%s> %s↑↓%s scroll  %sEsc%s back\n",
+	fmt.Fprintf(&sb, "\n  %s[%sARI%s]%s> %s↑↓%s scroll  %sEsc%s back\n",
 		Dim, BrightCyan, Dim, Reset,
 		BrightMagenta, Dim,
-		BrightMagenta, Reset))
+		BrightMagenta, Reset)
 
 	return sb.String()
 }

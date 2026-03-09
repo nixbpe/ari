@@ -77,7 +77,7 @@ func checkGoDocGen(repo fs.FS) (bool, string) {
 
 	// Walk for //go:generate in .go source files
 	var generateCount int
-	fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+	_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() {
 			return nil
 		}

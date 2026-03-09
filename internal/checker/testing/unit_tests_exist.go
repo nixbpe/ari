@@ -52,7 +52,7 @@ func countTestFiles(repo fs.FS, lang checker.Language) (int, string) {
 	switch lang {
 	case checker.LanguageGo:
 		pattern = "*_test.go"
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
 			}
@@ -63,7 +63,7 @@ func countTestFiles(repo fs.FS, lang checker.Language) (int, string) {
 		})
 	case checker.LanguageTypeScript:
 		pattern = "*.test.ts, *.spec.ts, *.test.js, *.spec.js, __tests__/"
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
 			}
@@ -82,7 +82,7 @@ func countTestFiles(repo fs.FS, lang checker.Language) (int, string) {
 		})
 	case checker.LanguageJava:
 		pattern = "*Test.java, *Spec.java, src/test/"
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
 			}
@@ -98,7 +98,7 @@ func countTestFiles(repo fs.FS, lang checker.Language) (int, string) {
 		})
 	default:
 		pattern = "*_test.go, *.test.ts, *.spec.ts, *Test.java"
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
 			}

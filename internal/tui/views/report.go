@@ -57,16 +57,16 @@ func (m ReportModel) View() string {
 			rateColor = BrightYellow
 		}
 
-		sb.WriteString(fmt.Sprintf("  %sLEVEL:%s %sL%d%s — %s%s%s\n",
+		fmt.Fprintf(&sb, "  %sLEVEL:%s %sL%d%s — %s%s%s\n",
 			Dim, Reset,
 			lvlColor+Bold, int(m.Score.Level), Reset,
-			lvlColor, m.Score.Level.String(), Reset))
+			lvlColor, m.Score.Level.String(), Reset)
 
-		sb.WriteString(fmt.Sprintf("  %sPASS RATE:%s %s%.0f%%%s\n\n",
-			Dim, Reset, rateColor, passRate, Reset))
+		fmt.Fprintf(&sb, "  %sPASS RATE:%s %s%.0f%%%s\n\n",
+			Dim, Reset, rateColor, passRate, Reset)
 	}
 
-	sb.WriteString(fmt.Sprintf("  %s>> PILLAR ANALYSIS%s\n", BrightMagenta, Reset))
+	fmt.Fprintf(&sb, "  %s>> PILLAR ANALYSIS%s\n", BrightMagenta, Reset)
 
 	for i, pillar := range pillarOrder {
 		prefix := "  "
@@ -86,20 +86,20 @@ func (m ReportModel) View() string {
 		bar := progressBar(rate, 15)
 
 		// Ensure exactly the same text but with formatting
-		sb.WriteString(fmt.Sprintf("%s %s%-22s%s %s %s%.0f%%%s\n",
+		fmt.Fprintf(&sb, "%s %s%-22s%s %s %s%.0f%%%s\n",
 			prefix,
 			nameStyle, pillar.String(), Reset,
 			bar,
-			Dim, rate*100, Reset))
+			Dim, rate*100, Reset)
 	}
 
-	sb.WriteString(fmt.Sprintf("\n  %s[%sARI%s]%s> %s↑↓%s navigate  %sEnter%s drill-down  %sh%s HTML  %sj%s JSON  %sq%s quit\n",
+	fmt.Fprintf(&sb, "\n  %s[%sARI%s]%s> %s↑↓%s navigate  %sEnter%s drill-down  %sh%s HTML  %sj%s JSON  %sq%s quit\n",
 		Dim, BrightCyan, Dim, Reset,
 		BrightMagenta, Dim,
 		BrightMagenta, Dim,
 		BrightMagenta, Dim,
 		BrightMagenta, Dim,
-		BrightMagenta, Reset))
+		BrightMagenta, Reset)
 
 	return sb.String()
 }

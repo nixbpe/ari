@@ -24,7 +24,10 @@ func TestModelInitialView(t *testing.T) {
 func TestProgressToReport(t *testing.T) {
 	model := NewModel()
 	next, _ := model.Update(ScanCompleteMsg{})
-	updated := next.(Model)
+	updated, ok := next.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 
 	if updated.currentView != ReportView {
 		t.Fatalf("expected view %v, got %v", ReportView, updated.currentView)
@@ -36,7 +39,10 @@ func TestProgressUpdates(t *testing.T) {
 	result := &checker.Result{Name: "lint_config", Passed: true}
 
 	next, _ := model.Update(CheckerCompleteMsg{Result: result, Done: 1, Total: 2})
-	updated := next.(Model)
+	updated, ok := next.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 	content := updated.View().Content
 
 	if content == "" {
@@ -55,7 +61,10 @@ func TestQuitMsg(t *testing.T) {
 	msg := tea.KeyPressMsg(tea.Key{Code: 'c', Mod: tea.ModCtrl})
 
 	next, cmd := model.Update(msg)
-	updated := next.(Model)
+	updated, ok := next.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 
 	if !updated.quitting {
 		t.Fatal("expected model to be in quitting state")
@@ -78,7 +87,10 @@ func TestReportViewPillars(t *testing.T) {
 	}
 	model := NewModel()
 	next, _ := model.Update(ScanCompleteMsg{Score: score})
-	updated := next.(Model)
+	updated, ok := next.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 
 	if updated.currentView != ReportView {
 		t.Fatalf("expected ReportView, got %v", updated.currentView)
@@ -119,11 +131,17 @@ func TestDetailViewCriteria(t *testing.T) {
 	model := NewModel()
 	// Transition to report view with results
 	next, _ := model.Update(ScanCompleteMsg{Results: results})
-	updated := next.(Model)
+	updated, ok := next.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 
 	// Drill down into Style & Validation
 	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarStyleValidation})
-	drilled := next2.(Model)
+	drilled, ok := next2.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 
 	if drilled.currentView != DetailView {
 		t.Fatalf("expected DetailView, got %v", drilled.currentView)
@@ -154,7 +172,10 @@ func TestReportNavigation(t *testing.T) {
 	}
 	model := NewModel()
 	next, _ := model.Update(ScanCompleteMsg{Score: score})
-	updated := next.(Model)
+	updated, ok := next.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 
 	// Initial selected pillar should be 0
 	if updated.report.SelectedPillar != 0 {
@@ -163,14 +184,20 @@ func TestReportNavigation(t *testing.T) {
 
 	// Press down
 	next2, _ := updated.Update(tea.KeyPressMsg(tea.Key{Code: tea.KeyDown}))
-	updated2 := next2.(Model)
+	updated2, ok2 := next2.(Model)
+	if !ok2 {
+		t.Fatal("expected Model type")
+	}
 	if updated2.report.SelectedPillar != 1 {
 		t.Fatalf("expected SelectedPillar=1 after down, got %d", updated2.report.SelectedPillar)
 	}
 
 	// Press up
 	next3, _ := updated2.Update(tea.KeyPressMsg(tea.Key{Code: tea.KeyUp}))
-	updated3 := next3.(Model)
+	updated3, ok3 := next3.(Model)
+	if !ok3 {
+		t.Fatal("expected Model type")
+	}
 	if updated3.report.SelectedPillar != 0 {
 		t.Fatalf("expected SelectedPillar=0 after up, got %d", updated3.report.SelectedPillar)
 	}
@@ -179,11 +206,17 @@ func TestReportNavigation(t *testing.T) {
 func TestDetailBack(t *testing.T) {
 	model := NewModel()
 	next, _ := model.Update(ScanCompleteMsg{})
-	updated := next.(Model)
+	updated, ok := next.(Model)
+	if !ok {
+		t.Fatal("expected Model type")
+	}
 
 	// Drill down
 	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarTesting})
-	drilled := next2.(Model)
+	drilled, ok2 := next2.(Model)
+	if !ok2 {
+		t.Fatal("expected Model type")
+	}
 	if drilled.currentView != DetailView {
 		t.Fatalf("expected DetailView, got %v", drilled.currentView)
 	}

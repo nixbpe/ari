@@ -84,7 +84,7 @@ func (c *ApiSchemaDocsChecker) Check(ctx context.Context, repo fs.FS, lang check
 func findGraphQLFile(repo fs.FS, dir string) (bool, string) {
 	var found bool
 	var foundPath string
-	fs.WalkDir(repo, dir, func(path string, d fs.DirEntry, err error) error {
+	_ = fs.WalkDir(repo, dir, func(path string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() || found {
 			return nil
 		}
@@ -120,7 +120,7 @@ func shouldSkipAPICheck(repo fs.FS, lang checker.Language) bool {
 // goHasNetHTTP reports whether any .go file (non-test) imports "net/http".
 func goHasNetHTTP(repo fs.FS) bool {
 	var found bool
-	fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+	_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 		if err != nil || d.IsDir() || found {
 			return nil
 		}
