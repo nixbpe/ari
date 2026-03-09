@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"io/fs"
 
-	"github.com/bbik/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker"
 )
 
 type PreCommitHooksChecker struct{}

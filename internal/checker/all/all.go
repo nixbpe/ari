@@ -1,12 +1,12 @@
 package all
 
 import (
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/checker/build"
-	"github.com/bbik/ari/internal/checker/docs"
-	"github.com/bbik/ari/internal/checker/style"
-	checktesting "github.com/bbik/ari/internal/checker/testing"
-	"github.com/bbik/ari/internal/llm"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker/build"
+	"github.com/nixbpe/ari/internal/checker/docs"
+	"github.com/nixbpe/ari/internal/checker/style"
+	checktesting "github.com/nixbpe/ari/internal/checker/testing"
+	"github.com/nixbpe/ari/internal/llm"
 )
 
 // RegisterAll registers all 40 checkers into the registry.

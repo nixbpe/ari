@@ -9,13 +9,13 @@ import (
 	"os"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/checker/all"
-	"github.com/bbik/ari/internal/llm"
-	"github.com/bbik/ari/internal/reporter"
-	"github.com/bbik/ari/internal/scanner"
-	"github.com/bbik/ari/internal/scorer"
-	"github.com/bbik/ari/internal/tui"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker/all"
+	"github.com/nixbpe/ari/internal/llm"
+	"github.com/nixbpe/ari/internal/reporter"
+	"github.com/nixbpe/ari/internal/scanner"
+	"github.com/nixbpe/ari/internal/scorer"
+	"github.com/nixbpe/ari/internal/tui"
 )
 
 const ariVersion = "0.1.0"

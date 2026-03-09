@@ -1,4 +1,4 @@
-module github.com/bbik/ari
+module github.com/nixbpe/ari
 
 go 1.25.0
 

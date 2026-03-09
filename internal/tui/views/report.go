@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/reporter"
-	"github.com/bbik/ari/internal/scorer"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/reporter"
+	"github.com/nixbpe/ari/internal/scorer"
 )
 
 var pillarOrder = []checker.Pillar{

@@ -3,7 +3,7 @@ package scanner
 import (
 	"path/filepath"
 
-	"github.com/bbik/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker"
 )
 
 func DetectLanguage(files []FileInfo) checker.Language {

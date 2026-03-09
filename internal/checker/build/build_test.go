@@ -6,8 +6,8 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/checker/build"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker/build"
 )
 
 func TestDepsPinnedGo(t *testing.T) {

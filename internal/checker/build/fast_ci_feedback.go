@@ -4,7 +4,7 @@ import (
 	"context"
 	"io/fs"
 
-	"github.com/bbik/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker"
 )
 
 type FastCIFeedbackChecker struct{}

@@ -1,6 +1,6 @@
 package scorer
 
-import "github.com/bbik/ari/internal/checker"
+import "github.com/nixbpe/ari/internal/checker"
 
 const passThreshold = 0.8
 

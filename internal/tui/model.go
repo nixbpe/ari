@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/tui/views"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/tui/views"
 )
 
 type ProgressModel = views.ProgressModel

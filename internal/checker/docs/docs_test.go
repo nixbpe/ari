@@ -9,7 +9,7 @@ import (
 	"testing/fstest"
 	"time"
 
-	"github.com/bbik/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker"
 )
 
 var ctx = context.Background()

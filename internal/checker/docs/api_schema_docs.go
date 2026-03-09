@@ -6,7 +6,7 @@ import (
 	"io/fs"
 	"strings"
 
-	"github.com/bbik/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker"
 )
 
 // ApiSchemaDocsChecker checks whether the repository documents its API with an

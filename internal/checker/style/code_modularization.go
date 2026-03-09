@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"io/fs"
 
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/llm"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/llm"
 )
 
 type CodeModularizationChecker struct {

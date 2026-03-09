@@ -6,8 +6,8 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/checker/style"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker/style"
 )
 
 func TestCyclomaticComplexityGo(t *testing.T) {

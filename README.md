@@ -11,12 +11,12 @@ assigning a maturity level from 1 (Functional) to 5 (Autonomous).
 
 ### From source
 ```bash
-go install github.com/bbik/ari/cmd/ari@latest
+go install github.com/nixbpe/ari/cmd/ari@latest
 ```
 
 ### Build locally
 ```bash
-git clone https://github.com/bbik/ari
+git clone https://github.com/nixbpe/ari
 cd ari
 go build ./cmd/ari
 ```

@@ -6,8 +6,8 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/scanner"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/scanner"
 )
 
 func TestScanGoRepo(t *testing.T) {

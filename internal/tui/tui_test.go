@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	tea "charm.land/bubbletea/v2"
-	"github.com/bbik/ari/internal/checker"
-	"github.com/bbik/ari/internal/scorer"
+	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/scorer"
 )
 
 func TestModelInitialView(t *testing.T) {

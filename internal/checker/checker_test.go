@@ -3,7 +3,7 @@ package checker_test
 import (
 	"testing"
 
-	"github.com/bbik/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/checker"
 )
 
 func TestLanguageString(t *testing.T) {

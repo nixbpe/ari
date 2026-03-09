@@ -6,8 +6,8 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"github.com/bbik/ari/internal/checker"
-	checktesting "github.com/bbik/ari/internal/checker/testing"
+	"github.com/nixbpe/ari/internal/checker"
+	checktesting "github.com/nixbpe/ari/internal/checker/testing"
 )
 
 func TestUnitTestsExistGo(t *testing.T) {
