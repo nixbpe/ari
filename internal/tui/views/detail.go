@@ -48,6 +48,15 @@ func (m DetailModel) View() string {
 			end = len(m.Results)
 		}
 
+		// Table Header
+		sb.WriteString("  " + BrightMagenta + "STS" + Dim + Cyan + " │ " +
+			BrightMagenta + "LVL" + Dim + Cyan + " │ " +
+			BrightMagenta + fmt.Sprintf("%-28s", "CRITERION") + Dim + Cyan + " │ " +
+			BrightMagenta + "DETAILS\n" + Reset)
+
+		// Table Divider
+		sb.WriteString("  " + Dim + Cyan + "────┼─────┼──────────────────────────────┼────────────────────────────────────────────────────────\n" + Reset)
+
 		for _, r := range m.Results[m.Offset:end] {
 			if r == nil {
 				continue
@@ -55,43 +64,61 @@ func (m DetailModel) View() string {
 
 			lvlColor := LevelColor(r.Level)
 
+			statusRaw := " ✓ "
+			statusColor := BrightGreen
+			nameColor := BrightCyan
+			evColor := Dim + White
+
+			if r.Skipped {
+				statusRaw = " ↷ "
+				statusColor = BrightYellow
+			} else if !r.Passed {
+				statusRaw = " ✗ "
+				statusColor = BrightRed
+				nameColor = BrightRed
+				evColor = White
+			}
+
+			lvlRaw := fmt.Sprintf("L%d ", r.Level)
+
+			nameRaw := r.Name
+			if len(nameRaw) > 28 {
+				nameRaw = nameRaw[:27] + "…"
+			}
+
+			evidence := r.Evidence
 			if r.Skipped {
 				reason := r.SkipReason
 				if reason == "" {
 					reason = "not applicable"
 				}
-				sb.WriteString(fmt.Sprintf("  %s↷%s [%sL%d%s] %s%s%s — %sskipped: %s%s\n",
-					BrightYellow, Reset,
-					lvlColor, int(r.Level), Reset,
-					Dim, r.Name, Reset,
-					Dim, reason, Reset))
-				continue
-			}
-
-			status := BrightGreen + "✓" + Reset
-			nameStyle := BrightCyan
-
-			if !r.Passed {
-				status = BrightRed + "✗" + Reset
-				nameStyle = BrightRed
-			}
-			evidence := r.Evidence
-			if evidence == "" {
+				evidence = "skipped: " + reason
+			} else if evidence == "" {
 				evidence = "(no evidence)"
 			}
+			evidence = strings.ReplaceAll(evidence, "\n", " ")
 
-			sb.WriteString(fmt.Sprintf("  %s [%sL%d%s] %s%s%s — %s%s%s\n",
-				status,
-				lvlColor, int(r.Level), Reset,
-				nameStyle, r.Name, Reset,
-				Dim, evidence, Reset))
+			// Main Row
+			sb.WriteString(fmt.Sprintf("  %s%s%s │ %s%s%s │ %s%-28s%s │ %s%s%s\n",
+				statusColor, statusRaw, Dim+Cyan,
+				lvlColor, lvlRaw, Dim+Cyan,
+				nameColor, nameRaw, Dim+Cyan,
+				evColor, evidence, Reset,
+			))
 
+			// Suggestion Row (if failed)
 			if !r.Passed && r.Suggestion != "" {
-				sb.WriteString(fmt.Sprintf("      %s⚡ %s%s\n",
-					BrightYellow, Dim+Yellow, r.Suggestion, Reset))
+				sugg := strings.ReplaceAll(r.Suggestion, "\n", " ")
+				sb.WriteString(fmt.Sprintf("  %s   %s │ %s   %s │ %s%-28s%s │ %s⚡ %s%s%s\n",
+					Dim+Cyan, Dim+Cyan,
+					Dim+Cyan, Dim+Cyan,
+					Dim+Cyan, "", Dim+Cyan,
+					BrightYellow, Dim+Yellow, sugg, Reset,
+				))
 			}
 		}
 
+		// Table Footer / Pagination
 		if len(m.Results) > detailPageSize {
 			sb.WriteString(fmt.Sprintf("\n  %sShowing %s%d–%d%s of %s%d%s\n",
 				Dim,
