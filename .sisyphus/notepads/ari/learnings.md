@@ -28,8 +28,19 @@
 - Language detection is most stable with signature-file priority (`go.mod`, `pom.xml`/`build.gradle*`, then `package.json`) before extension counting
 - File limits are easiest to enforce with a simple counter checked before appending to `RepoInfo.Files`
 
+## [T3] Checker Registry + Runner
+- Registry uses map[CheckerID]Checker with mutex for thread safety (if needed)
+- Runner uses recover() for panic handling
+- ProgressFunc callback pattern used for TUI progress updates
+
 ## [T5] LLM Interface
 - FallbackEvaluator: Primary nil -> always use Fallback; Primary error -> use Fallback
 - Mode field: "llm" when primary used, "rule-based" when fallback used
 - MockProvider: CompleteFunc nil -> returns canned JSON response
 - ConfigFromEnv reads: ARI_LLM_PROVIDER, ARI_API_KEY, ARI_LLM_MODEL, ARI_LLM_BASE_URL
+
+## [T4] Scorer
+- Gated progression: level N requires ≥80% at level N AND all previous levels pass
+- Skipped results excluded from both numerator and denominator
+- Level 0 returned when no level achieved (below L1 threshold)
+- Use Result.Level field for grouping, not hardcoded criterion IDs
