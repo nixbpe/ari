@@ -80,3 +80,10 @@
 - documentation_freshness: GitRunner func field pattern for testability
 - Parse git date format: "2006-01-02 15:04:05 -0700"
 - skills: use fs.ReadDir(repo, ".claude/skills") — returns error if dir missing
+
+## [T19] Documentation Checkers (service_flow, api_schema_docs)
+- service_flow: walk all files for diagram extensions (.puml, .mmd, .drawio); also stat well-known arch dirs first
+- api_schema_docs: skip heuristic — check if any .go file contains "net/http"; Java never skipped
+- Use fs.WalkDir with early exit via sentinel errors.New("found") pattern
+- t19_test.go created separately (docs_test.go already existed from T18); both in same package `docs`
+- ctx variable already declared in docs_test.go — do NOT redeclare in t19_test.go
