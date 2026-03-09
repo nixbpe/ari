@@ -1,0 +1,4 @@
+=== RUN   TestAnalysisToolsMissing
+--- PASS: TestAnalysisToolsMissing (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/checker/style	0.174s

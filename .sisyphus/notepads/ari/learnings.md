@@ -59,3 +59,15 @@
 - Each checker is a separate struct implementing Checker interface
 - Go and Java always pass type_check and formatter (statically typed / built-in)
 - Use fs.ReadFile(repo, filename) to check file existence — returns error if not found
+
+## [T9] Style Checkers (cyclomatic, dead_code, duplicate_code)
+- golangci-lint YAML parsing: use gopkg.in/yaml.v3 or simple string search in file content
+- For simple config checks, string search (bytes.Contains) is more robust than full YAML parse
+- package.json devDependencies: unmarshal JSON, check map key existence
+- duplicate_code_detection is LevelOptimized (Level 4), the other two are LevelStandardized (Level 3)
+- Language-agnostic checks (like .jscpd.json) should run before language-specific switch
+
+## [T11] Build Checkers (build_cmd_doc, single_command_setup, deps_pinned)
+- build_cmd_doc: search multiple doc files for language-specific build commands
+- Use bytes.Contains(content, []byte("go build")) for simple content search
+- deps_pinned: check lock file existence per language
