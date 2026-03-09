@@ -13,6 +13,9 @@ type Runner struct {
 	Registry     *Registry
 	Evaluator    interface{}
 	ProgressFunc ProgressFunc
+
+	OnStart func(id CheckerID, name string)
+	OnDone  func(result *Result, done, total int)
 }
 
 func (r *Runner) Run(ctx context.Context, repo fs.FS, repoInfo interface{}) ([]*Result, error) {
@@ -30,9 +33,16 @@ func (r *Runner) Run(ctx context.Context, repo fs.FS, repoInfo interface{}) ([]*
 			return results, err
 		}
 
+		if r.OnStart != nil {
+			r.OnStart(ch.ID(), ch.Name())
+		}
+
 		result := r.runOne(ctx, repo, lang, ch)
 		results = append(results, result)
 
+		if r.OnDone != nil {
+			r.OnDone(result, i+1, total)
+		}
 		if r.ProgressFunc != nil {
 			r.ProgressFunc(i+1, total, ch.ID())
 		}
