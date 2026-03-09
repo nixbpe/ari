@@ -148,7 +148,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	// Build report
 	report := reporter.BuildReport(repoInfo, score, results)
 
-	return outputReport(ctx, *outputFlag, *outFlag, score, report, stdout, stderr)
+	return outputReport(ctx, *outputFlag, *outFlag, score, report, results, stdout, stderr)
 }
 
 // outputReport renders the report in the requested format.
@@ -158,6 +158,7 @@ func outputReport(
 	format, outPath string,
 	score *scorer.Score,
 	report *reporter.Report,
+	results []*checker.Result,
 	stdout, stderr io.Writer,
 ) int {
 	// If --out was provided, open that file for writing.
@@ -233,7 +234,7 @@ func outputReport(
 		p := tea.NewProgram(model)
 		// Scan is already complete; send the result immediately.
 		go func() {
-			p.Send(tui.ScanCompleteMsg{Score: score, Report: report})
+			p.Send(tui.ScanCompleteMsg{Score: score, Report: report, Results: results})
 		}()
 		if _, err := p.Run(); err != nil {
 			fmt.Fprintf(stderr, "error: TUI: %v\n", err)
