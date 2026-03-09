@@ -33,10 +33,15 @@ func (m *DetailModel) ScrollDown() {
 // View renders the detail view as a plain string.
 func (m DetailModel) View() string {
 	var sb strings.Builder
-	sb.WriteString(fmt.Sprintf("  Pillar: %s  (Esc to go back)\n\n", m.Pillar.String()))
+	sb.WriteString(CyberHeader)
+
+	sb.WriteString(fmt.Sprintf("  %s>> PILLAR DETAILS:%s %s%s%s  %s(%sEsc%s to go back)%s\n\n",
+		BrightMagenta, Reset,
+		BrightCyan+Bold, m.Pillar.String(), Reset,
+		Dim, White, Dim, Reset))
 
 	if len(m.Results) == 0 {
-		sb.WriteString("  (no criteria for this pillar)\n")
+		sb.WriteString(fmt.Sprintf("  %s(no criteria for this pillar)%s\n", Dim, Reset))
 	} else {
 		end := m.Offset + detailPageSize
 		if end > len(m.Results) {
@@ -47,34 +52,58 @@ func (m DetailModel) View() string {
 			if r == nil {
 				continue
 			}
+
+			lvlColor := LevelColor(r.Level)
+
 			if r.Skipped {
 				reason := r.SkipReason
 				if reason == "" {
 					reason = "not applicable"
 				}
-				sb.WriteString(fmt.Sprintf("  ↷ [L%d] %s — skipped: %s\n", int(r.Level), r.Name, reason))
+				sb.WriteString(fmt.Sprintf("  %s↷%s [%sL%d%s] %s%s%s — %sskipped: %s%s\n",
+					BrightYellow, Reset,
+					lvlColor, int(r.Level), Reset,
+					Dim, r.Name, Reset,
+					Dim, reason, Reset))
 				continue
 			}
 
-			status := "✓"
+			status := BrightGreen + "✓" + Reset
+			nameStyle := BrightCyan
+
 			if !r.Passed {
-				status = "✗"
+				status = BrightRed + "✗" + Reset
+				nameStyle = BrightRed
 			}
 			evidence := r.Evidence
 			if evidence == "" {
 				evidence = "(no evidence)"
 			}
-			sb.WriteString(fmt.Sprintf("  %s [L%d] %s — %s\n", status, int(r.Level), r.Name, evidence))
+
+			sb.WriteString(fmt.Sprintf("  %s [%sL%d%s] %s%s%s — %s%s%s\n",
+				status,
+				lvlColor, int(r.Level), Reset,
+				nameStyle, r.Name, Reset,
+				Dim, evidence, Reset))
+
 			if !r.Passed && r.Suggestion != "" {
-				sb.WriteString(fmt.Sprintf("      → %s\n", r.Suggestion))
+				sb.WriteString(fmt.Sprintf("      %s⚡ %s%s\n",
+					BrightYellow, Dim+Yellow, r.Suggestion, Reset))
 			}
 		}
 
 		if len(m.Results) > detailPageSize {
-			sb.WriteString(fmt.Sprintf("\n  Showing %d–%d of %d\n", m.Offset+1, end, len(m.Results)))
+			sb.WriteString(fmt.Sprintf("\n  %sShowing %s%d–%d%s of %s%d%s\n",
+				Dim,
+				BrightCyan, m.Offset+1, end, Dim,
+				BrightCyan, len(m.Results), Reset))
 		}
 	}
 
-	sb.WriteString("\n  ↑↓ scroll  Esc back\n")
+	sb.WriteString(fmt.Sprintf("\n  %s[%sARI%s]%s> %s↑↓%s scroll  %sEsc%s back\n",
+		Dim, BrightCyan, Dim, Reset,
+		BrightMagenta, Dim,
+		BrightMagenta, Reset))
+
 	return sb.String()
 }

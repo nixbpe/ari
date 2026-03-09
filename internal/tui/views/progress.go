@@ -18,25 +18,26 @@ type ProgressModel struct {
 }
 
 func (m ProgressModel) View() string {
-	frame := spinnerFrames[m.spinner%len(spinnerFrames)]
-	bar := m.progressBar(16)
+	frame := BrightCyan + spinnerFrames[m.spinner%len(spinnerFrames)] + Reset
+	bar := m.progressBar(20)
 	current := m.current
 	if current == "" {
 		current = "-"
 	}
 
-	recent := "  (none yet)"
+	recent := "  " + Dim + "(none yet)" + Reset
 	if len(m.completed) > 0 {
 		recent = "  " + strings.Join(m.completed, "\n  ")
 	}
 
 	return fmt.Sprintf(
-		"%s Scanning repository...\n\nProgress: [%s] %d/%d\n\nCurrent: %s\n\nRecent:\n%s\n",
+		"%s\n%s %sScanning repository system...%s\n\n  %sProgress:%s [%s] %s%d/%d%s\n\n  %sCurrent:%s  %s%s%s\n\n  %sRecent:%s\n%s\n",
+		CyberHeader,
 		frame,
-		bar,
-		m.done,
-		m.total,
-		current,
+		BrightMagenta, Reset,
+		Dim, Reset, bar, BrightCyan, m.done, m.total, Reset,
+		Dim, Reset, BrightCyan, current, Reset,
+		Dim, Reset,
 		recent,
 	)
 }
@@ -62,14 +63,14 @@ func (m *ProgressModel) UpdateProgress(result *checker.Result, done, total int) 
 	}
 
 	if result != nil {
-		icon := "✓"
+		icon := BrightGreen + "✓" + Reset
 		if result.Skipped {
-			icon = "↷"
+			icon = BrightYellow + "↷" + Reset
 		} else if !result.Passed {
-			icon = "✗"
+			icon = BrightRed + "✗" + Reset
 		}
 
-		m.completed = append(m.completed, fmt.Sprintf("%s %s", icon, result.Name))
+		m.completed = append(m.completed, fmt.Sprintf("%s %s%s%s", icon, Dim, result.Name, Reset))
 		if len(m.completed) > 5 {
 			m.completed = m.completed[len(m.completed)-5:]
 		}
@@ -84,7 +85,7 @@ func (m ProgressModel) progressBar(width int) string {
 		width = 1
 	}
 	if m.total <= 0 {
-		return strings.Repeat("░", width)
+		return Dim + strings.Repeat("░", width) + Reset
 	}
 
 	ratio := float64(m.done) / float64(m.total)
@@ -104,5 +105,5 @@ func (m ProgressModel) progressBar(width int) string {
 	}
 	empty := width - filled
 
-	return strings.Repeat("█", filled) + strings.Repeat("░", empty)
+	return BrightCyan + strings.Repeat("▓", filled) + Dim + Cyan + strings.Repeat("░", empty) + Reset
 }

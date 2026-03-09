@@ -44,20 +44,36 @@ func (m ReportModel) CurrentPillar() checker.Pillar {
 
 func (m ReportModel) View() string {
 	var sb strings.Builder
-	sb.WriteString("╔══════════════════════════════════════════╗\n")
-	sb.WriteString("║     ARI — Agent Readiness Index          ║\n")
-	sb.WriteString("╚══════════════════════════════════════════╝\n\n")
+	sb.WriteString(CyberHeader)
 
 	if m.Score != nil {
-		sb.WriteString(fmt.Sprintf("  Level: L%d — %s\n", int(m.Score.Level), m.Score.Level.String()))
-		sb.WriteString(fmt.Sprintf("  Pass Rate: %.0f%%\n\n", m.Score.PassRate*100))
+		lvlColor := LevelColor(m.Score.Level)
+		passRate := m.Score.PassRate * 100
+
+		rateColor := BrightGreen
+		if passRate < 50 {
+			rateColor = BrightRed
+		} else if passRate < 80 {
+			rateColor = BrightYellow
+		}
+
+		sb.WriteString(fmt.Sprintf("  %sLEVEL:%s %sL%d%s — %s%s%s\n",
+			Dim, Reset,
+			lvlColor+Bold, int(m.Score.Level), Reset,
+			lvlColor, m.Score.Level.String(), Reset))
+
+		sb.WriteString(fmt.Sprintf("  %sPASS RATE:%s %s%.0f%%%s\n\n",
+			Dim, Reset, rateColor, passRate, Reset))
 	}
 
-	sb.WriteString("  Pillars:\n")
+	sb.WriteString(fmt.Sprintf("  %s>> PILLAR ANALYSIS%s\n", BrightMagenta, Reset))
+
 	for i, pillar := range pillarOrder {
 		prefix := "  "
+		nameStyle := Dim + White
 		if i == m.SelectedPillar {
-			prefix = "> "
+			prefix = BrightCyan + "▶ " + Reset
+			nameStyle = BrightCyan + Bold
 		}
 
 		rate := 0.0
@@ -67,11 +83,24 @@ func (m ReportModel) View() string {
 			}
 		}
 
-		bar := progressBar(rate, 10)
-		sb.WriteString(fmt.Sprintf("  %s%-22s %s %.0f%%\n", prefix, pillar.String(), bar, rate*100))
+		bar := progressBar(rate, 15)
+
+		// Ensure exactly the same text but with formatting
+		sb.WriteString(fmt.Sprintf("%s %s%-22s%s %s %s%.0f%%%s\n",
+			prefix,
+			nameStyle, pillar.String(), Reset,
+			bar,
+			Dim, rate*100, Reset))
 	}
 
-	sb.WriteString("\n  ↑↓ navigate  Enter drill-down  h HTML  j JSON  q quit\n")
+	sb.WriteString(fmt.Sprintf("\n  %s[%sARI%s]%s> %s↑↓%s navigate  %sEnter%s drill-down  %sh%s HTML  %sj%s JSON  %sq%s quit\n",
+		Dim, BrightCyan, Dim, Reset,
+		BrightMagenta, Dim,
+		BrightMagenta, Dim,
+		BrightMagenta, Dim,
+		BrightMagenta, Dim,
+		BrightMagenta, Reset))
+
 	return sb.String()
 }
 
@@ -91,6 +120,14 @@ func progressBar(pct float64, width int) string {
 	if filled > width {
 		filled = width
 	}
+	empty := width - filled
 
-	return "[" + strings.Repeat("█", filled) + strings.Repeat("░", width-filled) + "]"
+	barColor := BrightGreen
+	if pct < 0.5 {
+		barColor = BrightRed
+	} else if pct < 0.8 {
+		barColor = BrightYellow
+	}
+
+	return barColor + strings.Repeat("▓", filled) + Dim + Cyan + strings.Repeat("░", empty) + Reset
 }
