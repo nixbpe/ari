@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/fs"
 	"os"
 
 	tea "charm.land/bubbletea/v2"
@@ -119,12 +120,31 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 	}
 
-	// Registry — all 40 checkers registered with optional LLM evaluator
+	if *outputFlag == "tui" {
+		return runWithTUI(ctx, repoFS, *pathFlag, eval, stderr)
+	}
+
 	registry := checker.NewDefaultRegistry()
 	all.RegisterAll(registry, eval)
 
-	// Runner
 	rnr := &checker.Runner{Registry: registry}
+
+	if eval != nil {
+		total := len(registry.All())
+		rnr.OnDone = func(result *checker.Result, done, _ int) {
+			icon := "✓"
+			if result.Skipped {
+				icon = "↷"
+			} else if !result.Passed {
+				icon = "✗"
+			}
+			modeTag := "rule"
+			if result.Mode == "llm" {
+				modeTag = "llm ✦"
+			}
+			fmt.Fprintf(stderr, "  [%2d/%d] %-38s %s  %s\n", done, total, result.Name, icon, modeTag)
+		}
+	}
 
 	// Scan repository
 	sc := scanner.NewScanner()
@@ -149,6 +169,52 @@ func run(args []string, stdout, stderr io.Writer) int {
 	report := reporter.BuildReport(repoInfo, score, results)
 
 	return outputReport(ctx, *outputFlag, *outFlag, score, report, results, stdout, stderr)
+}
+
+func runWithTUI(ctx context.Context, repoFS fs.FS, rootPath string, eval llm.Evaluator, stderr io.Writer) int {
+	model := tui.NewModel()
+	p := tea.NewProgram(model)
+
+	go func() {
+		sc := scanner.NewScanner()
+		repoInfo, err := sc.Scan(ctx, repoFS)
+		if err != nil {
+			p.Send(tui.ErrorMsg{Err: err})
+			return
+		}
+		repoInfo.RootPath = rootPath
+
+		registry := checker.NewDefaultRegistry()
+		all.RegisterAll(registry, eval)
+
+		p.Send(tui.ScanStartMsg{Total: len(registry.All())})
+
+		rnr := &checker.Runner{
+			Registry: registry,
+			OnStart: func(id checker.CheckerID, name string) {
+				p.Send(tui.CheckerStartMsg{ID: id, Name: name})
+			},
+			OnDone: func(result *checker.Result, done, total int) {
+				p.Send(tui.CheckerCompleteMsg{Result: result, Done: done, Total: total})
+			},
+		}
+
+		results, err := rnr.Run(ctx, repoFS, repoInfo)
+		if err != nil && ctx.Err() == nil {
+			p.Send(tui.ErrorMsg{Err: err})
+			return
+		}
+
+		score := scorer.New().Calculate(results)
+		report := reporter.BuildReport(repoInfo, score, results)
+		p.Send(tui.ScanCompleteMsg{Score: score, Report: report, Results: results})
+	}()
+
+	if _, err := p.Run(); err != nil {
+		fmt.Fprintf(stderr, "error: TUI: %v\n", err)
+		return 1
+	}
+	return 0
 }
 
 // outputReport renders the report in the requested format.
@@ -221,23 +287,6 @@ func outputReport(
 		rep := &reporter.TextReporter{}
 		if err := rep.Report(ctx, report, w); err != nil {
 			fmt.Fprintf(stderr, "error: text report: %v\n", err)
-			return 1
-		}
-
-	case "tui":
-		// TUI mode: close any pre-opened file (not expected, but safe).
-		if closeFile != nil {
-			_ = closeFile()
-			closeFile = nil
-		}
-		model := tui.NewModel()
-		p := tea.NewProgram(model)
-		// Scan is already complete; send the result immediately.
-		go func() {
-			p.Send(tui.ScanCompleteMsg{Score: score, Report: report, Results: results})
-		}()
-		if _, err := p.Run(); err != nil {
-			fmt.Fprintf(stderr, "error: TUI: %v\n", err)
 			return 1
 		}
 
