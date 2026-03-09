@@ -1,0 +1,6 @@
+=== RUN   TestDepsPinnedGo
+--- PASS: TestDepsPinnedGo (0.00s)
+=== RUN   TestDepsPinnedGoMissing
+--- PASS: TestDepsPinnedGoMissing (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/checker/build	0.500s
