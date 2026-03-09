@@ -1,53 +1,73 @@
 package llm
 
-import "context"
+import (
+	"context"
+	"fmt"
+	"os"
+	"strings"
+)
 
-// Option is a functional option for LLM completions
-type Option func(*options)
+type Option func(*callConfig)
 
-type options struct {
-	temperature float64
-	maxTokens   int
-	jsonOutput  bool
+type callConfig struct {
+	Temperature float64
+	MaxTokens   int
+	JSONOutput  bool
 }
 
-// WithTemperature sets the sampling temperature
 func WithTemperature(t float64) Option {
-	return func(o *options) { o.temperature = t }
+	return func(cfg *callConfig) { cfg.Temperature = t }
 }
 
-// WithMaxTokens sets the maximum token limit
 func WithMaxTokens(n int) Option {
-	return func(o *options) { o.maxTokens = n }
+	return func(cfg *callConfig) { cfg.MaxTokens = n }
 }
 
-// WithJSONOutput requests structured JSON output
 func WithJSONOutput(enabled bool) Option {
-	return func(o *options) { o.jsonOutput = enabled }
+	return func(cfg *callConfig) { cfg.JSONOutput = enabled }
 }
 
-// Provider is an LLM API provider
-type Provider interface {
-	Complete(ctx context.Context, prompt string, opts ...Option) (string, error)
-	Name() string
-}
-
-// EvalResult holds the result of an LLM evaluation
-type EvalResult struct {
-	Passed     bool
-	Evidence   string
-	Confidence float64
-}
-
-// Evaluator evaluates criteria using LLM
-type Evaluator interface {
-	Evaluate(ctx context.Context, prompt string) (*EvalResult, error)
-}
-
-// Config holds LLM provider configuration
 type Config struct {
 	Provider string
 	APIKey   string
 	Model    string
 	BaseURL  string
+}
+
+type Provider interface {
+	Complete(ctx context.Context, prompt string, opts ...Option) (string, error)
+	Name() string
+}
+
+type EvalResult struct {
+	Passed     bool
+	Evidence   string
+	Confidence float64
+	Mode       string
+}
+
+type Evaluator interface {
+	Evaluate(ctx context.Context, prompt string) (*EvalResult, error)
+}
+
+func NewProviderFromConfig(cfg Config) (Provider, error) {
+	provider := strings.ToLower(strings.TrimSpace(cfg.Provider))
+
+	switch provider {
+	case "mock":
+		return &MockProvider{}, nil
+	case "openai", "anthropic", "ollama":
+		return nil, fmt.Errorf("provider %q not implemented yet", provider)
+	default:
+		return nil, fmt.Errorf("unknown provider: %q", cfg.Provider)
+	}
+}
+
+func ConfigFromEnv() Config {
+	return Config{
+		Provider: os.Getenv("ARI_LLM_PROVIDER"),
+		APIKey:   os.Getenv("ARI_API_KEY"),
+		Model:    os.Getenv("ARI_LLM_MODEL"),
+		BaseURL:  os.Getenv("ARI_LLM_BASE_URL"),
+	}
 }
