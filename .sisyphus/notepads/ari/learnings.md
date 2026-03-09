@@ -44,3 +44,12 @@
 - Skipped results excluded from both numerator and denominator
 - Level 0 returned when no level achieved (below L1 threshold)
 - Use Result.Level field for grouping, not hardcoded criterion IDs
+
+## [T6] Reporter
+- Report struct is the central data model for all output formats
+- JSONReporter writes to io.Writer (not file directly)
+- Suggestions generated only for failing non-skipped criteria
+- BuildReport assembles from RepoInfo + Score + []Result
+- Level and PassRate duplicated as top-level Report fields (from Score) so JSON has "level" and "passRate" at root
+- scorer.Score map fields (PillarScores/LevelScores) use int keys which Go JSON marshals as string keys — round-trips cleanly in Go 1.7+
+- priorityForLevel: Functional/Documented→high, Standardized/Optimized→medium, Autonomous→low

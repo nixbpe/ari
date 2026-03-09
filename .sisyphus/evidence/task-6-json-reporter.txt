@@ -1,0 +1,14 @@
+=== RUN   TestBuildReport
+--- PASS: TestBuildReport (0.00s)
+=== RUN   TestJSONReporterOutput
+--- PASS: TestJSONReporterOutput (0.00s)
+=== RUN   TestJSONRequiredFields
+--- PASS: TestJSONRequiredFields (0.00s)
+=== RUN   TestJSONRoundTrip
+--- PASS: TestJSONRoundTrip (0.00s)
+=== RUN   TestSuggestionsOnlyForFailing
+--- PASS: TestSuggestionsOnlyForFailing (0.00s)
+=== RUN   TestBuildReportEmptyResults
+--- PASS: TestBuildReportEmptyResults (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/reporter	(cached)
