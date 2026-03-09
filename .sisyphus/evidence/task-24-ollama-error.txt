@@ -1,0 +1,6 @@
+=== RUN   TestOllamaConnectionRefused
+=== PAUSE TestOllamaConnectionRefused
+=== CONT  TestOllamaConnectionRefused
+--- PASS: TestOllamaConnectionRefused (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/llm	(cached)

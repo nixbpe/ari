@@ -56,8 +56,12 @@ func NewProviderFromConfig(cfg Config) (Provider, error) {
 	switch provider {
 	case "mock":
 		return &MockProvider{}, nil
-	case "openai", "anthropic", "ollama":
-		return nil, fmt.Errorf("provider %q not implemented yet", provider)
+	case "openai":
+		return NewOpenAIProvider(cfg), nil
+	case "anthropic":
+		return NewAnthropicProvider(cfg), nil
+	case "ollama":
+		return NewOllamaProvider(cfg), nil
 	default:
 		return nil, fmt.Errorf("unknown provider: %q", cfg.Provider)
 	}
