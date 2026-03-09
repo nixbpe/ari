@@ -1,0 +1,4 @@
+=== RUN   TestRunnerPanicRecovery
+--- PASS: TestRunnerPanicRecovery (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/checker	0.188s

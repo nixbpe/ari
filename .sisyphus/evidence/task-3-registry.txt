@@ -1,0 +1,12 @@
+=== RUN   TestRegistryRegisterAndGet
+--- PASS: TestRegistryRegisterAndGet (0.00s)
+=== RUN   TestRegistryDuplicateError
+--- PASS: TestRegistryDuplicateError (0.00s)
+=== RUN   TestRegistryGetByPillar
+--- PASS: TestRegistryGetByPillar (0.00s)
+=== RUN   TestRegistryGetByLevel
+--- PASS: TestRegistryGetByLevel (0.00s)
+=== RUN   TestRegistryAll
+--- PASS: TestRegistryAll (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/checker	0.191s
