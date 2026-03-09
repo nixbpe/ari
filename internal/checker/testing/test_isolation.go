@@ -35,7 +35,7 @@ func (c *TestIsolationChecker) Check(ctx context.Context, repo fs.FS, lang check
 	switch lang {
 	case checker.LanguageGo:
 		found := false
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil || d.IsDir() || !strings.HasSuffix(path, "_test.go") {
 				return nil
 			}
@@ -83,7 +83,7 @@ func (c *TestIsolationChecker) Check(ctx context.Context, repo fs.FS, lang check
 
 	case checker.LanguageJava:
 		found := false
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil || d.IsDir() || !strings.HasSuffix(path, ".java") {
 				return nil
 			}

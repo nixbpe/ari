@@ -55,7 +55,7 @@ func (c *TestNamingConventionsChecker) Check(ctx context.Context, repo fs.FS, la
 func countTestFileConformance(repo fs.FS, lang checker.Language) (total, conforming int) {
 	switch lang {
 	case checker.LanguageGo:
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil || d.IsDir() {
 				return nil
 			}
@@ -67,7 +67,7 @@ func countTestFileConformance(repo fs.FS, lang checker.Language) (total, conform
 			return nil
 		})
 	case checker.LanguageTypeScript:
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return nil
 			}
@@ -89,7 +89,7 @@ func countTestFileConformance(repo fs.FS, lang checker.Language) (total, conform
 			return nil
 		})
 	case checker.LanguageJava:
-		fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
+		_ = fs.WalkDir(repo, ".", func(path string, d fs.DirEntry, err error) error {
 			if err != nil || d.IsDir() {
 				return nil
 			}

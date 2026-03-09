@@ -156,7 +156,11 @@ func languageFromRepoInfo(repoInfo interface{}) Language {
 		return LanguageUnknown
 	}
 
-	return field.Interface().(Language)
+	lang, ok := field.Interface().(Language)
+	if !ok {
+		return LanguageUnknown
+	}
+	return lang
 }
 
 func isApplicable(ch Checker, lang Language) (bool, string) {
