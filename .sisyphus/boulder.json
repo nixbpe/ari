@@ -5,5 +5,6 @@
     "ses_32daa9dd1ffeffPQ0MC2jqFBSv"
   ],
   "plan_name": "ari",
-  "agent": "atlas"
+  "agent": "atlas",
+  "worktree_path": "/Users/khakhana.t/Code/BBIK/lab/agent-readiness"
 }
