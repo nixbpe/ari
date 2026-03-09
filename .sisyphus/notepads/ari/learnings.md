@@ -103,6 +103,17 @@
 - Message types defined in internal/tui/messages.go
 - views package: internal/tui/views/
 
+## [T20] HTML Reporter
+- Template embedded with `//go:embed templates/report.html` (file must be in a subdirectory of the package)
+- No external deps — all CSS inline in `<style>` tag, no http:// or https:// anywhere
+- Use `html/template` (not `text/template`) for XSS-safe output
+- CSS width in style attributes must use `template.CSS` type (not plain string) to avoid `ZgotmplZ` sanitization
+- `barStyle(f float64) template.CSS` returns `template.CSS(fmt.Sprintf("width:%d%%", pct))`
+- Template functions for maps → sorted slices: `sortedLevelScores`, `sortedPillarScores`
+- "Style & Validation" is escaped to "Style &amp; Validation" by html/template in text context — test for the HTML-encoded form
+- Test HTML validity with `strings.Contains(output, "<html")` not `golang.org/x/net/html`
+- Go 1.21+ has builtin `min` — do NOT define custom `min` in test files (would shadow, may cause confusion)
+
 ## [T24] LLM Providers
 - Use net/http directly (no SDK deps) — httptest.NewServer for all tests
 - OpenAI: POST /v1/chat/completions, Authorization: Bearer header
