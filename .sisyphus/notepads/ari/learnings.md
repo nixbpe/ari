@@ -71,3 +71,12 @@
 - build_cmd_doc: search multiple doc files for language-specific build commands
 - Use bytes.Contains(content, []byte("go build")) for simple content search
 - deps_pinned: check lock file existence per language
+
+## [T13] Build Checkers (vcs_cli_tools, agentic_development, automated_pr_review)
+- agentic_development: check multiple AI agent doc files (AGENTS.md, CLAUDE.md, .cursor/rules)
+- CODEOWNERS can be at root or .github/CODEOWNERS
+
+## [T18 complete] Documentation Checkers
+- documentation_freshness: GitRunner func field pattern for testability
+- Parse git date format: "2006-01-02 15:04:05 -0700"
+- skills: use fs.ReadDir(repo, ".claude/skills") — returns error if dir missing
