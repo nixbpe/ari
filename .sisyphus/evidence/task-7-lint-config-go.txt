@@ -1,0 +1,6 @@
+=== RUN   TestLintConfigGo
+--- PASS: TestLintConfigGo (0.00s)
+=== RUN   TestLintConfigGoMissing
+--- PASS: TestLintConfigGoMissing (0.00s)
+PASS
+ok  	github.com/bbik/ari/internal/checker/style	0.192s

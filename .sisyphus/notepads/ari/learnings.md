@@ -53,3 +53,9 @@
 - Level and PassRate duplicated as top-level Report fields (from Score) so JSON has "level" and "passRate" at root
 - scorer.Score map fields (PillarScores/LevelScores) use int keys which Go JSON marshals as string keys — round-trips cleanly in Go 1.7+
 - priorityForLevel: Functional/Documented→high, Standardized/Optimized→medium, Autonomous→low
+
+## [T7] Style Checkers
+- Checker files go in internal/checker/style/ package
+- Each checker is a separate struct implementing Checker interface
+- Go and Java always pass type_check and formatter (statically typed / built-in)
+- Use fs.ReadFile(repo, filename) to check file existence — returns error if not found
