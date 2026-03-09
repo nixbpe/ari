@@ -14,45 +14,6 @@ func (t testEvaluator) Evaluate(ctx context.Context, prompt string) (*EvalResult
 	return t.evaluateFunc(ctx, prompt)
 }
 
-func TestMockProviderDefault(t *testing.T) {
-	provider := &MockProvider{}
-
-	got, err := provider.Complete(context.Background(), "prompt")
-	if err != nil {
-		t.Fatalf("Complete() error = %v", err)
-	}
-
-	want := `{"passed": true, "evidence": "mock", "confidence": 0.9}`
-	if got != want {
-		t.Fatalf("Complete() = %q, want %q", got, want)
-	}
-}
-
-func TestMockProviderCustom(t *testing.T) {
-	called := false
-	provider := &MockProvider{
-		CompleteFunc: func(ctx context.Context, prompt string, opts ...Option) (string, error) {
-			called = true
-			if prompt != "hello" {
-				t.Fatalf("prompt = %q, want %q", prompt, "hello")
-			}
-			return "custom", nil
-		},
-	}
-
-	got, err := provider.Complete(context.Background(), "hello")
-	if err != nil {
-		t.Fatalf("Complete() error = %v", err)
-	}
-
-	if !called {
-		t.Fatal("expected custom CompleteFunc to be called")
-	}
-	if got != "custom" {
-		t.Fatalf("Complete() = %q, want %q", got, "custom")
-	}
-}
-
 func TestFallbackUsesPrimary(t *testing.T) {
 	fallbackCalled := false
 	evaluator := &FallbackEvaluator{
@@ -156,15 +117,15 @@ func TestRuleBasedEvaluator(t *testing.T) {
 }
 
 func TestConfigFromEnv(t *testing.T) {
-	t.Setenv("ARI_LLM_PROVIDER", "mock")
+	t.Setenv("ARI_LLM_PROVIDER", "anthropic")
 	t.Setenv("ARI_API_KEY", "test-key")
 	t.Setenv("ARI_LLM_MODEL", "test-model")
 	t.Setenv("ARI_LLM_BASE_URL", "https://example.com")
 
 	cfg := ConfigFromEnv()
 
-	if cfg.Provider != "mock" {
-		t.Fatalf("Provider = %q, want %q", cfg.Provider, "mock")
+	if cfg.Provider != "anthropic" {
+		t.Fatalf("Provider = %q, want %q", cfg.Provider, "anthropic")
 	}
 	if cfg.APIKey != "test-key" {
 		t.Fatalf("APIKey = %q, want %q", cfg.APIKey, "test-key")

@@ -36,12 +36,12 @@ func TestProviderEvaluatorSuccess(t *testing.T) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte(`{
-			"choices": [{"message": {"content": "{\"passed\": true, \"evidence\": \"looks good\", \"confidence\": 0.9}"}}]
+			"content": [{"text": "{\"passed\": true, \"evidence\": \"looks good\", \"confidence\": 0.9}"}]
 		}`))
 	}))
 	defer srv.Close()
 
-	provider := NewOpenAIProvider(Config{
+	provider := NewAnthropicProvider(Config{
 		APIKey:  "test-key",
 		BaseURL: srv.URL,
 	})
@@ -92,12 +92,12 @@ func TestLLMWiringMode(t *testing.T) {
 		w.Header().Set("Content-Type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		_, _ = w.Write([]byte(`{
-			"choices": [{"message": {"content": "{\"passed\": true, \"evidence\": \"llm says ok\", \"confidence\": 0.95}"}}]
+			"content": [{"text": "{\"passed\": true, \"evidence\": \"llm says ok\", \"confidence\": 0.95}"}]
 		}`))
 	}))
 	defer srv.Close()
 
-	provider := NewOpenAIProvider(Config{APIKey: "test-key", BaseURL: srv.URL})
+	provider := NewAnthropicProvider(Config{APIKey: "test-key", BaseURL: srv.URL})
 	eval := &FallbackEvaluator{
 		Primary:  &ProviderEvaluator{Provider: provider},
 		Fallback: &RuleBasedEvaluator{},
