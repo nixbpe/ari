@@ -54,14 +54,8 @@ func NewProviderFromConfig(cfg Config) (Provider, error) {
 	provider := strings.ToLower(strings.TrimSpace(cfg.Provider))
 
 	switch provider {
-	case "mock":
-		return &MockProvider{}, nil
-	case "openai":
-		return NewOpenAIProvider(cfg), nil
 	case "anthropic":
 		return NewAnthropicProvider(cfg), nil
-	case "ollama":
-		return NewOllamaProvider(cfg), nil
 	default:
 		return nil, fmt.Errorf("unknown provider: %q", cfg.Provider)
 	}
