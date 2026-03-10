@@ -143,6 +143,47 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 		"add": func(a, b int) int {
 			return a + b
 		},
+		// modeClass maps a Mode string to a CSS class for the mode badge.
+		"modeClass": func(mode string) string {
+			switch mode {
+			case "llm":
+				return "mode-llm"
+			case "rule-based":
+				return "mode-rule"
+			default:
+				return "mode-fallback"
+			}
+		},
+		// countPassed counts passing, non-skipped criteria.
+		"countPassed": func(criteria []CriterionReport) int {
+			n := 0
+			for _, c := range criteria {
+				if c.Passed && !c.Skipped {
+					n++
+				}
+			}
+			return n
+		},
+		// countFailed counts failing, non-skipped criteria.
+		"countFailed": func(criteria []CriterionReport) int {
+			n := 0
+			for _, c := range criteria {
+				if !c.Passed && !c.Skipped {
+					n++
+				}
+			}
+			return n
+		},
+		// countSkipped counts skipped criteria.
+		"countSkipped": func(criteria []CriterionReport) int {
+			n := 0
+			for _, c := range criteria {
+				if c.Skipped {
+					n++
+				}
+			}
+			return n
+		},
 	}
 
 	tmpl, err := template.New("report").Funcs(funcMap).Parse(reportTemplate)
