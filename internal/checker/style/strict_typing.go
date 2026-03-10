@@ -16,7 +16,7 @@ func NewStrictTypingChecker() *StrictTypingChecker {
 }
 
 func (c *StrictTypingChecker) ID() checker.CheckerID  { return "strict_typing" }
-func (c *StrictTypingChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *StrictTypingChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *StrictTypingChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *StrictTypingChecker) Name() string           { return "Strict Type Enforcement" }
 func (c *StrictTypingChecker) Description() string {

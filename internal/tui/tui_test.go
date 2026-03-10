@@ -79,10 +79,10 @@ func TestReportViewPillars(t *testing.T) {
 		Level:    checker.LevelDocumented,
 		PassRate: 0.73,
 		PillarScores: map[checker.Pillar]scorer.PillarScore{
-			checker.PillarStyleValidation: {Passed: 7, Total: 10, Rate: 0.7},
-			checker.PillarBuildSystem:     {Passed: 8, Total: 10, Rate: 0.8},
-			checker.PillarTesting:         {Passed: 6, Total: 10, Rate: 0.6},
-			checker.PillarDocumentation:   {Passed: 9, Total: 10, Rate: 0.9},
+			checker.PillarConstraints:   {Passed: 7, Total: 10, Rate: 0.7},
+			checker.PillarEnvInfra:      {Passed: 8, Total: 10, Rate: 0.8},
+			checker.PillarVerification:  {Passed: 6, Total: 10, Rate: 0.6},
+			checker.PillarContextIntent: {Passed: 9, Total: 10, Rate: 0.9},
 		},
 	}
 	model := NewModel()
@@ -97,7 +97,7 @@ func TestReportViewPillars(t *testing.T) {
 	}
 
 	content := updated.View().Content
-	for _, name := range []string{"Style & Validation", "Build System", "Testing", "Documentation"} {
+	for _, name := range []string{"Context & Intent", "Environment & Infra", "Constraints & Governance", "Verification & Feedback"} {
 		if !strings.Contains(content, name) {
 			t.Errorf("View() missing pillar %q\ncontent:\n%s", name, content)
 		}
@@ -115,7 +115,7 @@ func TestDetailViewCriteria(t *testing.T) {
 			Passed:   true,
 			Evidence: "golangci.yml found",
 			Level:    checker.LevelFunctional,
-			Pillar:   checker.PillarStyleValidation,
+			Pillar:   checker.PillarConstraints,
 		},
 		{
 			ID:         "unit_tests_exist",
@@ -123,7 +123,7 @@ func TestDetailViewCriteria(t *testing.T) {
 			Passed:     false,
 			Evidence:   "no test files found",
 			Level:      checker.LevelFunctional,
-			Pillar:     checker.PillarStyleValidation,
+			Pillar:     checker.PillarConstraints,
 			Suggestion: "Add *_test.go files",
 		},
 	}
@@ -137,7 +137,7 @@ func TestDetailViewCriteria(t *testing.T) {
 	}
 
 	// Drill down into Style & Validation
-	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarStyleValidation})
+	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarConstraints})
 	drilled, ok := next2.(Model)
 	if !ok {
 		t.Fatal("expected Model type")
@@ -167,7 +167,7 @@ func TestReportNavigation(t *testing.T) {
 		Level:    checker.LevelFunctional,
 		PassRate: 0.5,
 		PillarScores: map[checker.Pillar]scorer.PillarScore{
-			checker.PillarStyleValidation: {Passed: 5, Total: 10, Rate: 0.5},
+			checker.PillarConstraints: {Passed: 5, Total: 10, Rate: 0.5},
 		},
 	}
 	model := NewModel()
@@ -212,7 +212,7 @@ func TestDetailBack(t *testing.T) {
 	}
 
 	// Drill down
-	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarTesting})
+	next2, _ := updated.Update(DrillDownMsg{Pillar: checker.PillarVerification})
 	drilled, ok2 := next2.(Model)
 	if !ok2 {
 		t.Fatal("expected Model type")

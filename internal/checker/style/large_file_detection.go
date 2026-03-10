@@ -11,7 +11,7 @@ import (
 type LargeFileDetectionChecker struct{}
 
 func (c *LargeFileDetectionChecker) ID() checker.CheckerID  { return "large_file_detection" }
-func (c *LargeFileDetectionChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *LargeFileDetectionChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *LargeFileDetectionChecker) Level() checker.Level   { return checker.LevelAutonomous }
 func (c *LargeFileDetectionChecker) Name() string           { return "Large File Detection" }
 func (c *LargeFileDetectionChecker) Description() string {

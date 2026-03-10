@@ -56,8 +56,8 @@ func TestContributingGuideMissing(t *testing.T) {
 
 func TestContributingGuidePillar(t *testing.T) {
 	c := &ContributingGuideChecker{}
-	if c.Pillar() != checker.PillarTaskDiscovery {
-		t.Errorf("expected PillarTaskDiscovery, got %v", c.Pillar())
+	if c.Pillar() != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", c.Pillar())
 	}
 	if c.Level() != checker.LevelFunctional {
 		t.Errorf("expected LevelFunctional, got %v", c.Level())
@@ -109,8 +109,8 @@ func TestIssueTemplatesMissing(t *testing.T) {
 
 func TestIssueTemplatesPillar(t *testing.T) {
 	c := &IssueTemplatesChecker{}
-	if c.Pillar() != checker.PillarTaskDiscovery {
-		t.Errorf("expected PillarTaskDiscovery, got %v", c.Pillar())
+	if c.Pillar() != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", c.Pillar())
 	}
 	if c.Level() != checker.LevelDocumented {
 		t.Errorf("expected LevelDocumented, got %v", c.Level())
@@ -163,8 +163,8 @@ func TestPRTemplateMissing(t *testing.T) {
 
 func TestPRTemplatePillar(t *testing.T) {
 	c := &PRTemplateChecker{}
-	if c.Pillar() != checker.PillarTaskDiscovery {
-		t.Errorf("expected PillarTaskDiscovery, got %v", c.Pillar())
+	if c.Pillar() != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", c.Pillar())
 	}
 	if c.Level() != checker.LevelDocumented {
 		t.Errorf("expected LevelDocumented, got %v", c.Level())
@@ -217,8 +217,8 @@ func TestIssueLabelingSystemMissing(t *testing.T) {
 
 func TestIssueLabelingSystemPillar(t *testing.T) {
 	c := &IssueLabelingSystemChecker{}
-	if c.Pillar() != checker.PillarTaskDiscovery {
-		t.Errorf("expected PillarTaskDiscovery, got %v", c.Pillar())
+	if c.Pillar() != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", c.Pillar())
 	}
 	if c.Level() != checker.LevelStandardized {
 		t.Errorf("expected LevelStandardized, got %v", c.Level())
@@ -285,8 +285,8 @@ func TestBacklogStructureDocsNoKeywords(t *testing.T) {
 
 func TestBacklogStructureDocsPillar(t *testing.T) {
 	c := &BacklogStructureDocsChecker{}
-	if c.Pillar() != checker.PillarTaskDiscovery {
-		t.Errorf("expected PillarTaskDiscovery, got %v", c.Pillar())
+	if c.Pillar() != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", c.Pillar())
 	}
 	if c.Level() != checker.LevelOptimized {
 		t.Errorf("expected LevelOptimized, got %v", c.Level())

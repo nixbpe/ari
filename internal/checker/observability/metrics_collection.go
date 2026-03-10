@@ -10,7 +10,7 @@ import (
 type MetricsCollectionChecker struct{}
 
 func (c *MetricsCollectionChecker) ID() checker.CheckerID  { return "metrics_collection" }
-func (c *MetricsCollectionChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *MetricsCollectionChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *MetricsCollectionChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *MetricsCollectionChecker) Name() string           { return "Metrics Collection" }
 func (c *MetricsCollectionChecker) Description() string {

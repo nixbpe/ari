@@ -12,7 +12,7 @@ import (
 type TechDebtTrackingChecker struct{}
 
 func (c *TechDebtTrackingChecker) ID() checker.CheckerID  { return "tech_debt_tracking" }
-func (c *TechDebtTrackingChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *TechDebtTrackingChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *TechDebtTrackingChecker) Level() checker.Level   { return checker.LevelAutonomous }
 func (c *TechDebtTrackingChecker) Name() string           { return "Tech Debt Tracking" }
 func (c *TechDebtTrackingChecker) Description() string {

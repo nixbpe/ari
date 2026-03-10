@@ -14,7 +14,7 @@ type RunbooksDocumentedChecker struct {
 }
 
 func (c *RunbooksDocumentedChecker) ID() checker.CheckerID  { return "runbooks_documented" }
-func (c *RunbooksDocumentedChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *RunbooksDocumentedChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *RunbooksDocumentedChecker) Level() checker.Level   { return checker.LevelAutonomous }
 func (c *RunbooksDocumentedChecker) Name() string           { return "Runbooks Documented" }
 func (c *RunbooksDocumentedChecker) Description() string {

@@ -11,7 +11,7 @@ import (
 type DepsPinnedChecker struct{}
 
 func (c *DepsPinnedChecker) ID() checker.CheckerID  { return "deps_pinned" }
-func (c *DepsPinnedChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *DepsPinnedChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *DepsPinnedChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *DepsPinnedChecker) Name() string           { return "Dependencies Pinned" }
 func (c *DepsPinnedChecker) Description() string {

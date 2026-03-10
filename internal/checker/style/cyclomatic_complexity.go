@@ -12,7 +12,7 @@ import (
 type CyclomaticComplexityChecker struct{}
 
 func (c *CyclomaticComplexityChecker) ID() checker.CheckerID  { return "cyclomatic_complexity" }
-func (c *CyclomaticComplexityChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *CyclomaticComplexityChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *CyclomaticComplexityChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *CyclomaticComplexityChecker) Name() string           { return "Cyclomatic Complexity Analysis" }
 func (c *CyclomaticComplexityChecker) Description() string {

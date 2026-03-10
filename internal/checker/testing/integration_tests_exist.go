@@ -14,7 +14,7 @@ import (
 type IntegrationTestsExistChecker struct{}
 
 func (c *IntegrationTestsExistChecker) ID() checker.CheckerID  { return "integration_tests_exist" }
-func (c *IntegrationTestsExistChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *IntegrationTestsExistChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *IntegrationTestsExistChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *IntegrationTestsExistChecker) Name() string           { return "Integration Tests Exist" }
 func (c *IntegrationTestsExistChecker) Description() string {

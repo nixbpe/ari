@@ -11,7 +11,7 @@ import (
 type ReleaseAutomationChecker struct{}
 
 func (c *ReleaseAutomationChecker) ID() checker.CheckerID  { return "release_automation" }
-func (c *ReleaseAutomationChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *ReleaseAutomationChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *ReleaseAutomationChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *ReleaseAutomationChecker) Name() string           { return "Release Automation" }
 func (c *ReleaseAutomationChecker) Description() string {

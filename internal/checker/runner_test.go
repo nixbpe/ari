@@ -50,9 +50,9 @@ func (m *langScopedMockChecker) SupportsLanguage(lang checker.Language) bool {
 
 func TestRunnerExecutesAllCheckers(t *testing.T) {
 	reg := checker.NewDefaultRegistry()
-	first := &runMockChecker{id: "a", pillar: checker.PillarTesting, level: checker.LevelFunctional, name: "A"}
-	second := &runMockChecker{id: "b", pillar: checker.PillarTesting, level: checker.LevelFunctional, name: "B"}
-	third := &runMockChecker{id: "c", pillar: checker.PillarTesting, level: checker.LevelFunctional, name: "C"}
+	first := &runMockChecker{id: "a", pillar: checker.PillarVerification, level: checker.LevelFunctional, name: "A"}
+	second := &runMockChecker{id: "b", pillar: checker.PillarVerification, level: checker.LevelFunctional, name: "B"}
+	third := &runMockChecker{id: "c", pillar: checker.PillarVerification, level: checker.LevelFunctional, name: "C"}
 
 	if err := reg.Register(first); err != nil {
 		t.Fatalf("register first: %v", err)
@@ -101,7 +101,7 @@ func TestRunnerSkipsInapplicableCheckers(t *testing.T) {
 	ch := &langScopedMockChecker{
 		runMockChecker: &runMockChecker{
 			id:     "go-only",
-			pillar: checker.PillarBuildSystem,
+			pillar: checker.PillarEnvInfra,
 			level:  checker.LevelFunctional,
 			name:   "Go Only",
 		},
@@ -135,7 +135,7 @@ func TestRunnerPanicRecovery(t *testing.T) {
 	reg := checker.NewDefaultRegistry()
 	ch := &runMockChecker{
 		id:     "panic-checker",
-		pillar: checker.PillarTesting,
+		pillar: checker.PillarVerification,
 		level:  checker.LevelFunctional,
 		name:   "Panic Checker",
 		checkFn: func(ctx context.Context, repo fs.FS, lang checker.Language) (*checker.Result, error) {
@@ -168,7 +168,7 @@ func TestRunnerContextCancellation(t *testing.T) {
 
 	first := &runMockChecker{
 		id:     "a",
-		pillar: checker.PillarTesting,
+		pillar: checker.PillarVerification,
 		level:  checker.LevelFunctional,
 		name:   "First",
 		checkFn: func(ctx context.Context, repo fs.FS, lang checker.Language) (*checker.Result, error) {
@@ -178,7 +178,7 @@ func TestRunnerContextCancellation(t *testing.T) {
 	}
 	second := &runMockChecker{
 		id:     "b",
-		pillar: checker.PillarTesting,
+		pillar: checker.PillarVerification,
 		level:  checker.LevelFunctional,
 		name:   "Second",
 	}

@@ -10,7 +10,7 @@ import (
 type SecretScanningConfigChecker struct{}
 
 func (c *SecretScanningConfigChecker) ID() checker.CheckerID  { return "secret_scanning_config" }
-func (c *SecretScanningConfigChecker) Pillar() checker.Pillar { return checker.PillarSecurity }
+func (c *SecretScanningConfigChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *SecretScanningConfigChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *SecretScanningConfigChecker) Name() string           { return "Secret Scanning Config" }
 func (c *SecretScanningConfigChecker) Description() string {

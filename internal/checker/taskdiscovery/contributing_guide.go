@@ -10,7 +10,7 @@ import (
 type ContributingGuideChecker struct{}
 
 func (c *ContributingGuideChecker) ID() checker.CheckerID  { return "contributing_guide" }
-func (c *ContributingGuideChecker) Pillar() checker.Pillar { return checker.PillarTaskDiscovery }
+func (c *ContributingGuideChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *ContributingGuideChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *ContributingGuideChecker) Name() string           { return "Contributing Guide" }
 func (c *ContributingGuideChecker) Description() string {

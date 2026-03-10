@@ -11,7 +11,7 @@ type ErrorToInsightPipelineChecker struct{}
 
 func (c *ErrorToInsightPipelineChecker) ID() checker.CheckerID { return "error_to_insight_pipeline" }
 func (c *ErrorToInsightPipelineChecker) Pillar() checker.Pillar {
-	return checker.PillarProductAnalytics
+	return checker.PillarContextIntent
 }
 func (c *ErrorToInsightPipelineChecker) Level() checker.Level { return checker.LevelOptimized }
 func (c *ErrorToInsightPipelineChecker) Name() string         { return "Error-to-Insight Pipeline" }

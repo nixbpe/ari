@@ -15,7 +15,7 @@ type ReadmeChecker struct {
 }
 
 func (c *ReadmeChecker) ID() checker.CheckerID  { return "readme" }
-func (c *ReadmeChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
+func (c *ReadmeChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *ReadmeChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *ReadmeChecker) Name() string           { return "README Exists" }
 func (c *ReadmeChecker) Description() string {

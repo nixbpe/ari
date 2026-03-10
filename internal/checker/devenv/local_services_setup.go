@@ -10,7 +10,7 @@ import (
 type LocalServicesSetupChecker struct{}
 
 func (c *LocalServicesSetupChecker) ID() checker.CheckerID  { return "local_services_setup" }
-func (c *LocalServicesSetupChecker) Pillar() checker.Pillar { return checker.PillarDevEnvironment }
+func (c *LocalServicesSetupChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *LocalServicesSetupChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *LocalServicesSetupChecker) Name() string           { return "Local Services Setup" }
 func (c *LocalServicesSetupChecker) Description() string {

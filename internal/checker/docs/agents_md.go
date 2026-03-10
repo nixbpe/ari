@@ -14,7 +14,7 @@ type AgentsMdChecker struct {
 }
 
 func (c *AgentsMdChecker) ID() checker.CheckerID  { return "agents_md" }
-func (c *AgentsMdChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
+func (c *AgentsMdChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *AgentsMdChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *AgentsMdChecker) Name() string           { return "AI Agent Documentation" }
 func (c *AgentsMdChecker) Description() string {

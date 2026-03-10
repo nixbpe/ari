@@ -21,7 +21,7 @@ func NewNamingConsistencyChecker(eval llm.Evaluator) *NamingConsistencyChecker {
 }
 
 func (c *NamingConsistencyChecker) ID() checker.CheckerID  { return "naming_consistency" }
-func (c *NamingConsistencyChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *NamingConsistencyChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *NamingConsistencyChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *NamingConsistencyChecker) Name() string           { return "Naming Consistency" }
 func (c *NamingConsistencyChecker) Description() string {

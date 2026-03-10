@@ -15,7 +15,7 @@ type ProductMetricsDocsChecker struct {
 }
 
 func (c *ProductMetricsDocsChecker) ID() checker.CheckerID  { return "product_metrics_docs" }
-func (c *ProductMetricsDocsChecker) Pillar() checker.Pillar { return checker.PillarProductAnalytics }
+func (c *ProductMetricsDocsChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *ProductMetricsDocsChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *ProductMetricsDocsChecker) Name() string           { return "Product Metrics Documentation" }
 func (c *ProductMetricsDocsChecker) Description() string {

@@ -17,7 +17,7 @@ type DeploymentFrequencyChecker struct {
 }
 
 func (c *DeploymentFrequencyChecker) ID() checker.CheckerID  { return "deployment_frequency" }
-func (c *DeploymentFrequencyChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *DeploymentFrequencyChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *DeploymentFrequencyChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *DeploymentFrequencyChecker) Name() string           { return "Deployment Frequency" }
 func (c *DeploymentFrequencyChecker) Description() string {

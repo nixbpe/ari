@@ -10,7 +10,7 @@ import (
 type IssueLabelingSystemChecker struct{}
 
 func (c *IssueLabelingSystemChecker) ID() checker.CheckerID  { return "issue_labeling_system" }
-func (c *IssueLabelingSystemChecker) Pillar() checker.Pillar { return checker.PillarTaskDiscovery }
+func (c *IssueLabelingSystemChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *IssueLabelingSystemChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *IssueLabelingSystemChecker) Name() string           { return "Issue Labeling System" }
 func (c *IssueLabelingSystemChecker) Description() string {

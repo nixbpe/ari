@@ -277,8 +277,8 @@ func TestAllCheckersReturnDevEnvPillar(t *testing.T) {
 		&devenv.DatabaseSchemaChecker{},
 	}
 	for _, c := range checkers {
-		if c.Pillar() != checker.PillarDevEnvironment {
-			t.Errorf("checker %s returned pillar %v, want PillarDevEnvironment", c.ID(), c.Pillar())
+		if c.Pillar() != checker.PillarEnvInfra {
+			t.Errorf("checker %s returned pillar %v, want PillarEnvInfra", c.ID(), c.Pillar())
 		}
 		result, err := c.Check(context.Background(), repo, checker.LanguageGo)
 		if err != nil {

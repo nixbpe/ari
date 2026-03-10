@@ -15,7 +15,7 @@ type UnitTestsRunnableChecker struct {
 }
 
 func (c *UnitTestsRunnableChecker) ID() checker.CheckerID  { return "unit_tests_runnable" }
-func (c *UnitTestsRunnableChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *UnitTestsRunnableChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *UnitTestsRunnableChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *UnitTestsRunnableChecker) Name() string           { return "Unit Tests Runnable" }
 func (c *UnitTestsRunnableChecker) Description() string {

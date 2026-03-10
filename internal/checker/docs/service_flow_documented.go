@@ -15,7 +15,7 @@ import (
 type ServiceFlowDocumentedChecker struct{}
 
 func (c *ServiceFlowDocumentedChecker) ID() checker.CheckerID  { return "service_flow_documented" }
-func (c *ServiceFlowDocumentedChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
+func (c *ServiceFlowDocumentedChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *ServiceFlowDocumentedChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *ServiceFlowDocumentedChecker) Name() string           { return "Service Flow Documentation" }
 func (c *ServiceFlowDocumentedChecker) Description() string {

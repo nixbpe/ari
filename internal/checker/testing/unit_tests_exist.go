@@ -12,7 +12,7 @@ import (
 type UnitTestsExistChecker struct{}
 
 func (c *UnitTestsExistChecker) ID() checker.CheckerID  { return "unit_tests_exist" }
-func (c *UnitTestsExistChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *UnitTestsExistChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *UnitTestsExistChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *UnitTestsExistChecker) Name() string           { return "Unit Tests Exist" }
 func (c *UnitTestsExistChecker) Description() string {

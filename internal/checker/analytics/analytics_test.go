@@ -24,8 +24,8 @@ func TestAnalyticsSdkFound(t *testing.T) {
 	if !r.Passed {
 		t.Errorf("expected Passed=true, got false; evidence: %s", r.Evidence)
 	}
-	if r.Pillar != checker.PillarProductAnalytics {
-		t.Errorf("expected PillarProductAnalytics, got %v", r.Pillar)
+	if r.Pillar != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", r.Pillar)
 	}
 }
 
@@ -71,8 +71,8 @@ func TestTrackingPlanDocsMd(t *testing.T) {
 	if !r.Passed {
 		t.Errorf("expected Passed=true; evidence: %s", r.Evidence)
 	}
-	if r.Pillar != checker.PillarProductAnalytics {
-		t.Errorf("expected PillarProductAnalytics, got %v", r.Pillar)
+	if r.Pillar != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", r.Pillar)
 	}
 }
 
@@ -132,8 +132,8 @@ func TestExperimentInfrastructureFound(t *testing.T) {
 	if !r.Passed {
 		t.Errorf("expected Passed=true; evidence: %s", r.Evidence)
 	}
-	if r.Pillar != checker.PillarProductAnalytics {
-		t.Errorf("expected PillarProductAnalytics, got %v", r.Pillar)
+	if r.Pillar != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", r.Pillar)
 	}
 }
 
@@ -165,8 +165,8 @@ func TestProductMetricsDocsFound(t *testing.T) {
 	if !r.Passed {
 		t.Errorf("expected Passed=true; evidence: %s", r.Evidence)
 	}
-	if r.Pillar != checker.PillarProductAnalytics {
-		t.Errorf("expected PillarProductAnalytics, got %v", r.Pillar)
+	if r.Pillar != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", r.Pillar)
 	}
 }
 
@@ -212,8 +212,8 @@ func TestErrorToInsightSentryConfig(t *testing.T) {
 	if !r.Passed {
 		t.Errorf("expected Passed=true; evidence: %s", r.Evidence)
 	}
-	if r.Pillar != checker.PillarProductAnalytics {
-		t.Errorf("expected PillarProductAnalytics, got %v", r.Pillar)
+	if r.Pillar != checker.PillarContextIntent {
+		t.Errorf("expected PillarContextIntent, got %v", r.Pillar)
 	}
 }
 

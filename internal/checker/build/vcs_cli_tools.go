@@ -12,7 +12,7 @@ import (
 type VCSCliToolsChecker struct{}
 
 func (c *VCSCliToolsChecker) ID() checker.CheckerID  { return "vcs_cli_tools" }
-func (c *VCSCliToolsChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *VCSCliToolsChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *VCSCliToolsChecker) Level() checker.Level   { return checker.LevelAutonomous }
 func (c *VCSCliToolsChecker) Name() string           { return "VCS CLI Tools" }
 func (c *VCSCliToolsChecker) Description() string {

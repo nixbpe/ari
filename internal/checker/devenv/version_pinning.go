@@ -10,7 +10,7 @@ import (
 type VersionPinningChecker struct{}
 
 func (c *VersionPinningChecker) ID() checker.CheckerID  { return "version_pinning" }
-func (c *VersionPinningChecker) Pillar() checker.Pillar { return checker.PillarDevEnvironment }
+func (c *VersionPinningChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *VersionPinningChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *VersionPinningChecker) Name() string           { return "Runtime Version Pinning" }
 func (c *VersionPinningChecker) Description() string {

@@ -14,7 +14,7 @@ type AgenticDevelopmentChecker struct {
 }
 
 func (c *AgenticDevelopmentChecker) ID() checker.CheckerID  { return "agentic_development" }
-func (c *AgenticDevelopmentChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *AgenticDevelopmentChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *AgenticDevelopmentChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *AgenticDevelopmentChecker) Name() string           { return "Agentic Development Support" }
 func (c *AgenticDevelopmentChecker) Description() string {

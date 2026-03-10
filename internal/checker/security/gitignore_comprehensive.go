@@ -12,7 +12,7 @@ import (
 type GitignoreComprehensiveChecker struct{}
 
 func (c *GitignoreComprehensiveChecker) ID() checker.CheckerID  { return "gitignore_comprehensive" }
-func (c *GitignoreComprehensiveChecker) Pillar() checker.Pillar { return checker.PillarSecurity }
+func (c *GitignoreComprehensiveChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *GitignoreComprehensiveChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *GitignoreComprehensiveChecker) Name() string           { return "Comprehensive .gitignore" }
 func (c *GitignoreComprehensiveChecker) Description() string {

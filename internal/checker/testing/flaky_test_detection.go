@@ -11,7 +11,7 @@ import (
 type FlakyTestDetectionChecker struct{}
 
 func (c *FlakyTestDetectionChecker) ID() checker.CheckerID  { return "flaky_test_detection" }
-func (c *FlakyTestDetectionChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *FlakyTestDetectionChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *FlakyTestDetectionChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *FlakyTestDetectionChecker) Name() string           { return "Flaky Test Detection" }
 func (c *FlakyTestDetectionChecker) Description() string {

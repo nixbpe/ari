@@ -11,7 +11,7 @@ import (
 type HealthChecksChecker struct{}
 
 func (c *HealthChecksChecker) ID() checker.CheckerID  { return "health_checks" }
-func (c *HealthChecksChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *HealthChecksChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *HealthChecksChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *HealthChecksChecker) Name() string           { return "Health Checks" }
 func (c *HealthChecksChecker) Description() string {

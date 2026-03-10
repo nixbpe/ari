@@ -14,7 +14,7 @@ import (
 type ApiSchemaDocsChecker struct{}
 
 func (c *ApiSchemaDocsChecker) ID() checker.CheckerID  { return "api_schema_docs" }
-func (c *ApiSchemaDocsChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
+func (c *ApiSchemaDocsChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *ApiSchemaDocsChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *ApiSchemaDocsChecker) Name() string           { return "API Schema Documentation" }
 func (c *ApiSchemaDocsChecker) Description() string {

@@ -11,7 +11,7 @@ import (
 type LintConfigChecker struct{}
 
 func (c *LintConfigChecker) ID() checker.CheckerID  { return "lint_config" }
-func (c *LintConfigChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *LintConfigChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *LintConfigChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *LintConfigChecker) Name() string           { return "Lint Configuration" }
 func (c *LintConfigChecker) Description() string    { return "Checks for linter configuration file" }

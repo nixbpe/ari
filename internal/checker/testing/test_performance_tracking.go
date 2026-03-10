@@ -11,7 +11,7 @@ import (
 type TestPerformanceTrackingChecker struct{}
 
 func (c *TestPerformanceTrackingChecker) ID() checker.CheckerID  { return "test_performance_tracking" }
-func (c *TestPerformanceTrackingChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *TestPerformanceTrackingChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *TestPerformanceTrackingChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *TestPerformanceTrackingChecker) Name() string           { return "Test Performance Tracking" }
 func (c *TestPerformanceTrackingChecker) Description() string {

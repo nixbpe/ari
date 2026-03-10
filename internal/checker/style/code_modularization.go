@@ -15,7 +15,7 @@ type CodeModularizationChecker struct {
 }
 
 func (c *CodeModularizationChecker) ID() checker.CheckerID  { return "code_modularization" }
-func (c *CodeModularizationChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *CodeModularizationChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *CodeModularizationChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *CodeModularizationChecker) Name() string           { return "Code Modularization" }
 func (c *CodeModularizationChecker) Description() string {

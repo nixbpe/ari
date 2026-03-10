@@ -158,20 +158,20 @@ func TestGatedProgression(t *testing.T) {
 
 func TestPillarScores(t *testing.T) {
 	results := []*checker.Result{
-		{ID: "a", Level: checker.LevelFunctional, Pillar: checker.PillarStyleValidation, Passed: true},
-		{ID: "b", Level: checker.LevelFunctional, Pillar: checker.PillarStyleValidation, Passed: false},
-		{ID: "c", Level: checker.LevelFunctional, Pillar: checker.PillarBuildSystem, Passed: true},
-		{ID: "d", Level: checker.LevelFunctional, Pillar: checker.PillarBuildSystem, Passed: true},
+		{ID: "a", Level: checker.LevelFunctional, Pillar: checker.PillarConstraints, Passed: true},
+		{ID: "b", Level: checker.LevelFunctional, Pillar: checker.PillarConstraints, Passed: false},
+		{ID: "c", Level: checker.LevelFunctional, Pillar: checker.PillarEnvInfra, Passed: true},
+		{ID: "d", Level: checker.LevelFunctional, Pillar: checker.PillarEnvInfra, Passed: true},
 	}
 
 	score := scorer.New().Calculate(results)
 
-	style := score.PillarScores[checker.PillarStyleValidation]
+	style := score.PillarScores[checker.PillarConstraints]
 	if style.Passed != 1 || style.Total != 2 || !nearlyEqual(style.Rate, 0.5) {
 		t.Fatalf("style score = %+v, want passed=1 total=2 rate=0.5", style)
 	}
 
-	build := score.PillarScores[checker.PillarBuildSystem]
+	build := score.PillarScores[checker.PillarEnvInfra]
 	if build.Passed != 2 || build.Total != 2 || !nearlyEqual(build.Rate, 1.0) {
 		t.Fatalf("build score = %+v, want passed=2 total=2 rate=1.0", build)
 	}
@@ -192,7 +192,7 @@ func buildResults(specs ...levelSpec) []*checker.Result {
 			results = append(results, &checker.Result{
 				ID:     checker.CheckerID(fmt.Sprintf("c-%d", id)),
 				Level:  spec.level,
-				Pillar: checker.PillarStyleValidation,
+				Pillar: checker.PillarConstraints,
 				Passed: true,
 			})
 			id++
@@ -201,7 +201,7 @@ func buildResults(specs ...levelSpec) []*checker.Result {
 			results = append(results, &checker.Result{
 				ID:     checker.CheckerID(fmt.Sprintf("c-%d", id)),
 				Level:  spec.level,
-				Pillar: checker.PillarStyleValidation,
+				Pillar: checker.PillarConstraints,
 				Passed: false,
 			})
 			id++
@@ -210,7 +210,7 @@ func buildResults(specs ...levelSpec) []*checker.Result {
 			results = append(results, &checker.Result{
 				ID:      checker.CheckerID(fmt.Sprintf("c-%d", id)),
 				Level:   spec.level,
-				Pillar:  checker.PillarStyleValidation,
+				Pillar:  checker.PillarConstraints,
 				Skipped: true,
 			})
 			id++

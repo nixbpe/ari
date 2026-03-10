@@ -15,7 +15,7 @@ type BacklogStructureDocsChecker struct {
 }
 
 func (c *BacklogStructureDocsChecker) ID() checker.CheckerID  { return "backlog_structure_docs" }
-func (c *BacklogStructureDocsChecker) Pillar() checker.Pillar { return checker.PillarTaskDiscovery }
+func (c *BacklogStructureDocsChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *BacklogStructureDocsChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *BacklogStructureDocsChecker) Name() string           { return "Backlog Structure Documentation" }
 func (c *BacklogStructureDocsChecker) Description() string {

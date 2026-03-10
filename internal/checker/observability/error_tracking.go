@@ -10,7 +10,7 @@ import (
 type ErrorTrackingChecker struct{}
 
 func (c *ErrorTrackingChecker) ID() checker.CheckerID  { return "error_tracking" }
-func (c *ErrorTrackingChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *ErrorTrackingChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *ErrorTrackingChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *ErrorTrackingChecker) Name() string           { return "Error Tracking" }
 func (c *ErrorTrackingChecker) Description() string {

@@ -4,7 +4,7 @@
 
 ## What is ari?
 
-ari scans a local repository and evaluates it across 72 criteria in 9 pillars, 
+ari scans a local repository and evaluates it across 72 criteria in 4 pillars,
 assigning a maturity level from 1 (Functional) to 5 (Autonomous).
 
 ## Installation
@@ -59,128 +59,103 @@ ari --path . --no-llm
 | 4 | Optimized | Performance and quality optimized |
 | 5 | Autonomous | Fully ready for AI agents |
 
-Progression is gated: you must achieve ≥80% at each level before advancing.
+Progression is gated: you must achieve >=80% at each level before advancing.
 
 ## Criteria Reference
 
-### Style & Validation (12 criteria)
+### Context & Intent (18 criteria)
 | ID | Level | Description |
 |----|-------|-------------|
-| lint_config | L1 | Linter configuration file present |
-| formatter | L1 | Code formatter configured |
-| type_check | L1 | Type checking enabled |
-| strict_typing | L2 | Strict type checking enforced |
-| pre_commit_hooks | L2 | Pre-commit hooks configured |
-| naming_consistency | L2 | Naming conventions consistent |
-| cyclomatic_complexity | L3 | Complexity limits configured |
-| dead_code_detection | L3 | Dead code detection enabled |
-| duplicate_code_detection | L4 | Duplicate code detection configured |
-| code_modularization | L4 | Module boundaries enforced |
-| large_file_detection | L3 | Large file detection configured |
-| tech_debt_tracking | L3 | Tech debt tracking in place |
+| contributing_guide | L1 | Checks that a CONTRIBUTING.md or equivalent guide exists to help contributors understand the workflow |
+| readme | L1 | Checks that a README file exists and has meaningful content (50+ chars with headings) |
+| agents_md | L2 | Checks for AI agent documentation files (AGENTS.md, CLAUDE.md, .cursor/rules, etc.) |
+| analytics_sdk | L2 | Checks that an analytics SDK (Segment, Mixpanel, Amplitude, PostHog, RudderStack) is present in dependencies |
+| documentation_freshness | L2 | Checks that documentation files (README, CONTRIBUTING, AGENTS) have been updated within 180 days |
+| issue_templates | L2 | Checks that issue templates exist in .github/ISSUE_TEMPLATE/ to guide contributors in reporting bugs and requesting features |
+| pr_template | L2 | Checks that a pull request template exists to standardize PR descriptions and checklists |
+| api_schema_docs | L3 | Checks for OpenAPI/Swagger spec or GraphQL schema files documenting the repository API |
+| agentic_development | L3 | Checks for AI agent documentation files that guide automated development tools |
+| experiment_infrastructure | L3 | Checks for A/B testing or feature flag SDKs (GrowthBook, Statsig, Optimizely, Split, LaunchDarkly) |
+| issue_labeling_system | L3 | Checks that a labels configuration file exists to standardize issue and PR labeling |
+| service_flow_documented | L3 | Checks for architecture diagrams (.puml, .mmd, .drawio, .excalidraw) or docs/architecture directories |
+| tracking_plan_docs | L3 | Checks for a tracking plan document (docs/tracking-plan.md, avo.json, .avo/) defining analytics events |
+| skills | L4 | Checks for AI skill files in .claude/skills/ or .cursor/ that teach agents project workflows |
+| automated_doc_generation | L4 | Checks for automated documentation generation tooling (godoc, typedoc, javadoc, etc.) |
+| backlog_structure_docs | L4 | Checks that backlog/process documentation exists describing how work is prioritized, triaged, and structured |
+| error_to_insight_pipeline | L4 | Checks for error reporting pipelines: Sentry CLI in CI workflows, sentry.properties config, or automated issue creation |
+| product_metrics_docs | L4 | Checks that product metrics, KPIs, or north-star metrics are documented |
 
-### Build System (13 criteria)
+### Environment & Infra (11 criteria)
 | ID | Level | Description |
 |----|-------|-------------|
-| build_cmd_doc | L1 | Build command documented |
-| single_command_setup | L1 | Single command setup available |
-| deps_pinned | L1 | Dependencies pinned/locked |
-| fast_ci_feedback | L2 | CI feedback under 10 minutes |
-| release_automation | L2 | Release process automated |
-| deployment_frequency | L3 | Deployment frequency tracked |
-| vcs_cli_tools | L2 | VCS CLI tools configured |
-| agentic_development | L3 | AI agent development docs present |
-| automated_pr_review | L3 | Automated PR review configured |
-| build_performance_tracking | L4 | Build performance tracked |
-| feature_flag_infra | L4 | Feature flag infrastructure present |
-| release_notes_automation | L4 | Release notes automated |
-| unused_dependencies | L4 | Unused dependency detection |
+| build_cmd_doc | L1 | Checks that build commands are documented in project files |
+| deps_pinned | L1 | Checks for a dependency lock file to ensure reproducible builds |
+| env_template | L1 | Checks that a .env.example or similar template documents required environment variables |
+| devcontainer | L2 | Checks that a devcontainer configuration is present for reproducible development environments |
+| version_pinning | L2 | Checks that the runtime/SDK version is pinned via .nvmrc, .python-version, .tool-versions, or similar |
+| single_command_setup | L2 | Checks for a single command to set up the development environment |
+| ide_config | L3 | Checks that IDE configuration files are committed for consistent editor settings across the team |
+| local_services_setup | L3 | Checks that a docker-compose or compose file is present for running local services |
+| database_schema | L4 | Checks that database schema or migrations are defined and tracked in version control |
+| devcontainer_quality | L4 | Evaluates the quality of devcontainer configuration including postCreateCommand, features, and extensions |
+| vcs_cli_tools | L5 | Checks for VCS CLI tooling such as GitHub CLI (gh) configured in the project |
 
-### Testing (8 criteria)
+### Constraints & Governance (21 criteria)
 | ID | Level | Description |
 |----|-------|-------------|
-| unit_tests_exist | L1 | Unit tests present |
-| unit_tests_runnable | L1 | Unit tests can be run |
-| test_naming_conventions | L2 | Test naming conventions followed |
-| test_isolation | L2 | Tests are isolated |
-| integration_tests_exist | L3 | Integration tests present |
-| test_coverage_thresholds | L3 | Coverage thresholds configured |
-| flaky_test_detection | L4 | Flaky test detection in place |
-| test_performance_tracking | L4 | Test performance tracked |
+| formatter | L1 | Checks for code formatter configuration |
+| gitignore_comprehensive | L1 | Checks that .gitignore exists and covers at least 3 security-sensitive patterns |
+| lint_config | L1 | Checks for linter configuration file |
+| security_policy | L1 | Checks that a SECURITY.md file exists describing how to report vulnerabilities |
+| type_check | L1 | Checks for static type checking configuration |
+| codeowners | L2 | Checks that a CODEOWNERS file exists to define code ownership |
+| dep_update_automation | L2 | Checks that automated dependency updates are configured (Dependabot or Renovate) |
+| naming_consistency | L2 | Checks that naming conventions are consistent across the codebase |
+| pre_commit_hooks | L2 | Checks if pre-commit hooks are configured for the project |
+| strict_typing | L2 | Ensures strict type checking is enabled for the project language |
+| cyclomatic_complexity | L3 | Checks for cyclomatic complexity analysis tools in project configuration |
+| dead_code_detection | L3 | Checks for dead code detection tools in project configuration |
+| sast_config | L3 | Checks that static application security testing (SAST) is configured via config file or CI |
+| secret_scanning_config | L3 | Checks that secret scanning is configured via a config file or CI workflow step |
+| automated_pr_review | L4 | Checks for automated PR review configuration including CODEOWNERS, bots, and CI PR triggers |
+| code_modularization | L4 | Checks for module boundary enforcement patterns |
+| dependency_audit_ci | L4 | Checks that dependency vulnerability auditing runs in CI (npm audit, govulncheck, trivy, snyk, etc.) |
+| duplicate_code_detection | L4 | Checks for duplicate code detection tools in project configuration |
+| large_file_detection | L5 | Checks for large file detection and prevention tools |
+| tech_debt_tracking | L5 | Checks for tech debt tracking and TODO enforcement |
+| unused_dependencies_detection | L5 | Checks that unused dependency detection is configured |
 
-### Documentation (7 criteria)
+### Verification & Feedback (22 criteria)
 | ID | Level | Description |
 |----|-------|-------------|
-| readme | L1 | README.md present |
-| agents_md | L2 | AGENTS.md present |
-| documentation_freshness | L2 | Documentation updated recently |
-| skills | L3 | AI agent skills documented |
-| automated_doc_generation | L3 | Documentation auto-generated |
-| service_flow_documented | L4 | Service flow diagrams present |
-| api_schema_docs | L4 | API schema documented |
-
-### Dev Environment (7 criteria)
-| ID | Level | Description |
-|----|-------|-------------|
-| env_template | L1 | Environment template file present |
-| devcontainer | L2 | Dev container configuration present |
-| version_pinning | L2 | Runtime version pinned |
-| local_services_setup | L3 | Local services setup via Docker Compose |
-| ide_config | L3 | IDE configuration shared |
-| devcontainer_quality | L4 | Dev container has post-create commands and features |
-| database_schema | L4 | Database schema or migrations present |
-
-### Debugging & Observability (8 criteria)
-| ID | Level | Description |
-|----|-------|-------------|
-| structured_logging | L2 | Structured logging library configured |
-| health_checks | L2 | Health check endpoints present |
-| error_tracking | L3 | Error tracking service integrated |
-| distributed_tracing | L3 | Distributed tracing configured |
-| metrics_collection | L3 | Metrics collection configured |
-| alerting_configured | L4 | Alerting rules configured |
-| profiling_instrumentation | L4 | Profiling instrumentation present |
-| runbooks_documented | L5 | Runbooks documented |
-
-### Security (7 criteria)
-| ID | Level | Description |
-|----|-------|-------------|
-| security_policy | L1 | SECURITY.md present |
-| gitignore_comprehensive | L1 | .gitignore covers secrets and IDE files |
-| codeowners | L2 | CODEOWNERS file present |
-| dep_update_automation | L2 | Dependency update automation configured |
-| secret_scanning_config | L3 | Secret scanning configured |
-| sast_config | L3 | Static analysis security testing configured |
-| dependency_audit_ci | L4 | Dependency audit runs in CI |
-
-### Task Discovery (5 criteria)
-| ID | Level | Description |
-|----|-------|-------------|
-| contributing_guide | L1 | CONTRIBUTING.md present |
-| issue_templates | L2 | GitHub issue templates present |
-| pr_template | L2 | Pull request template present |
-| issue_labeling_system | L3 | Issue labeling system configured |
-| backlog_structure_docs | L4 | Backlog structure and triage process documented |
-
-### Product & Analytics (5 criteria)
-| ID | Level | Description |
-|----|-------|-------------|
-| analytics_sdk | L2 | Analytics SDK integrated |
-| tracking_plan_docs | L3 | Tracking plan documented |
-| experiment_infrastructure | L3 | Experiment/feature flag infrastructure present |
-| product_metrics_docs | L4 | Product metrics and KPIs documented |
-| error_to_insight_pipeline | L4 | Error-to-insight pipeline configured |
+| unit_tests_exist | L1 | Checks that unit test files exist in the repository |
+| health_checks | L2 | Checks that health check endpoints are defined in source files |
+| structured_logging | L2 | Checks for a structured logging library in dependencies |
+| test_naming_conventions | L2 | Checks that test files follow language-specific naming conventions |
+| unit_tests_runnable | L2 | Checks that test commands are documented in project files |
+| distributed_tracing | L3 | Checks for distributed tracing instrumentation in dependencies |
+| error_tracking | L3 | Checks for an error tracking service integration in dependencies |
+| fast_ci_feedback | L3 | Checks for CI/CD configuration (GitHub Actions, GitLab CI, Jenkins, CircleCI) |
+| integration_tests_exist | L3 | Checks for integration or end-to-end tests (directories, config files, or build tags) |
+| metrics_collection | L3 | Checks for metrics collection library in dependencies |
+| release_automation | L3 | Checks for release automation configuration (goreleaser, release-please, semantic-release) |
+| test_coverage_thresholds | L3 | Checks for test coverage threshold configuration of >=80% in CI, build files, or test framework config |
+| alerting_configured | L4 | Checks that alerting configuration files are present in the repository |
+| build_performance_tracking | L4 | Checks that build caching and performance tracking tools are configured |
+| deployment_frequency | L4 | Checks how frequently the project deploys by examining git tag history |
+| feature_flag_infrastructure | L4 | Checks that a feature flag library is configured in the project |
+| flaky_test_detection | L4 | Checks that flaky test handling (retry/rerun) is configured in CI or test frameworks |
+| profiling_instrumentation | L4 | Checks for profiling instrumentation in the codebase |
+| release_notes_automation | L4 | Checks that release notes automation is configured |
+| test_isolation | L4 | Checks that tests are configured for isolation and parallel execution |
+| test_performance_tracking | L4 | Checks that test performance tracking (benchmarks) is configured |
+| runbooks_documented | L5 | Checks that operational runbooks are present and contain meaningful content |
 
 ## LLM Configuration
 
 ari supports optional LLM evaluation for criteria that benefit from semantic analysis:
 
 ```bash
-# OpenAI
-export ARI_LLM_PROVIDER=openai
-export ARI_API_KEY=sk-...
-ari --path .
-
 # Anthropic
 export ARI_LLM_PROVIDER=anthropic
 export ARI_API_KEY=sk-ant-...
@@ -191,7 +166,7 @@ export ARI_LLM_PROVIDER=ollama
 ari --path .
 
 # Custom model
-export ARI_LLM_MODEL=gpt-4o
+export ARI_LLM_MODEL=claude-sonnet-4-20250514
 ari --path .
 ```
 

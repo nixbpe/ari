@@ -11,7 +11,7 @@ import (
 type ProfilingInstrumentationChecker struct{}
 
 func (c *ProfilingInstrumentationChecker) ID() checker.CheckerID  { return "profiling_instrumentation" }
-func (c *ProfilingInstrumentationChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *ProfilingInstrumentationChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *ProfilingInstrumentationChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *ProfilingInstrumentationChecker) Name() string           { return "Profiling Instrumentation" }
 func (c *ProfilingInstrumentationChecker) Description() string {

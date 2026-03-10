@@ -16,7 +16,7 @@ type BuildCmdDocChecker struct {
 }
 
 func (c *BuildCmdDocChecker) ID() checker.CheckerID  { return "build_cmd_doc" }
-func (c *BuildCmdDocChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *BuildCmdDocChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *BuildCmdDocChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *BuildCmdDocChecker) Name() string           { return "Build Command Documentation" }
 func (c *BuildCmdDocChecker) Description() string {

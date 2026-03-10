@@ -10,7 +10,7 @@ import (
 type IDEConfigChecker struct{}
 
 func (c *IDEConfigChecker) ID() checker.CheckerID  { return "ide_config" }
-func (c *IDEConfigChecker) Pillar() checker.Pillar { return checker.PillarDevEnvironment }
+func (c *IDEConfigChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *IDEConfigChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *IDEConfigChecker) Name() string           { return "IDE Configuration" }
 func (c *IDEConfigChecker) Description() string {

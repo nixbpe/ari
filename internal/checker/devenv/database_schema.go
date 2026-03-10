@@ -10,7 +10,7 @@ import (
 type DatabaseSchemaChecker struct{}
 
 func (c *DatabaseSchemaChecker) ID() checker.CheckerID  { return "database_schema" }
-func (c *DatabaseSchemaChecker) Pillar() checker.Pillar { return checker.PillarDevEnvironment }
+func (c *DatabaseSchemaChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *DatabaseSchemaChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *DatabaseSchemaChecker) Name() string           { return "Database Schema" }
 func (c *DatabaseSchemaChecker) Description() string {

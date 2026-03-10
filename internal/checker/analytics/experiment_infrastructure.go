@@ -11,7 +11,7 @@ type ExperimentInfrastructureChecker struct{}
 
 func (c *ExperimentInfrastructureChecker) ID() checker.CheckerID { return "experiment_infrastructure" }
 func (c *ExperimentInfrastructureChecker) Pillar() checker.Pillar {
-	return checker.PillarProductAnalytics
+	return checker.PillarContextIntent
 }
 func (c *ExperimentInfrastructureChecker) Level() checker.Level { return checker.LevelStandardized }
 func (c *ExperimentInfrastructureChecker) Name() string         { return "Experiment Infrastructure" }

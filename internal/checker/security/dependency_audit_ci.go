@@ -10,7 +10,7 @@ import (
 type DependencyAuditCIChecker struct{}
 
 func (c *DependencyAuditCIChecker) ID() checker.CheckerID  { return "dependency_audit_ci" }
-func (c *DependencyAuditCIChecker) Pillar() checker.Pillar { return checker.PillarSecurity }
+func (c *DependencyAuditCIChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *DependencyAuditCIChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *DependencyAuditCIChecker) Name() string           { return "Dependency Audit in CI" }
 func (c *DependencyAuditCIChecker) Description() string {

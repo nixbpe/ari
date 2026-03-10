@@ -11,7 +11,7 @@ import (
 type IssueTemplatesChecker struct{}
 
 func (c *IssueTemplatesChecker) ID() checker.CheckerID  { return "issue_templates" }
-func (c *IssueTemplatesChecker) Pillar() checker.Pillar { return checker.PillarTaskDiscovery }
+func (c *IssueTemplatesChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *IssueTemplatesChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *IssueTemplatesChecker) Name() string           { return "Issue Templates" }
 func (c *IssueTemplatesChecker) Description() string {

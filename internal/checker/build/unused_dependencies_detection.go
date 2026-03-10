@@ -15,7 +15,7 @@ func (c *UnusedDependenciesDetectionChecker) ID() checker.CheckerID {
 	return "unused_dependencies_detection"
 }
 func (c *UnusedDependenciesDetectionChecker) Pillar() checker.Pillar {
-	return checker.PillarBuildSystem
+	return checker.PillarConstraints
 }
 func (c *UnusedDependenciesDetectionChecker) Level() checker.Level { return checker.LevelAutonomous }
 func (c *UnusedDependenciesDetectionChecker) Name() string {

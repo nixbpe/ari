@@ -10,7 +10,7 @@ import (
 type AlertingConfiguredChecker struct{}
 
 func (c *AlertingConfiguredChecker) ID() checker.CheckerID  { return "alerting_configured" }
-func (c *AlertingConfiguredChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *AlertingConfiguredChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *AlertingConfiguredChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *AlertingConfiguredChecker) Name() string           { return "Alerting Configured" }
 func (c *AlertingConfiguredChecker) Description() string {
