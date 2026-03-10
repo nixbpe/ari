@@ -12,7 +12,7 @@ import (
 type TestIsolationChecker struct{}
 
 func (c *TestIsolationChecker) ID() checker.CheckerID  { return "test_isolation" }
-func (c *TestIsolationChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *TestIsolationChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *TestIsolationChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *TestIsolationChecker) Name() string           { return "Test Isolation" }
 func (c *TestIsolationChecker) Description() string {

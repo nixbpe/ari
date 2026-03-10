@@ -15,7 +15,7 @@ func NewPreCommitHooksChecker() *PreCommitHooksChecker {
 }
 
 func (c *PreCommitHooksChecker) ID() checker.CheckerID  { return "pre_commit_hooks" }
-func (c *PreCommitHooksChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *PreCommitHooksChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *PreCommitHooksChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *PreCommitHooksChecker) Name() string           { return "Pre-commit Hooks" }
 func (c *PreCommitHooksChecker) Description() string {

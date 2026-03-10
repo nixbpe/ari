@@ -10,7 +10,7 @@ import (
 type SASTConfigChecker struct{}
 
 func (c *SASTConfigChecker) ID() checker.CheckerID  { return "sast_config" }
-func (c *SASTConfigChecker) Pillar() checker.Pillar { return checker.PillarSecurity }
+func (c *SASTConfigChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *SASTConfigChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *SASTConfigChecker) Name() string           { return "SAST Configuration" }
 func (c *SASTConfigChecker) Description() string {

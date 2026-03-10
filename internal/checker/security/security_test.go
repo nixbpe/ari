@@ -301,8 +301,8 @@ func TestAllCheckersReturnSecurityPillar(t *testing.T) {
 		&DependencyAuditCIChecker{},
 	}
 	for _, c := range checkers {
-		if c.Pillar() != checker.PillarSecurity {
-			t.Errorf("%s: expected PillarSecurity, got %v", c.ID(), c.Pillar())
+		if c.Pillar() != checker.PillarConstraints {
+			t.Errorf("%s: expected PillarConstraints, got %v", c.ID(), c.Pillar())
 		}
 	}
 }

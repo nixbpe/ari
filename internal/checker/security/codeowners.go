@@ -10,7 +10,7 @@ import (
 type CodeownersChecker struct{}
 
 func (c *CodeownersChecker) ID() checker.CheckerID  { return "codeowners" }
-func (c *CodeownersChecker) Pillar() checker.Pillar { return checker.PillarSecurity }
+func (c *CodeownersChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *CodeownersChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *CodeownersChecker) Name() string           { return "CODEOWNERS File" }
 func (c *CodeownersChecker) Description() string {

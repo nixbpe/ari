@@ -34,7 +34,7 @@ func makeResults() []*checker.Result {
 		{
 			ID:         "go-001",
 			Name:       "Go modules present",
-			Pillar:     checker.PillarBuildSystem,
+			Pillar:     checker.PillarEnvInfra,
 			Level:      checker.LevelFunctional,
 			Passed:     true,
 			Evidence:   "go.mod found",
@@ -44,7 +44,7 @@ func makeResults() []*checker.Result {
 		{
 			ID:         "go-002",
 			Name:       "CI configuration present",
-			Pillar:     checker.PillarBuildSystem,
+			Pillar:     checker.PillarEnvInfra,
 			Level:      checker.LevelDocumented,
 			Passed:     false,
 			Evidence:   "no .github/workflows found",
@@ -54,7 +54,7 @@ func makeResults() []*checker.Result {
 		{
 			ID:         "go-003",
 			Name:       "Linter configured",
-			Pillar:     checker.PillarStyleValidation,
+			Pillar:     checker.PillarConstraints,
 			Level:      checker.LevelStandardized,
 			Passed:     false,
 			Skipped:    true,
@@ -110,8 +110,8 @@ func TestBuildReport(t *testing.T) {
 	if first.ID != "go-001" {
 		t.Errorf("CriteriaResults[0].ID: got %q, want %q", first.ID, "go-001")
 	}
-	if first.Pillar != checker.PillarBuildSystem.String() {
-		t.Errorf("CriteriaResults[0].Pillar: got %q, want %q", first.Pillar, checker.PillarBuildSystem.String())
+	if first.Pillar != checker.PillarEnvInfra.String() {
+		t.Errorf("CriteriaResults[0].Pillar: got %q, want %q", first.Pillar, checker.PillarEnvInfra.String())
 	}
 	if first.Level != int(checker.LevelFunctional) {
 		t.Errorf("CriteriaResults[0].Level: got %d, want %d", first.Level, int(checker.LevelFunctional))
@@ -206,7 +206,7 @@ func TestSuggestionsOnlyForFailing(t *testing.T) {
 		{
 			ID:         "pass-001",
 			Name:       "Passing criterion",
-			Pillar:     checker.PillarBuildSystem,
+			Pillar:     checker.PillarEnvInfra,
 			Level:      checker.LevelFunctional,
 			Passed:     true,
 			Suggestion: "Should not appear",
@@ -214,7 +214,7 @@ func TestSuggestionsOnlyForFailing(t *testing.T) {
 		{
 			ID:         "skip-001",
 			Name:       "Skipped criterion",
-			Pillar:     checker.PillarBuildSystem,
+			Pillar:     checker.PillarEnvInfra,
 			Level:      checker.LevelFunctional,
 			Passed:     false,
 			Skipped:    true,
@@ -224,7 +224,7 @@ func TestSuggestionsOnlyForFailing(t *testing.T) {
 		{
 			ID:         "fail-001",
 			Name:       "Failing criterion",
-			Pillar:     checker.PillarBuildSystem,
+			Pillar:     checker.PillarEnvInfra,
 			Level:      checker.LevelFunctional,
 			Passed:     false,
 			Skipped:    false,
@@ -233,7 +233,7 @@ func TestSuggestionsOnlyForFailing(t *testing.T) {
 		{
 			ID:         "fail-002",
 			Name:       "Another failing criterion",
-			Pillar:     checker.PillarTesting,
+			Pillar:     checker.PillarVerification,
 			Level:      checker.LevelDocumented,
 			Passed:     false,
 			Skipped:    false,

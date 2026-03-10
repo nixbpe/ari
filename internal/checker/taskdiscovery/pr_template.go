@@ -10,7 +10,7 @@ import (
 type PRTemplateChecker struct{}
 
 func (c *PRTemplateChecker) ID() checker.CheckerID  { return "pr_template" }
-func (c *PRTemplateChecker) Pillar() checker.Pillar { return checker.PillarTaskDiscovery }
+func (c *PRTemplateChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *PRTemplateChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *PRTemplateChecker) Name() string           { return "Pull Request Template" }
 func (c *PRTemplateChecker) Description() string {

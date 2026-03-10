@@ -50,15 +50,10 @@ func TestPillarString(t *testing.T) {
 		pillar checker.Pillar
 		want   string
 	}{
-		{checker.PillarStyleValidation, "Style & Validation"},
-		{checker.PillarBuildSystem, "Build System"},
-		{checker.PillarTesting, "Testing"},
-		{checker.PillarDocumentation, "Documentation"},
-		{checker.PillarDevEnvironment, "Dev Environment"},
-		{checker.PillarObservability, "Debugging & Observability"},
-		{checker.PillarSecurity, "Security"},
-		{checker.PillarTaskDiscovery, "Task Discovery"},
-		{checker.PillarProductAnalytics, "Product & Analytics"},
+		{checker.PillarContextIntent, "Context & Intent"},
+		{checker.PillarEnvInfra, "Environment & Infra"},
+		{checker.PillarConstraints, "Constraints & Governance"},
+		{checker.PillarVerification, "Verification & Feedback"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.want, func(t *testing.T) {
@@ -76,7 +71,7 @@ func TestResultFields(t *testing.T) {
 		Passed:     true,
 		Evidence:   "Found .golangci.yml",
 		Level:      checker.LevelFunctional,
-		Pillar:     checker.PillarStyleValidation,
+		Pillar:     checker.PillarConstraints,
 		Mode:       "rule-based",
 		Suggestion: "Add a linter config",
 	}

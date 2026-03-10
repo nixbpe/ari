@@ -10,7 +10,7 @@ import (
 type EnvTemplateChecker struct{}
 
 func (c *EnvTemplateChecker) ID() checker.CheckerID  { return "env_template" }
-func (c *EnvTemplateChecker) Pillar() checker.Pillar { return checker.PillarDevEnvironment }
+func (c *EnvTemplateChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *EnvTemplateChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *EnvTemplateChecker) Name() string           { return "Environment Template" }
 func (c *EnvTemplateChecker) Description() string {

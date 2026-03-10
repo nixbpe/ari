@@ -13,7 +13,7 @@ type FeatureFlagInfrastructureChecker struct{}
 func (c *FeatureFlagInfrastructureChecker) ID() checker.CheckerID {
 	return "feature_flag_infrastructure"
 }
-func (c *FeatureFlagInfrastructureChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *FeatureFlagInfrastructureChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *FeatureFlagInfrastructureChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *FeatureFlagInfrastructureChecker) Name() string           { return "Feature Flag Infrastructure" }
 func (c *FeatureFlagInfrastructureChecker) Description() string {

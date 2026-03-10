@@ -10,7 +10,7 @@ import (
 type TrackingPlanDocsChecker struct{}
 
 func (c *TrackingPlanDocsChecker) ID() checker.CheckerID  { return "tracking_plan_docs" }
-func (c *TrackingPlanDocsChecker) Pillar() checker.Pillar { return checker.PillarProductAnalytics }
+func (c *TrackingPlanDocsChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *TrackingPlanDocsChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *TrackingPlanDocsChecker) Name() string           { return "Tracking Plan Documentation" }
 func (c *TrackingPlanDocsChecker) Description() string {

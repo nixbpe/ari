@@ -55,12 +55,11 @@ func TestTextReporterPillars(t *testing.T) {
 
 	output := buf.String()
 
-	// Check for pillar names
-	if !strings.Contains(output, "Build System") {
-		t.Error("Output missing 'Build System' pillar")
+	if !strings.Contains(output, "Environment & Infra") {
+		t.Error("Output missing 'Environment & Infra' pillar")
 	}
-	if !strings.Contains(output, "Style & Validation") {
-		t.Error("Output missing 'Style & Validation' pillar")
+	if !strings.Contains(output, "Constraints & Governance") {
+		t.Error("Output missing 'Constraints & Governance' pillar")
 	}
 }
 

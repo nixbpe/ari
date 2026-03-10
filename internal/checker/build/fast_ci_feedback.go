@@ -10,7 +10,7 @@ import (
 type FastCIFeedbackChecker struct{}
 
 func (c *FastCIFeedbackChecker) ID() checker.CheckerID  { return "fast_ci_feedback" }
-func (c *FastCIFeedbackChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *FastCIFeedbackChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *FastCIFeedbackChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *FastCIFeedbackChecker) Name() string           { return "Fast CI Feedback" }
 func (c *FastCIFeedbackChecker) Description() string {

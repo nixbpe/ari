@@ -11,7 +11,7 @@ import (
 type AnalyticsSdkChecker struct{}
 
 func (c *AnalyticsSdkChecker) ID() checker.CheckerID  { return "analytics_sdk" }
-func (c *AnalyticsSdkChecker) Pillar() checker.Pillar { return checker.PillarProductAnalytics }
+func (c *AnalyticsSdkChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *AnalyticsSdkChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *AnalyticsSdkChecker) Name() string           { return "Analytics SDK" }
 func (c *AnalyticsSdkChecker) Description() string {

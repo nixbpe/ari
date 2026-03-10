@@ -13,7 +13,7 @@ import (
 type DeadCodeDetectionChecker struct{}
 
 func (c *DeadCodeDetectionChecker) ID() checker.CheckerID  { return "dead_code_detection" }
-func (c *DeadCodeDetectionChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *DeadCodeDetectionChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *DeadCodeDetectionChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *DeadCodeDetectionChecker) Name() string           { return "Dead Code Detection" }
 func (c *DeadCodeDetectionChecker) Description() string {

@@ -118,15 +118,10 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 				return nil
 			}
 			ordered := []checker.Pillar{
-				checker.PillarStyleValidation,
-				checker.PillarBuildSystem,
-				checker.PillarTesting,
-				checker.PillarDocumentation,
-				checker.PillarDevEnvironment,
-				checker.PillarObservability,
-				checker.PillarSecurity,
-				checker.PillarTaskDiscovery,
-				checker.PillarProductAnalytics,
+				checker.PillarContextIntent,
+				checker.PillarEnvInfra,
+				checker.PillarConstraints,
+				checker.PillarVerification,
 			}
 			result := make([]scorer.PillarScore, 0, len(ordered))
 			for _, p := range ordered {
@@ -200,26 +195,16 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 		},
 		"groupedCriteria": func(criteria []CriterionReport) []PillarCriteriaGroup {
 			pillarOrder := []string{
-				"Style & Validation",
-				"Build System",
-				"Testing",
-				"Documentation",
-				"Dev Environment",
-				"Debugging & Observability",
-				"Security",
-				"Task Discovery",
-				"Product & Analytics",
+				"Context & Intent",
+				"Environment & Infra",
+				"Constraints & Governance",
+				"Verification & Feedback",
 			}
 			icons := map[string]string{
-				"Style & Validation":        "\u2728",
-				"Build System":              "\u2699\ufe0f",
-				"Testing":                   "\u2705",
-				"Documentation":             "\U0001F4D6",
-				"Dev Environment":           "\U0001F527",
-				"Debugging & Observability": "\U0001F50D",
-				"Security":                  "\U0001F512",
-				"Task Discovery":            "\U0001F4CB",
-				"Product & Analytics":       "\U0001F4CA",
+				"Context & Intent":         "\U0001F4D6",
+				"Environment & Infra":      "\u2699\ufe0f",
+				"Constraints & Governance": "\U0001F6E1\ufe0f",
+				"Verification & Feedback":  "\u2705",
 			}
 
 			grouped := make(map[string][]CriterionReport)
@@ -273,24 +258,14 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 		},
 		"pillarIcon": func(p checker.Pillar) string {
 			switch p {
-			case checker.PillarStyleValidation:
-				return "\u2728"
-			case checker.PillarBuildSystem:
-				return "\u2699\ufe0f"
-			case checker.PillarTesting:
-				return "\u2705"
-			case checker.PillarDocumentation:
+			case checker.PillarContextIntent:
 				return "\U0001F4D6"
-			case checker.PillarDevEnvironment:
-				return "\U0001F527"
-			case checker.PillarObservability:
-				return "\U0001F50D"
-			case checker.PillarSecurity:
-				return "\U0001F512"
-			case checker.PillarTaskDiscovery:
-				return "\U0001F4CB"
-			case checker.PillarProductAnalytics:
-				return "\U0001F4CA"
+			case checker.PillarEnvInfra:
+				return "\u2699\ufe0f"
+			case checker.PillarConstraints:
+				return "\U0001F6E1\ufe0f"
+			case checker.PillarVerification:
+				return "\u2705"
 			default:
 				return "\u25CF"
 			}

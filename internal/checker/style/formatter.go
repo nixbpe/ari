@@ -11,7 +11,7 @@ import (
 type FormatterChecker struct{}
 
 func (c *FormatterChecker) ID() checker.CheckerID  { return "formatter" }
-func (c *FormatterChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *FormatterChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *FormatterChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *FormatterChecker) Name() string           { return "Code Formatter" }
 func (c *FormatterChecker) Description() string    { return "Checks for code formatter configuration" }

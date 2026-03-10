@@ -11,7 +11,7 @@ import (
 type SingleCommandSetupChecker struct{}
 
 func (c *SingleCommandSetupChecker) ID() checker.CheckerID  { return "single_command_setup" }
-func (c *SingleCommandSetupChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *SingleCommandSetupChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *SingleCommandSetupChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *SingleCommandSetupChecker) Name() string           { return "Single Command Setup" }
 func (c *SingleCommandSetupChecker) Description() string {

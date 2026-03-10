@@ -14,7 +14,7 @@ type DevcontainerQualityChecker struct {
 }
 
 func (c *DevcontainerQualityChecker) ID() checker.CheckerID  { return "devcontainer_quality" }
-func (c *DevcontainerQualityChecker) Pillar() checker.Pillar { return checker.PillarDevEnvironment }
+func (c *DevcontainerQualityChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *DevcontainerQualityChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *DevcontainerQualityChecker) Name() string           { return "Dev Container Quality" }
 func (c *DevcontainerQualityChecker) Description() string {

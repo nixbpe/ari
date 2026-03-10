@@ -15,7 +15,7 @@ type SkillsChecker struct {
 }
 
 func (c *SkillsChecker) ID() checker.CheckerID  { return "skills" }
-func (c *SkillsChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
+func (c *SkillsChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *SkillsChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *SkillsChecker) Name() string           { return "AI Skills Configured" }
 func (c *SkillsChecker) Description() string {

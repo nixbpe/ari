@@ -12,7 +12,7 @@ import (
 type BuildPerformanceTrackingChecker struct{}
 
 func (c *BuildPerformanceTrackingChecker) ID() checker.CheckerID  { return "build_performance_tracking" }
-func (c *BuildPerformanceTrackingChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *BuildPerformanceTrackingChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *BuildPerformanceTrackingChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *BuildPerformanceTrackingChecker) Name() string           { return "Build Performance Tracking" }
 func (c *BuildPerformanceTrackingChecker) Description() string {

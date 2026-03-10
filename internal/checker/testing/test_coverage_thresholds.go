@@ -14,7 +14,7 @@ import (
 type TestCoverageThresholdsChecker struct{}
 
 func (c *TestCoverageThresholdsChecker) ID() checker.CheckerID  { return "test_coverage_thresholds" }
-func (c *TestCoverageThresholdsChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *TestCoverageThresholdsChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *TestCoverageThresholdsChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *TestCoverageThresholdsChecker) Name() string           { return "Test Coverage Thresholds" }
 func (c *TestCoverageThresholdsChecker) Description() string {

@@ -10,7 +10,7 @@ import (
 type DepUpdateAutomationChecker struct{}
 
 func (c *DepUpdateAutomationChecker) ID() checker.CheckerID  { return "dep_update_automation" }
-func (c *DepUpdateAutomationChecker) Pillar() checker.Pillar { return checker.PillarSecurity }
+func (c *DepUpdateAutomationChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *DepUpdateAutomationChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *DepUpdateAutomationChecker) Name() string           { return "Dependency Update Automation" }
 func (c *DepUpdateAutomationChecker) Description() string {

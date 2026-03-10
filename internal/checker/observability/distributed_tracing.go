@@ -10,7 +10,7 @@ import (
 type DistributedTracingChecker struct{}
 
 func (c *DistributedTracingChecker) ID() checker.CheckerID  { return "distributed_tracing" }
-func (c *DistributedTracingChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *DistributedTracingChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *DistributedTracingChecker) Level() checker.Level   { return checker.LevelStandardized }
 func (c *DistributedTracingChecker) Name() string           { return "Distributed Tracing" }
 func (c *DistributedTracingChecker) Description() string {

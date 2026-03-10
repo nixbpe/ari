@@ -10,7 +10,7 @@ import (
 type SecurityPolicyChecker struct{}
 
 func (c *SecurityPolicyChecker) ID() checker.CheckerID  { return "security_policy" }
-func (c *SecurityPolicyChecker) Pillar() checker.Pillar { return checker.PillarSecurity }
+func (c *SecurityPolicyChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *SecurityPolicyChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *SecurityPolicyChecker) Name() string           { return "Security Policy" }
 func (c *SecurityPolicyChecker) Description() string {

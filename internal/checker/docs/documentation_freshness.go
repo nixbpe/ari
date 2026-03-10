@@ -23,7 +23,7 @@ type DocumentationFreshnessChecker struct {
 }
 
 func (c *DocumentationFreshnessChecker) ID() checker.CheckerID  { return "documentation_freshness" }
-func (c *DocumentationFreshnessChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
+func (c *DocumentationFreshnessChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *DocumentationFreshnessChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *DocumentationFreshnessChecker) Name() string           { return "Documentation Freshness" }
 func (c *DocumentationFreshnessChecker) Description() string {

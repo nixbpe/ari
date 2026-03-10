@@ -56,41 +56,26 @@ func (l Level) String() string {
 	}
 }
 
-// Pillar represents one of the nine evaluation pillars
+// Pillar represents one of the four MECE evaluation pillars
 type Pillar int
 
 const (
-	PillarStyleValidation Pillar = iota
-	PillarBuildSystem
-	PillarTesting
-	PillarDocumentation
-	PillarDevEnvironment
-	PillarObservability
-	PillarSecurity
-	PillarTaskDiscovery
-	PillarProductAnalytics
+	PillarContextIntent Pillar = iota
+	PillarEnvInfra
+	PillarConstraints
+	PillarVerification
 )
 
 func (p Pillar) String() string {
 	switch p {
-	case PillarStyleValidation:
-		return "Style & Validation"
-	case PillarBuildSystem:
-		return "Build System"
-	case PillarTesting:
-		return "Testing"
-	case PillarDocumentation:
-		return "Documentation"
-	case PillarDevEnvironment:
-		return "Dev Environment"
-	case PillarObservability:
-		return "Debugging & Observability"
-	case PillarSecurity:
-		return "Security"
-	case PillarTaskDiscovery:
-		return "Task Discovery"
-	case PillarProductAnalytics:
-		return "Product & Analytics"
+	case PillarContextIntent:
+		return "Context & Intent"
+	case PillarEnvInfra:
+		return "Environment & Infra"
+	case PillarConstraints:
+		return "Constraints & Governance"
+	case PillarVerification:
+		return "Verification & Feedback"
 	default:
 		return "Unknown"
 	}

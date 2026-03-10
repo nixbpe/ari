@@ -345,8 +345,8 @@ func TestAllCheckersReturnObservabilityPillar(t *testing.T) {
 		&RunbooksDocumentedChecker{},
 	}
 	for _, c := range checkers {
-		if c.Pillar() != checker.PillarObservability {
-			t.Errorf("checker %s returned pillar %v, want PillarObservability", c.ID(), c.Pillar())
+		if c.Pillar() != checker.PillarVerification {
+			t.Errorf("checker %s returned pillar %v, want PillarVerification", c.ID(), c.Pillar())
 		}
 	}
 }

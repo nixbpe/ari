@@ -10,15 +10,10 @@ import (
 )
 
 var pillarOrder = []checker.Pillar{
-	checker.PillarStyleValidation,
-	checker.PillarBuildSystem,
-	checker.PillarTesting,
-	checker.PillarDocumentation,
-	checker.PillarDevEnvironment,
-	checker.PillarObservability,
-	checker.PillarSecurity,
-	checker.PillarTaskDiscovery,
-	checker.PillarProductAnalytics,
+	checker.PillarContextIntent,
+	checker.PillarEnvInfra,
+	checker.PillarConstraints,
+	checker.PillarVerification,
 }
 
 type ReportModel struct {

@@ -25,26 +25,26 @@ func makeTestReport() *reporter.Report {
 			Level:    checker.LevelStandardized,
 			PassRate: 0.85,
 			PillarScores: map[checker.Pillar]scorer.PillarScore{
-				checker.PillarStyleValidation: {
-					Pillar: checker.PillarStyleValidation,
+				checker.PillarConstraints: {
+					Pillar: checker.PillarConstraints,
 					Passed: 5,
 					Total:  6,
 					Rate:   5.0 / 6.0,
 				},
-				checker.PillarBuildSystem: {
-					Pillar: checker.PillarBuildSystem,
+				checker.PillarEnvInfra: {
+					Pillar: checker.PillarEnvInfra,
 					Passed: 4,
 					Total:  5,
 					Rate:   0.8,
 				},
-				checker.PillarTesting: {
-					Pillar: checker.PillarTesting,
+				checker.PillarVerification: {
+					Pillar: checker.PillarVerification,
 					Passed: 3,
 					Total:  4,
 					Rate:   0.75,
 				},
-				checker.PillarDocumentation: {
-					Pillar: checker.PillarDocumentation,
+				checker.PillarContextIntent: {
+					Pillar: checker.PillarContextIntent,
 					Passed: 5,
 					Total:  5,
 					Rate:   1.0,
@@ -92,7 +92,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "style-001",
 				Name:     "Formatter configured",
-				Pillar:   checker.PillarStyleValidation.String(),
+				Pillar:   checker.PillarConstraints.String(),
 				Level:    1,
 				Passed:   true,
 				Evidence: "prettier config found",
@@ -100,7 +100,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "build-001",
 				Name:     "Go modules present",
-				Pillar:   checker.PillarBuildSystem.String(),
+				Pillar:   checker.PillarEnvInfra.String(),
 				Level:    1,
 				Passed:   true,
 				Evidence: "go.mod found",
@@ -108,7 +108,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "test-001",
 				Name:     "Unit tests exist",
-				Pillar:   checker.PillarTesting.String(),
+				Pillar:   checker.PillarVerification.String(),
 				Level:    1,
 				Passed:   true,
 				Evidence: "found *_test.go files",
@@ -116,7 +116,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "docs-001",
 				Name:     "README present",
-				Pillar:   checker.PillarDocumentation.String(),
+				Pillar:   checker.PillarContextIntent.String(),
 				Level:    1,
 				Passed:   true,
 				Evidence: "README.md found",
@@ -124,7 +124,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:         "build-002",
 				Name:       "CI configuration present",
-				Pillar:     checker.PillarBuildSystem.String(),
+				Pillar:     checker.PillarEnvInfra.String(),
 				Level:      2,
 				Passed:     false,
 				Evidence:   "no .github/workflows",
@@ -133,7 +133,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:         "test-002",
 				Name:       "Test coverage tracked",
-				Pillar:     checker.PillarTesting.String(),
+				Pillar:     checker.PillarVerification.String(),
 				Level:      2,
 				Passed:     false,
 				Evidence:   "no coverage config",
@@ -142,7 +142,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "devenv-001",
 				Name:     "Env template present",
-				Pillar:   checker.PillarDevEnvironment.String(),
+				Pillar:   checker.PillarEnvInfra.String(),
 				Level:    1,
 				Passed:   true,
 				Evidence: ".env.example found",
@@ -150,7 +150,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "obs-001",
 				Name:     "Structured logging configured",
-				Pillar:   checker.PillarObservability.String(),
+				Pillar:   checker.PillarVerification.String(),
 				Level:    2,
 				Passed:   true,
 				Evidence: "zap found in go.mod",
@@ -158,7 +158,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "sec-001",
 				Name:     "Security policy present",
-				Pillar:   checker.PillarSecurity.String(),
+				Pillar:   checker.PillarConstraints.String(),
 				Level:    1,
 				Passed:   true,
 				Evidence: "SECURITY.md found",
@@ -166,7 +166,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "td-001",
 				Name:     "Contributing guide present",
-				Pillar:   checker.PillarTaskDiscovery.String(),
+				Pillar:   checker.PillarContextIntent.String(),
 				Level:    1,
 				Passed:   true,
 				Evidence: "CONTRIBUTING.md found",
@@ -174,7 +174,7 @@ func makeTestReport() *reporter.Report {
 			{
 				ID:       "analytics-001",
 				Name:     "Analytics SDK present",
-				Pillar:   checker.PillarProductAnalytics.String(),
+				Pillar:   checker.PillarContextIntent.String(),
 				Level:    2,
 				Passed:   false,
 				Evidence: "no analytics SDK found",
@@ -263,15 +263,10 @@ func TestHTMLReporterPillars(t *testing.T) {
 	html := renderHTML(t, makeTestReport())
 
 	pillars := []string{
-		"Style &amp; Validation",
-		"Build System",
-		"Testing",
-		"Documentation",
-		"Dev Environment",
-		"Debugging &amp; Observability",
-		"Security",
-		"Task Discovery",
-		"Product &amp; Analytics",
+		"Context &amp; Intent",
+		"Environment &amp; Infra",
+		"Constraints &amp; Governance",
+		"Verification &amp; Feedback",
 	}
 	for _, p := range pillars {
 		if !strings.Contains(html, p) {
@@ -322,7 +317,7 @@ func TestHTMLReporterSuggestions(t *testing.T) {
 			{
 				ID:       "fail-001",
 				Name:     "Missing CI workflow",
-				Pillar:   checker.PillarBuildSystem.String(),
+				Pillar:   checker.PillarEnvInfra.String(),
 				Level:    1,
 				Passed:   false,
 				Evidence: "no .github/workflows directory",
@@ -330,7 +325,7 @@ func TestHTMLReporterSuggestions(t *testing.T) {
 			{
 				ID:       "fail-002",
 				Name:     "Missing unit tests",
-				Pillar:   checker.PillarTesting.String(),
+				Pillar:   checker.PillarVerification.String(),
 				Level:    1,
 				Passed:   false,
 				Evidence: "no *_test.go files found",

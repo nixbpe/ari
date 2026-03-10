@@ -10,7 +10,7 @@ import (
 type DevcontainerChecker struct{}
 
 func (c *DevcontainerChecker) ID() checker.CheckerID  { return "devcontainer" }
-func (c *DevcontainerChecker) Pillar() checker.Pillar { return checker.PillarDevEnvironment }
+func (c *DevcontainerChecker) Pillar() checker.Pillar { return checker.PillarEnvInfra }
 func (c *DevcontainerChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *DevcontainerChecker) Name() string           { return "Dev Container" }
 func (c *DevcontainerChecker) Description() string {

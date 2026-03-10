@@ -12,7 +12,7 @@ import (
 type ReleaseNotesAutomationChecker struct{}
 
 func (c *ReleaseNotesAutomationChecker) ID() checker.CheckerID  { return "release_notes_automation" }
-func (c *ReleaseNotesAutomationChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *ReleaseNotesAutomationChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *ReleaseNotesAutomationChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *ReleaseNotesAutomationChecker) Name() string           { return "Release Notes Automation" }
 func (c *ReleaseNotesAutomationChecker) Description() string {

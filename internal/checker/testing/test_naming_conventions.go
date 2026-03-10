@@ -12,7 +12,7 @@ import (
 type TestNamingConventionsChecker struct{}
 
 func (c *TestNamingConventionsChecker) ID() checker.CheckerID  { return "test_naming_conventions" }
-func (c *TestNamingConventionsChecker) Pillar() checker.Pillar { return checker.PillarTesting }
+func (c *TestNamingConventionsChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *TestNamingConventionsChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *TestNamingConventionsChecker) Name() string           { return "Test Naming Conventions" }
 func (c *TestNamingConventionsChecker) Description() string {

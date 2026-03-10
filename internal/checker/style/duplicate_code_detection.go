@@ -13,7 +13,7 @@ import (
 type DuplicateCodeDetectionChecker struct{}
 
 func (c *DuplicateCodeDetectionChecker) ID() checker.CheckerID  { return "duplicate_code_detection" }
-func (c *DuplicateCodeDetectionChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *DuplicateCodeDetectionChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *DuplicateCodeDetectionChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *DuplicateCodeDetectionChecker) Name() string           { return "Duplicate Code Detection" }
 func (c *DuplicateCodeDetectionChecker) Description() string {

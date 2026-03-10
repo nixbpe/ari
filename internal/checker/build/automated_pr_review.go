@@ -12,7 +12,7 @@ import (
 type AutomatedPRReviewChecker struct{}
 
 func (c *AutomatedPRReviewChecker) ID() checker.CheckerID  { return "automated_pr_review" }
-func (c *AutomatedPRReviewChecker) Pillar() checker.Pillar { return checker.PillarBuildSystem }
+func (c *AutomatedPRReviewChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *AutomatedPRReviewChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *AutomatedPRReviewChecker) Name() string           { return "Automated PR Review" }
 func (c *AutomatedPRReviewChecker) Description() string {

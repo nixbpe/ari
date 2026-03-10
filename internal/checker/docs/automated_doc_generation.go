@@ -12,7 +12,7 @@ import (
 type AutomatedDocGenerationChecker struct{}
 
 func (c *AutomatedDocGenerationChecker) ID() checker.CheckerID  { return "automated_doc_generation" }
-func (c *AutomatedDocGenerationChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
+func (c *AutomatedDocGenerationChecker) Pillar() checker.Pillar { return checker.PillarContextIntent }
 func (c *AutomatedDocGenerationChecker) Level() checker.Level   { return checker.LevelOptimized }
 func (c *AutomatedDocGenerationChecker) Name() string           { return "Automated Documentation Generation" }
 func (c *AutomatedDocGenerationChecker) Description() string {

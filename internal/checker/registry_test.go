@@ -38,9 +38,9 @@ func TestRegistryRegisterAndGet(t *testing.T) {
 	reg := checker.NewDefaultRegistry()
 
 	checkers := []*mockChecker{
-		{id: "a", pillar: checker.PillarStyleValidation, level: checker.LevelFunctional, name: "A"},
-		{id: "b", pillar: checker.PillarBuildSystem, level: checker.LevelDocumented, name: "B"},
-		{id: "c", pillar: checker.PillarTesting, level: checker.LevelStandardized, name: "C"},
+		{id: "a", pillar: checker.PillarConstraints, level: checker.LevelFunctional, name: "A"},
+		{id: "b", pillar: checker.PillarEnvInfra, level: checker.LevelDocumented, name: "B"},
+		{id: "c", pillar: checker.PillarVerification, level: checker.LevelStandardized, name: "C"},
 	}
 
 	for _, ch := range checkers {
@@ -62,7 +62,7 @@ func TestRegistryRegisterAndGet(t *testing.T) {
 
 func TestRegistryDuplicateError(t *testing.T) {
 	reg := checker.NewDefaultRegistry()
-	ch := &mockChecker{id: "dup", pillar: checker.PillarTesting, level: checker.LevelFunctional, name: "Dup"}
+	ch := &mockChecker{id: "dup", pillar: checker.PillarVerification, level: checker.LevelFunctional, name: "Dup"}
 
 	if err := reg.Register(ch); err != nil {
 		t.Fatalf("first Register() error = %v", err)
@@ -76,11 +76,11 @@ func TestRegistryDuplicateError(t *testing.T) {
 func TestRegistryGetByPillar(t *testing.T) {
 	reg := checker.NewDefaultRegistry()
 
-	_ = reg.Register(&mockChecker{id: "style-1", pillar: checker.PillarStyleValidation, level: checker.LevelFunctional, name: "style-1"})
-	_ = reg.Register(&mockChecker{id: "build-1", pillar: checker.PillarBuildSystem, level: checker.LevelFunctional, name: "build-1"})
-	_ = reg.Register(&mockChecker{id: "style-2", pillar: checker.PillarStyleValidation, level: checker.LevelDocumented, name: "style-2"})
+	_ = reg.Register(&mockChecker{id: "style-1", pillar: checker.PillarConstraints, level: checker.LevelFunctional, name: "style-1"})
+	_ = reg.Register(&mockChecker{id: "build-1", pillar: checker.PillarEnvInfra, level: checker.LevelFunctional, name: "build-1"})
+	_ = reg.Register(&mockChecker{id: "style-2", pillar: checker.PillarConstraints, level: checker.LevelDocumented, name: "style-2"})
 
-	got := reg.GetByPillar(checker.PillarStyleValidation)
+	got := reg.GetByPillar(checker.PillarConstraints)
 	if len(got) != 2 {
 		t.Fatalf("GetByPillar() len = %d, want 2", len(got))
 	}
@@ -92,9 +92,9 @@ func TestRegistryGetByPillar(t *testing.T) {
 func TestRegistryGetByLevel(t *testing.T) {
 	reg := checker.NewDefaultRegistry()
 
-	_ = reg.Register(&mockChecker{id: "f1", pillar: checker.PillarStyleValidation, level: checker.LevelFunctional, name: "f1"})
-	_ = reg.Register(&mockChecker{id: "d1", pillar: checker.PillarTesting, level: checker.LevelDocumented, name: "d1"})
-	_ = reg.Register(&mockChecker{id: "f2", pillar: checker.PillarDocumentation, level: checker.LevelFunctional, name: "f2"})
+	_ = reg.Register(&mockChecker{id: "f1", pillar: checker.PillarConstraints, level: checker.LevelFunctional, name: "f1"})
+	_ = reg.Register(&mockChecker{id: "d1", pillar: checker.PillarVerification, level: checker.LevelDocumented, name: "d1"})
+	_ = reg.Register(&mockChecker{id: "f2", pillar: checker.PillarContextIntent, level: checker.LevelFunctional, name: "f2"})
 
 	got := reg.GetByLevel(checker.LevelFunctional)
 	if len(got) != 2 {
@@ -108,9 +108,9 @@ func TestRegistryGetByLevel(t *testing.T) {
 func TestRegistryAll(t *testing.T) {
 	reg := checker.NewDefaultRegistry()
 
-	_ = reg.Register(&mockChecker{id: "c", pillar: checker.PillarTesting, level: checker.LevelFunctional, name: "c"})
-	_ = reg.Register(&mockChecker{id: "a", pillar: checker.PillarTesting, level: checker.LevelFunctional, name: "a"})
-	_ = reg.Register(&mockChecker{id: "b", pillar: checker.PillarTesting, level: checker.LevelFunctional, name: "b"})
+	_ = reg.Register(&mockChecker{id: "c", pillar: checker.PillarVerification, level: checker.LevelFunctional, name: "c"})
+	_ = reg.Register(&mockChecker{id: "a", pillar: checker.PillarVerification, level: checker.LevelFunctional, name: "a"})
+	_ = reg.Register(&mockChecker{id: "b", pillar: checker.PillarVerification, level: checker.LevelFunctional, name: "b"})
 
 	all := reg.All()
 	if len(all) != 3 {

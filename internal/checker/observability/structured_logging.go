@@ -10,7 +10,7 @@ import (
 type StructuredLoggingChecker struct{}
 
 func (c *StructuredLoggingChecker) ID() checker.CheckerID  { return "structured_logging" }
-func (c *StructuredLoggingChecker) Pillar() checker.Pillar { return checker.PillarObservability }
+func (c *StructuredLoggingChecker) Pillar() checker.Pillar { return checker.PillarVerification }
 func (c *StructuredLoggingChecker) Level() checker.Level   { return checker.LevelDocumented }
 func (c *StructuredLoggingChecker) Name() string           { return "Structured Logging" }
 func (c *StructuredLoggingChecker) Description() string {

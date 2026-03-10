@@ -10,7 +10,7 @@ import (
 type TypeCheckChecker struct{}
 
 func (c *TypeCheckChecker) ID() checker.CheckerID  { return "type_check" }
-func (c *TypeCheckChecker) Pillar() checker.Pillar { return checker.PillarStyleValidation }
+func (c *TypeCheckChecker) Pillar() checker.Pillar { return checker.PillarConstraints }
 func (c *TypeCheckChecker) Level() checker.Level   { return checker.LevelFunctional }
 func (c *TypeCheckChecker) Name() string           { return "Type Checking" }
 func (c *TypeCheckChecker) Description() string {
