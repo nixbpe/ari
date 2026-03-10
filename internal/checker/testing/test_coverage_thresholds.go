@@ -80,12 +80,6 @@ func extractThresholdFromYAML(content []byte) (int, bool) {
 }
 
 func checkGoCoverageThreshold(repo fs.FS) (bool, string) {
-	if content, err := fs.ReadFile(repo, ".testcoverage.yml"); err == nil {
-		if v, ok := extractThresholdFromYAML(content); ok && v >= 80 {
-			return true, fmt.Sprintf("Found .testcoverage.yml with %d%% coverage threshold", v)
-		}
-	}
-
 	for _, pattern := range []string{".github/workflows/*.yml", ".github/workflows/*.yaml"} {
 		workflows, _ := fs.Glob(repo, pattern)
 		for _, wf := range workflows {
@@ -95,18 +89,20 @@ func checkGoCoverageThreshold(repo fs.FS) (bool, string) {
 			}
 			if m := reCLIThreshold.FindSubmatch(content); len(m) > 1 {
 				if v, err := strconv.Atoi(string(m[1])); err == nil && v >= 80 {
-					return true, fmt.Sprintf("Found %d%% coverage threshold in CI workflow %s", v, wf)
+					return true, fmt.Sprintf("Found %d%% coverage threshold enforced in CI %s", v, wf)
+				}
+			}
+			if bytes.Contains(content, []byte("go-test-coverage")) {
+				cfg, err := fs.ReadFile(repo, ".testcoverage.yml")
+				if err != nil {
+					continue
+				}
+				if v, ok := extractThresholdFromYAML(cfg); ok && v >= 80 {
+					return true, fmt.Sprintf("Found go-test-coverage enforcing %d%% threshold via .testcoverage.yml in CI %s", v, wf)
 				}
 			}
 		}
 	}
-
-	if content, err := fs.ReadFile(repo, "Makefile"); err == nil {
-		if bytes.Contains(content, []byte("-coverprofile")) && bytes.Contains(content, []byte("threshold")) {
-			return true, "Found coverage threshold configuration in Makefile"
-		}
-	}
-
 	return false, ""
 }
 
