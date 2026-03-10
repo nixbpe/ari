@@ -7,9 +7,12 @@ import (
 	"io/fs"
 
 	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/llm"
 )
 
-type ReadmeChecker struct{}
+type ReadmeChecker struct {
+	Evaluator llm.Evaluator
+}
 
 func (c *ReadmeChecker) ID() checker.CheckerID  { return "readme" }
 func (c *ReadmeChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
@@ -30,35 +33,65 @@ func (c *ReadmeChecker) Check(ctx context.Context, repo fs.FS, lang checker.Lang
 		Name:       c.Name(),
 		Level:      c.Level(),
 		Pillar:     c.Pillar(),
-		Mode:       "rule-based",
 		Suggestion: c.Suggestion(),
 	}
 
+	passed, evidence, readmeContent := c.ruleCheck(repo)
+
+	if c.Evaluator == nil || readmeContent == "" {
+		result.Passed = passed
+		result.Evidence = evidence
+		result.Mode = "rule-based"
+		return result, nil
+	}
+
+	prompt := fmt.Sprintf(
+		"Evaluate the quality of this README for a %s project.\n"+
+			"Rule-based finding: %s\nREADME content (truncated):\n%s\n\n"+
+			"Does this README provide a meaningful project description, installation, and usage instructions?\n"+
+			`Respond with JSON only: {"passed": bool, "evidence": "brief explanation", "confidence": 0.0}`,
+		lang.String(), evidence, readmeContent,
+	)
+	evalResult, err := c.Evaluator.Evaluate(ctx, prompt)
+	if err != nil || evalResult == nil {
+		result.Passed = passed
+		result.Evidence = evidence
+		result.Mode = "rule-based"
+		return result, nil
+	}
+
+	result.Passed = evalResult.Passed
+	result.Evidence = evalResult.Evidence
+	result.Mode = evalResult.Mode
+	if result.Mode == "" {
+		result.Mode = "llm"
+	}
+	return result, nil
+}
+
+func (c *ReadmeChecker) ruleCheck(repo fs.FS) (bool, string, string) {
 	for _, name := range readmeCandidates {
 		data, err := fs.ReadFile(repo, name)
 		if err != nil {
 			continue
 		}
 
+		content := string(data)
+		if len(content) > 4000 {
+			content = content[:4000]
+		}
+
 		if len(data) < 50 {
-			result.Passed = false
-			result.Evidence = fmt.Sprintf("%s exists but has insufficient content", name)
-			return result, nil
+			return false, fmt.Sprintf("%s exists but has insufficient content", name), content
 		}
 
 		hasHeading := bytes.Contains(data, []byte("#")) || bytes.Contains(data, []byte("====="))
 		if !hasHeading {
-			result.Passed = false
-			result.Evidence = fmt.Sprintf("%s exists but has insufficient content", name)
-			return result, nil
+			return false, fmt.Sprintf("%s exists but has insufficient content", name), content
 		}
 
-		result.Passed = true
-		result.Evidence = fmt.Sprintf("Found %s (%d bytes) with headings", name, len(data))
-		return result, nil
+		return true, fmt.Sprintf("Found %s (%d bytes) with headings", name, len(data)), content
 	}
 
-	result.Passed = false
-	result.Evidence = "No README found"
-	return result, nil
+	return false, "No README found", ""
 }

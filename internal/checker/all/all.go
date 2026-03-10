@@ -27,7 +27,7 @@ func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 	mustRegister(r, &style.TechDebtTrackingChecker{})
 
 	// Build System — 13 checkers
-	mustRegister(r, &build.BuildCmdDocChecker{})
+	mustRegister(r, &build.BuildCmdDocChecker{Evaluator: eval})
 	mustRegister(r, &build.SingleCommandSetupChecker{})
 	mustRegister(r, &build.DepsPinnedChecker{})
 	mustRegister(r, &build.FastCIFeedbackChecker{})
@@ -52,7 +52,7 @@ func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 	mustRegister(r, &checktesting.TestPerformanceTrackingChecker{})
 
 	// Documentation — 7 checkers
-	mustRegister(r, &docs.ReadmeChecker{})
+	mustRegister(r, &docs.ReadmeChecker{Evaluator: eval})
 	mustRegister(r, &docs.AgentsMdChecker{})
 	mustRegister(r, &docs.DocumentationFreshnessChecker{})
 	mustRegister(r, &docs.SkillsChecker{})
