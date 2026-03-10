@@ -139,6 +139,46 @@ func makeTestReport() *reporter.Report {
 				Evidence:   "no coverage config",
 				Suggestion: "Add coverage reporting",
 			},
+			{
+				ID:       "devenv-001",
+				Name:     "Env template present",
+				Pillar:   checker.PillarDevEnvironment.String(),
+				Level:    1,
+				Passed:   true,
+				Evidence: ".env.example found",
+			},
+			{
+				ID:       "obs-001",
+				Name:     "Structured logging configured",
+				Pillar:   checker.PillarObservability.String(),
+				Level:    2,
+				Passed:   true,
+				Evidence: "zap found in go.mod",
+			},
+			{
+				ID:       "sec-001",
+				Name:     "Security policy present",
+				Pillar:   checker.PillarSecurity.String(),
+				Level:    1,
+				Passed:   true,
+				Evidence: "SECURITY.md found",
+			},
+			{
+				ID:       "td-001",
+				Name:     "Contributing guide present",
+				Pillar:   checker.PillarTaskDiscovery.String(),
+				Level:    1,
+				Passed:   true,
+				Evidence: "CONTRIBUTING.md found",
+			},
+			{
+				ID:       "analytics-001",
+				Name:     "Analytics SDK present",
+				Pillar:   checker.PillarProductAnalytics.String(),
+				Level:    2,
+				Passed:   false,
+				Evidence: "no analytics SDK found",
+			},
 		},
 		Suggestions: []reporter.Suggestion{
 			{
@@ -219,16 +259,19 @@ func TestHTMLReporterLevel(t *testing.T) {
 	}
 }
 
-// TestHTMLReporterPillars verifies all 4 pillar names appear in the HTML output.
 func TestHTMLReporterPillars(t *testing.T) {
 	html := renderHTML(t, makeTestReport())
 
-	// "Style & Validation" is HTML-escaped to "Style &amp; Validation" by html/template.
 	pillars := []string{
 		"Style &amp; Validation",
 		"Build System",
 		"Testing",
 		"Documentation",
+		"Dev Environment",
+		"Debugging &amp; Observability",
+		"Security",
+		"Task Discovery",
+		"Product &amp; Analytics",
 	}
 	for _, p := range pillars {
 		if !strings.Contains(html, p) {

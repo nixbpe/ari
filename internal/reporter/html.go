@@ -122,6 +122,11 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 				checker.PillarBuildSystem,
 				checker.PillarTesting,
 				checker.PillarDocumentation,
+				checker.PillarDevEnvironment,
+				checker.PillarObservability,
+				checker.PillarSecurity,
+				checker.PillarTaskDiscovery,
+				checker.PillarProductAnalytics,
 			}
 			result := make([]scorer.PillarScore, 0, len(ordered))
 			for _, p := range ordered {
@@ -199,12 +204,22 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 				"Build System",
 				"Testing",
 				"Documentation",
+				"Dev Environment",
+				"Debugging & Observability",
+				"Security",
+				"Task Discovery",
+				"Product & Analytics",
 			}
 			icons := map[string]string{
-				"Style & Validation": "\u2728",
-				"Build System":       "\u2699\ufe0f",
-				"Testing":            "\u2705",
-				"Documentation":      "\U0001F4D6",
+				"Style & Validation":        "\u2728",
+				"Build System":              "\u2699\ufe0f",
+				"Testing":                   "\u2705",
+				"Documentation":             "\U0001F4D6",
+				"Dev Environment":           "\U0001F527",
+				"Debugging & Observability": "\U0001F50D",
+				"Security":                  "\U0001F512",
+				"Task Discovery":            "\U0001F4CB",
+				"Product & Analytics":       "\U0001F4CA",
 			}
 
 			grouped := make(map[string][]CriterionReport)
@@ -266,6 +281,16 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 				return "\u2705"
 			case checker.PillarDocumentation:
 				return "\U0001F4D6"
+			case checker.PillarDevEnvironment:
+				return "\U0001F527"
+			case checker.PillarObservability:
+				return "\U0001F50D"
+			case checker.PillarSecurity:
+				return "\U0001F512"
+			case checker.PillarTaskDiscovery:
+				return "\U0001F4CB"
+			case checker.PillarProductAnalytics:
+				return "\U0001F4CA"
 			default:
 				return "\u25CF"
 			}

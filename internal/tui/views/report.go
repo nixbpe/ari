@@ -14,6 +14,11 @@ var pillarOrder = []checker.Pillar{
 	checker.PillarBuildSystem,
 	checker.PillarTesting,
 	checker.PillarDocumentation,
+	checker.PillarDevEnvironment,
+	checker.PillarObservability,
+	checker.PillarSecurity,
+	checker.PillarTaskDiscovery,
+	checker.PillarProductAnalytics,
 }
 
 type ReportModel struct {
