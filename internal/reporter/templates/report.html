@@ -7,45 +7,46 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: #1a1a1a;
-  background: #f8f9fa;
+  color: #eee;
+  background: #020202;
   padding: 24px;
 }
 .container { max-width: 1400px; margin: 0 auto; }
-h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
-h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #333; }
-.meta { color: #666; font-size: 0.85rem; margin-bottom: 4px; }
-.meta code { background: #f0f0f0; padding: 1px 5px; border-radius: 3px; font-size: 0.8rem; }
+h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; color: #eee; }
+h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #d6d3d2; }
+.meta { color: #8a8380; font-size: 0.85rem; margin-bottom: 4px; }
+.meta strong { color: #a49d9a; }
+.meta code { background: #1f1d1c; padding: 1px 5px; border-radius: 4px; font-size: 0.8rem; color: #d6d3d2; }
 .card {
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
+  background: #101010;
+  border: 1px solid #2e2c2b;
+  border-radius: 12px;
   padding: 20px 24px;
   margin-bottom: 20px;
 }
 .score-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
 .level-badge {
   display: inline-block;
-  background: #9e9e9e;
-  color: #fff;
-  border-radius: 6px;
+  background: #5c5855;
+  color: #eee;
+  border-radius: 8px;
   padding: 6px 14px;
   font-size: 1rem;
   font-weight: 700;
   white-space: nowrap;
 }
-.level-badge.l1 { background: #ef6c00; }
-.level-badge.l2 { background: #f9a825; color: #1a1a1a; }
-.level-badge.l3 { background: #2e7d32; }
-.level-badge.l4 { background: #1565c0; }
-.level-badge.l5 { background: #6a1b9a; }
-.pass-rate-label { font-size: 1.6rem; font-weight: 700; }
-.pass-rate-sub { color: #666; font-size: 0.85rem; }
-.progress-bar-wrap { background: #e8e8e8; border-radius: 4px; height: 8px; margin-top: 12px; }
-.progress-bar { height: 8px; border-radius: 4px; background: #2e7d32; }
+.level-badge.l1 { background: #ef6f2e; }
+.level-badge.l2 { background: #edb200; color: #020202; }
+.level-badge.l3 { background: #00c758; color: #020202; }
+.level-badge.l4 { background: #3080ff; }
+.level-badge.l5 { background: #a855f7; }
+.pass-rate-label { font-size: 1.6rem; font-weight: 700; color: #eee; }
+.pass-rate-sub { color: #8a8380; font-size: 0.85rem; }
+.progress-bar-wrap { background: #2e2c2b; border-radius: 4px; height: 8px; margin-top: 12px; }
+.progress-bar { height: 8px; border-radius: 4px; background: #00bb7f; }
 table { width: 100%; border-collapse: collapse; }
 th {
   text-align: left;
@@ -54,19 +55,19 @@ th {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #555;
-  border-bottom: 2px solid #e0e0e0;
+  color: #8a8380;
+  border-bottom: 2px solid #3d3a39;
 }
-td { padding: 8px 10px; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; vertical-align: top; }
+td { padding: 8px 10px; border-bottom: 1px solid #2e2c2b; font-size: 0.9rem; vertical-align: top; color: #d6d3d2; }
 tr:last-child td { border-bottom: none; }
-tr:hover td { background: #fafafa; }
-.status-pass { color: #2e7d32; font-weight: 700; }
-.status-fail { color: #c62828; font-weight: 700; }
-.status-skip { color: #9e9e9e; }
-.achieved-yes { color: #2e7d32; font-weight: 600; }
-.achieved-no { color: #9e9e9e; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+.status-pass { color: #00c758; font-weight: 700; }
+.status-fail { color: #fb2c36; font-weight: 700; }
+.status-skip { color: #5c5855; }
+.achieved-yes { color: #00c758; font-weight: 600; }
+.achieved-no { color: #5c5855; }
 .mini-bar-wrap {
-  background: #eee;
+  background: #2e2c2b;
   border-radius: 3px;
   height: 5px;
   width: 80px;
@@ -74,11 +75,11 @@ tr:hover td { background: #fafafa; }
   vertical-align: middle;
   margin-right: 6px;
 }
-.mini-bar { height: 5px; border-radius: 3px; background: #2e7d32; }
+.mini-bar { height: 5px; border-radius: 3px; background: #00c758; }
 .criteria-id {
-  font-family: ui-monospace, monospace;
+  font-family: ui-monospace, 'Geist Mono', monospace;
   font-size: 0.78rem;
-  color: #666;
+  color: #8a8380;
   white-space: nowrap;
 }
 .mode-badge {
@@ -89,20 +90,20 @@ tr:hover td { background: #fafafa; }
   border-radius: 10px;
   white-space: nowrap;
 }
-.mode-rule { background: #e8f5e9; color: #2e7d32; }
-.mode-llm { background: #e3f2fd; color: #1565c0; }
-.mode-fallback { background: #fff3e0; color: #ef6c00; }
+.mode-rule { background: #00c75833; color: #00c758; }
+.mode-llm { background: #3080ff33; color: #3080ff; }
+.mode-fallback { background: #ef6f2e1a; color: #ef6f2e; }
 .suggestion {
   padding: 10px 14px;
-  border-left: 3px solid #ccc;
+  border-left: 3px solid #3d3a39;
   margin-bottom: 10px;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 6px 6px 0;
 }
-.suggestion.high { border-color: #c62828; background: #fff8f8; }
-.suggestion.medium { border-color: #ef6c00; background: #fff9f5; }
-.suggestion.low { border-color: #1976d2; background: #f5f9ff; }
-.suggestion-title { font-weight: 600; margin-bottom: 2px; }
-.suggestion-desc { color: #555; font-size: 0.88rem; }
+.suggestion.high { border-color: #fb2c36; background: #fb2c3610; }
+.suggestion.medium { border-color: #ef6f2e; background: #ef6f2e10; }
+.suggestion.low { border-color: #3080ff; background: #3080ff10; }
+.suggestion-title { font-weight: 600; margin-bottom: 2px; color: #d6d3d2; }
+.suggestion-desc { color: #a49d9a; font-size: 0.88rem; }
 .priority-badge {
   display: inline-block;
   font-size: 0.7rem;
@@ -113,13 +114,13 @@ tr:hover td { background: #fafafa; }
   vertical-align: middle;
   text-transform: uppercase;
 }
-.priority-high { background: #fde8e8; color: #c62828; }
-.priority-medium { background: #fde8d8; color: #bf5000; }
-.priority-low { background: #e3eeff; color: #1565c0; }
+.priority-high { background: #fb2c3620; color: #fb2c36; }
+.priority-medium { background: #ef6f2e20; color: #ef6f2e; }
+.priority-low { background: #3080ff20; color: #3080ff; }
 .evidence {
   font-size: 0.82rem;
-  color: #444;
-  font-family: ui-monospace, monospace;
+  color: #a49d9a;
+  font-family: ui-monospace, 'Geist Mono', monospace;
   word-break: break-word;
   white-space: pre-wrap;
   line-height: 1.4;
@@ -127,18 +128,18 @@ tr:hover td { background: #fafafa; }
 .suggestion-inline {
   margin-top: 6px;
   padding: 6px 10px;
-  background: #fff8f0;
-  border-left: 3px solid #ef6c00;
-  border-radius: 0 4px 4px 0;
+  background: #ef6f2e10;
+  border-left: 3px solid #ef6f2e;
+  border-radius: 0 6px 6px 0;
   font-size: 0.82rem;
-  color: #555;
+  color: #a49d9a;
   font-family: system-ui, sans-serif;
   white-space: normal;
 }
-tr.row-fail td { background: #fff8f8; }
-tr.row-fail:hover td { background: #fff0f0; }
-tr.row-skip td { background: #fafafa; }
-tr.row-skip:hover td { background: #f5f5f5; }
+tr.row-fail td { background: #fb2c3608; }
+tr.row-fail:hover td { background: #fb2c3610; }
+tr.row-skip td { background: rgba(255,255,255,0.01); }
+tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
 .stats-row {
   display: flex;
   gap: 20px;
@@ -150,20 +151,173 @@ tr.row-skip:hover td { background: #f5f5f5; }
   align-items: center;
   gap: 6px;
   font-size: 0.85rem;
-  color: #555;
+  color: #8a8380;
 }
 .stat-count { font-weight: 700; font-size: 1rem; }
-.stat-pass { color: #2e7d32; }
-.stat-fail { color: #c62828; }
-.stat-skip { color: #9e9e9e; }
-.empty-note { color: #999; font-style: italic; padding: 12px 0; }
+.stat-pass { color: #00c758; }
+.stat-fail { color: #fb2c36; }
+.stat-skip { color: #5c5855; }
+.level-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-top: 24px;
+}
+.level-card {
+  text-align: center;
+  padding: 18px 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #2e2c2b;
+  background: #1f1d1c;
+  transition: box-shadow 0.15s;
+}
+.level-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+.level-card.lc-achieved { border-color: #00c75880; background: #00c7580a; }
+.level-card-num {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #5c5855;
+  margin-bottom: 10px;
+}
+.lc-achieved .level-card-num { color: #a49d9a; }
+.level-card-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 12px;
+}
+.level-card-inner {
+  background: #1f1d1c;
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #eee;
+}
+.level-card-name {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: #d6d3d2;
+  margin-bottom: 4px;
+}
+.level-card-count {
+  font-size: 0.8rem;
+  color: #5c5855;
+  margin-bottom: 6px;
+}
+.level-card-status { font-size: 0.78rem; }
+.level-card-status .achieved-yes { font-size: 0.78rem; }
+.level-card-status .achieved-no { font-size: 0.78rem; }
+.threshold-note {
+  text-align: center;
+  color: #5c5855;
+  font-size: 0.78rem;
+  margin-top: 10px;
+}
+.pillar-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+.pillar-card {
+  padding: 18px 20px;
+  border-radius: 12px;
+  border: 1px solid #2e2c2b;
+  background: #1f1d1c;
+  transition: box-shadow 0.15s;
+}
+.pillar-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+.pillar-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.pillar-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pillar-card-icon { font-size: 1.3rem; }
+.pillar-card-name { font-weight: 600; font-size: 0.95rem; color: #d6d3d2; }
+.pillar-card-pct { font-weight: 700; font-size: 1.3rem; color: #eee; }
+.pillar-card-bar-wrap {
+  background: #2e2c2b;
+  border-radius: 5px;
+  height: 10px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.pillar-card-bar {
+  height: 10px;
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+.pillar-card-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+  color: #5c5855;
+}
+.pillar-card-counts { font-size: 0.82rem; color: #5c5855; }
+.pillar-card-status { font-size: 0.78rem; font-weight: 600; }
+.pillar-card-status.ps-good { color: #2e7d32; }
+.pillar-card-status.ps-warn { color: #ef6c00; }
+.pillar-card-status.ps-low { color: #c62828; }
+.empty-note { color: #5c5855; font-style: italic; padding: 12px 0; }
+.tab-list {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #2e2c2b;
+  margin-bottom: 0;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  color: #8a8380;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.15s, border-color 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: #d6d3d2; }
+.tab-btn.active { color: #eee; border-bottom-color: #3080ff; }
+.tab-btn-icon { font-size: 1rem; }
+.tab-btn-count {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #5c5855;
+  background: #2e2c2b;
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+.tab-btn.active .tab-btn-count { background: #3080ff22; color: #3080ff; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
 footer {
-  color: #999;
+  color: #5c5855;
   font-size: 0.78rem;
   text-align: center;
   margin-top: 32px;
   padding-top: 16px;
-  border-top: 1px solid #e0e0e0;
+  border-top: 1px solid #2e2c2b;
 }
 </style>
 </head>
@@ -198,38 +352,23 @@ footer {
       <div class="stat-item"><span class="stat-count stat-skip">{{.CriteriaResults | countSkipped}}</span> skipped</div>
     </div>
     {{end}}
-  </div>
-
-  <!-- Level Progression -->
-  <div class="card">
-    <h2>Level Progression</h2>
     {{if .Score}}
-    <table>
-      <thead>
-        <tr>
-          <th>Level</th>
-          <th>Passed / Total</th>
-          <th>Pass Rate</th>
-          <th>Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{range .Score.LevelScores | sortedLevelScores}}
-        <tr>
-          <td><strong>L{{.Level}} &#8212; {{.Level | levelName}}</strong></td>
-          <td>{{.Passed}} / {{.Total}}</td>
-          <td>
-            <span class="mini-bar-wrap"><span class="mini-bar" style="{{.Rate | barStyle}}"></span></span>{{.Rate | fmtPercent}}
-          </td>
-          <td>
-            {{if .Achieved}}<span class="achieved-yes">&#10003; Achieved</span>{{else}}<span class="achieved-no">Not Achieved</span>{{end}}
-          </td>
-        </tr>
-        {{end}}
-      </tbody>
-    </table>
-    {{else}}
-    <p class="empty-note">No score data available.</p>
+    <div class="level-cards">
+      {{range .Score.LevelScores | sortedLevelScores}}
+      <div class="level-card lc-l{{.Level | levelNum}}{{if .Achieved}} lc-achieved{{end}}">
+        <div class="level-card-num">Level {{.Level | levelNum}}</div>
+        <div class="level-card-circle" style="{{circleStyle .Level .Rate}}">
+          <span class="level-card-inner">{{.Rate | fmtPercent}}</span>
+        </div>
+        <div class="level-card-name">{{.Level | levelName}}</div>
+        <div class="level-card-count">{{.Passed}} / {{.Total}} passed</div>
+        <div class="level-card-status">
+          {{if .Achieved}}<span class="achieved-yes">&#10003; Achieved</span>{{else}}<span class="achieved-no">Not yet</span>{{end}}
+        </div>
+      </div>
+      {{end}}
+    </div>
+    <p class="threshold-note">&#8226; Requires &#8805;80% pass rate at each level to advance</p>
     {{end}}
   </div>
 
@@ -237,28 +376,25 @@ footer {
   <div class="card">
     <h2>Pillar Breakdown</h2>
     {{if .Score}}
-    <table>
-      <thead>
-        <tr>
-          <th>Pillar</th>
-          <th>Passed</th>
-          <th>Total</th>
-          <th>Pass Rate</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{range .Score.PillarScores | sortedPillarScores}}
-        <tr>
-          <td><strong>{{.Pillar}}</strong></td>
-          <td>{{.Passed}}</td>
-          <td>{{.Total}}</td>
-          <td>
-            <span class="mini-bar-wrap"><span class="mini-bar" style="{{.Rate | barStyle}}"></span></span>{{.Rate | fmtPercent}}
-          </td>
-        </tr>
-        {{end}}
-      </tbody>
-    </table>
+    <div class="pillar-cards">
+      {{range .Score.PillarScores | sortedPillarScores}}
+      <div class="pillar-card">
+        <div class="pillar-card-header">
+          <div class="pillar-card-title">
+            <span class="pillar-card-icon">{{.Pillar | pillarIcon}}</span>
+            <span class="pillar-card-name">{{.Pillar}}</span>
+          </div>
+          <span class="pillar-card-pct">{{.Rate | fmtPercent}}</span>
+        </div>
+        <div class="pillar-card-bar-wrap">
+          <div class="pillar-card-bar" style="{{.Rate | pillarBarStyle}}"></div>
+        </div>
+        <div class="pillar-card-detail">
+          <span class="pillar-card-counts">{{.Passed}} / {{.Total}} criteria passed</span>
+        </div>
+      </div>
+      {{end}}
+    </div>
     {{else}}
     <p class="empty-note">No pillar data available.</p>
     {{end}}
@@ -267,35 +403,47 @@ footer {
   <!-- Criteria Table -->
   <div class="card">
     <h2>Criteria Details</h2>
-    {{if .CriteriaResults}}
-    <table>
-      <thead>
-        <tr>
-          <th>Status</th>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Pillar</th>
-          <th>Level</th>
-          <th>Mode</th>
-          <th>Evidence / Detail</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{range .CriteriaResults | sortedCriteria}}
-        <tr class="{{if .Skipped}}row-skip{{else if not .Passed}}row-fail{{end}}">
-          <td>
-            {{if .Skipped}}<span class="status-skip">&#8630;</span>{{else if .Passed}}<span class="status-pass">&#10003;</span>{{else}}<span class="status-fail">&#10007;</span>{{end}}
-          </td>
-          <td><span class="criteria-id">{{.ID}}</span></td>
-          <td>{{.Name}}</td>
-          <td>{{.Pillar}}</td>
-          <td>L{{.Level}}</td>
-          <td>{{if .Mode}}<span class="mode-badge {{.Mode | modeClass}}">{{.Mode}}</span>{{end}}</td>
-          <td class="evidence">{{if .Skipped}}{{.SkipReason}}{{else}}{{.Evidence}}{{end}}{{if and (not .Passed) (not .Skipped) .Suggestion}}<div class="suggestion-inline">{{.Suggestion}}</div>{{end}}</td>
-        </tr>
+    {{$groups := .CriteriaResults | groupedCriteria}}
+    {{if $groups}}
+    <div class="tabs">
+      <div class="tab-list">
+        {{range $i, $g := $groups}}
+        <button class="tab-btn{{if eq $i 0}} active{{end}}" data-tab="pillar-{{$i}}">
+          <span class="tab-btn-icon">{{$g.Icon}}</span>{{$g.Name}}<span class="tab-btn-count">{{$g.Passed}}/{{$g.Total}}</span>
+        </button>
         {{end}}
-      </tbody>
-    </table>
+      </div>
+      {{range $i, $g := $groups}}
+      <div class="tab-content{{if eq $i 0}} active{{end}}" id="pillar-{{$i}}">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Level</th>
+              <th>Mode</th>
+              <th>Evidence / Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{range $g.Criteria}}
+            <tr class="{{if .Skipped}}row-skip{{else if not .Passed}}row-fail{{end}}">
+              <td>
+                {{if .Skipped}}<span class="status-skip">&#8630;</span>{{else if .Passed}}<span class="status-pass">&#10003;</span>{{else}}<span class="status-fail">&#10007;</span>{{end}}
+              </td>
+              <td><span class="criteria-id">{{.ID}}</span></td>
+              <td>{{.Name}}</td>
+              <td>L{{.Level}}</td>
+              <td>{{if .Mode}}<span class="mode-badge {{.Mode | modeClass}}">{{.Mode}}</span>{{end}}</td>
+              <td class="evidence">{{if .Skipped}}{{.SkipReason}}{{else}}{{.Evidence}}{{end}}{{if and (not .Passed) (not .Skipped) .Suggestion}}<div class="suggestion-inline">{{.Suggestion}}</div>{{end}}</td>
+            </tr>
+            {{end}}
+          </tbody>
+        </table>
+      </div>
+      {{end}}
+    </div>
     {{else}}
     <p class="empty-note">No criteria evaluated.</p>
     {{end}}
@@ -321,5 +469,16 @@ footer {
   <footer>Generated by ari v{{.AriVersion}} at {{.GeneratedAt | fmtDate}}</footer>
 
 </div>
+<script>
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var tabs=btn.closest('.tabs');
+    tabs.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active')});
+    tabs.querySelectorAll('.tab-content').forEach(function(c){c.classList.remove('active')});
+    btn.classList.add('active');
+    tabs.querySelector('#'+btn.getAttribute('data-tab')).classList.add('active');
+  });
+});
+</script>
 </body>
 </html>

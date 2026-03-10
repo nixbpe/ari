@@ -17,6 +17,15 @@ import (
 //go:embed templates/report.html
 var reportTemplate string
 
+// PillarCriteriaGroup holds criteria grouped by pillar for tabbed display.
+type PillarCriteriaGroup struct {
+	Name     string
+	Icon     string
+	Criteria []CriterionReport
+	Passed   int
+	Total    int
+}
+
 // HTMLReporter renders a report as a self-contained HTML file.
 // The template is embedded at compile time; no external CSS, JS, or fonts
 // are referenced — the output is fully self-contained.
@@ -183,6 +192,104 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 				}
 			}
 			return n
+		},
+		"groupedCriteria": func(criteria []CriterionReport) []PillarCriteriaGroup {
+			pillarOrder := []string{
+				"Style & Validation",
+				"Build System",
+				"Testing",
+				"Documentation",
+			}
+			icons := map[string]string{
+				"Style & Validation": "\u2728",
+				"Build System":       "\u2699\ufe0f",
+				"Testing":            "\u2705",
+				"Documentation":      "\U0001F4D6",
+			}
+
+			grouped := make(map[string][]CriterionReport)
+			for _, c := range criteria {
+				grouped[c.Pillar] = append(grouped[c.Pillar], c)
+			}
+
+			var result []PillarCriteriaGroup
+			for _, name := range pillarOrder {
+				crits, ok := grouped[name]
+				if !ok || len(crits) == 0 {
+					continue
+				}
+				sort.Slice(crits, func(i, j int) bool {
+					return crits[i].Level < crits[j].Level
+				})
+				passed := 0
+				for _, c := range crits {
+					if c.Passed && !c.Skipped {
+						passed++
+					}
+				}
+				result = append(result, PillarCriteriaGroup{
+					Name:     name,
+					Icon:     icons[name],
+					Criteria: crits,
+					Passed:   passed,
+					Total:    len(crits),
+				})
+			}
+			return result
+		},
+		"levelNum": func(l checker.Level) int {
+			return int(l)
+		},
+		"pillarBarStyle": func(rate float64) template.CSS {
+			pct := int(rate * 100)
+			if pct < 0 {
+				pct = 0
+			}
+			if pct > 100 {
+				pct = 100
+			}
+			color := "#fb2c36"
+			if pct >= 80 {
+				color = "#00c758"
+			} else if pct >= 50 {
+				color = "#ef6f2e"
+			}
+			return template.CSS(fmt.Sprintf("width:%d%%;background:%s", pct, color))
+		},
+		"pillarIcon": func(p checker.Pillar) string {
+			switch p {
+			case checker.PillarStyleValidation:
+				return "\u2728"
+			case checker.PillarBuildSystem:
+				return "\u2699\ufe0f"
+			case checker.PillarTesting:
+				return "\u2705"
+			case checker.PillarDocumentation:
+				return "\U0001F4D6"
+			default:
+				return "\u25CF"
+			}
+		},
+		"circleStyle": func(_ checker.Level, rate float64) template.CSS {
+			pct := int(rate * 100)
+			if pct < 0 {
+				pct = 0
+			}
+			if pct > 100 {
+				pct = 100
+			}
+			color := "#fb2c36"
+			if pct >= 80 {
+				color = "#00c758"
+			} else if pct >= 50 {
+				color = "#edb200"
+			} else if pct >= 25 {
+				color = "#ef6f2e"
+			}
+			return template.CSS(fmt.Sprintf(
+				"background: conic-gradient(%s 0%% %d%%, #2e2c2b %d%% 100%%)",
+				color, pct, pct,
+			))
 		},
 	}
 
