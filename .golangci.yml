@@ -10,6 +10,8 @@ linters:
     - govet
     - staticcheck
     - ineffassign
+    - gocyclo
+    - unused
   settings:
     errcheck:
       check-type-assertions: true
