@@ -10,7 +10,7 @@ import (
 )
 
 func TestLevel1Achieved(t *testing.T) {
-	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 7})
+	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 11})
 
 	score := scorer.New().Calculate(results)
 
@@ -24,7 +24,7 @@ func TestLevel1Achieved(t *testing.T) {
 }
 
 func TestLevel1Threshold(t *testing.T) {
-	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 6, failed: 1})
+	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 9, failed: 2})
 
 	score := scorer.New().Calculate(results)
 
@@ -32,13 +32,13 @@ func TestLevel1Threshold(t *testing.T) {
 		t.Fatalf("Level = %v, want %v", score.Level, checker.LevelFunctional)
 	}
 
-	if !nearlyEqual(score.LevelScores[checker.LevelFunctional].Rate, 6.0/7.0) {
-		t.Fatalf("L1 rate = %f, want %f", score.LevelScores[checker.LevelFunctional].Rate, 6.0/7.0)
+	if !nearlyEqual(score.LevelScores[checker.LevelFunctional].Rate, 9.0/11.0) {
+		t.Fatalf("L1 rate = %f, want %f", score.LevelScores[checker.LevelFunctional].Rate, 9.0/11.0)
 	}
 }
 
 func TestLevel1BelowThreshold(t *testing.T) {
-	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 5, failed: 2})
+	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 5, failed: 6})
 
 	score := scorer.New().Calculate(results)
 
@@ -49,8 +49,8 @@ func TestLevel1BelowThreshold(t *testing.T) {
 
 func TestLevel2Gated(t *testing.T) {
 	results := buildResults(
-		levelSpec{level: checker.LevelFunctional, passed: 7},
-		levelSpec{level: checker.LevelDocumented, passed: 7, failed: 1},
+		levelSpec{level: checker.LevelFunctional, passed: 11},
+		levelSpec{level: checker.LevelDocumented, passed: 14, failed: 3},
 	)
 
 	score := scorer.New().Calculate(results)
@@ -62,8 +62,8 @@ func TestLevel2Gated(t *testing.T) {
 
 func TestLevel2BlockedByL2Failure(t *testing.T) {
 	results := buildResults(
-		levelSpec{level: checker.LevelFunctional, passed: 7},
-		levelSpec{level: checker.LevelDocumented, passed: 5, failed: 3},
+		levelSpec{level: checker.LevelFunctional, passed: 11},
+		levelSpec{level: checker.LevelDocumented, passed: 5, failed: 12},
 	)
 
 	score := scorer.New().Calculate(results)
@@ -79,10 +79,10 @@ func TestLevel2BlockedByL2Failure(t *testing.T) {
 
 func TestLevel4Achieved(t *testing.T) {
 	results := buildResults(
-		levelSpec{level: checker.LevelFunctional, passed: 7},
-		levelSpec{level: checker.LevelDocumented, passed: 8},
-		levelSpec{level: checker.LevelStandardized, passed: 9},
-		levelSpec{level: checker.LevelOptimized, passed: 10, failed: 2},
+		levelSpec{level: checker.LevelFunctional, passed: 11},
+		levelSpec{level: checker.LevelDocumented, passed: 17},
+		levelSpec{level: checker.LevelStandardized, passed: 19},
+		levelSpec{level: checker.LevelOptimized, passed: 16, failed: 4},
 	)
 
 	score := scorer.New().Calculate(results)
@@ -93,7 +93,7 @@ func TestLevel4Achieved(t *testing.T) {
 }
 
 func TestSkippedExcluded(t *testing.T) {
-	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 5, failed: 1, skipped: 1})
+	results := buildResults(levelSpec{level: checker.LevelFunctional, passed: 9, failed: 1, skipped: 1})
 
 	score := scorer.New().Calculate(results)
 
@@ -102,12 +102,12 @@ func TestSkippedExcluded(t *testing.T) {
 	}
 
 	l1 := score.LevelScores[checker.LevelFunctional]
-	if l1.Total != 6 {
-		t.Fatalf("L1 total = %d, want 6", l1.Total)
+	if l1.Total != 10 {
+		t.Fatalf("L1 total = %d, want 10", l1.Total)
 	}
 
-	if !nearlyEqual(l1.Rate, 5.0/6.0) {
-		t.Fatalf("L1 rate = %f, want %f", l1.Rate, 5.0/6.0)
+	if !nearlyEqual(l1.Rate, 9.0/10.0) {
+		t.Fatalf("L1 rate = %f, want %f", l1.Rate, 9.0/10.0)
 	}
 }
 
@@ -125,11 +125,11 @@ func TestEmptyResults(t *testing.T) {
 
 func TestAllSkipped(t *testing.T) {
 	results := buildResults(
-		levelSpec{level: checker.LevelFunctional, skipped: 7},
-		levelSpec{level: checker.LevelDocumented, skipped: 8},
-		levelSpec{level: checker.LevelStandardized, skipped: 9},
-		levelSpec{level: checker.LevelOptimized, skipped: 12},
-		levelSpec{level: checker.LevelAutonomous, skipped: 4},
+		levelSpec{level: checker.LevelFunctional, skipped: 11},
+		levelSpec{level: checker.LevelDocumented, skipped: 17},
+		levelSpec{level: checker.LevelStandardized, skipped: 19},
+		levelSpec{level: checker.LevelOptimized, skipped: 20},
+		levelSpec{level: checker.LevelAutonomous, skipped: 5},
 	)
 
 	score := scorer.New().Calculate(results)
@@ -145,8 +145,8 @@ func TestAllSkipped(t *testing.T) {
 
 func TestGatedProgression(t *testing.T) {
 	results := buildResults(
-		levelSpec{level: checker.LevelFunctional, passed: 6, failed: 1},
-		levelSpec{level: checker.LevelDocumented, passed: 5, failed: 3},
+		levelSpec{level: checker.LevelFunctional, passed: 9, failed: 2},
+		levelSpec{level: checker.LevelDocumented, passed: 5, failed: 12},
 	)
 
 	score := scorer.New().Calculate(results)
@@ -218,6 +218,24 @@ func buildResults(specs ...levelSpec) []*checker.Result {
 	}
 
 	return results
+}
+
+func TestLevelCriterionCountsMatchRegistry(t *testing.T) {
+	// Verify that the sum of all level criterion counts equals 72 (total checkers)
+	counts := map[checker.Level]int{
+		checker.LevelFunctional:   11,
+		checker.LevelDocumented:   17,
+		checker.LevelStandardized: 19,
+		checker.LevelOptimized:    20,
+		checker.LevelAutonomous:   5,
+	}
+	total := 0
+	for _, c := range counts {
+		total += c
+	}
+	if total != 72 {
+		t.Errorf("total criterion count = %d, want 72", total)
+	}
 }
 
 func nearlyEqual(got, want float64) bool {

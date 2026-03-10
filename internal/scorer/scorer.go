@@ -5,11 +5,11 @@ import "github.com/nixbpe/ari/internal/checker"
 const passThreshold = 0.8
 
 var levelCriterionCounts = map[checker.Level]int{
-	checker.LevelFunctional:   7,
-	checker.LevelDocumented:   8,
-	checker.LevelStandardized: 9,
-	checker.LevelOptimized:    12,
-	checker.LevelAutonomous:   4,
+	checker.LevelFunctional:   11,
+	checker.LevelDocumented:   17,
+	checker.LevelStandardized: 19,
+	checker.LevelOptimized:    20,
+	checker.LevelAutonomous:   5,
 }
 
 type Scorer struct{}
