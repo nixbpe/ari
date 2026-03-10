@@ -10,19 +10,19 @@ body {
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: #eee;
-  background: #020202;
+  color: #5e5a58;
+  background: #b8b3b0;
   padding: 24px;
 }
 .container { max-width: 1400px; margin: 0 auto; }
-h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; color: #eee; }
-h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #d6d3d2; }
-.meta { color: #8a8380; font-size: 0.85rem; margin-bottom: 4px; }
-.meta strong { color: #a49d9a; }
-.meta code { background: #1f1d1c; padding: 1px 5px; border-radius: 4px; font-size: 0.8rem; color: #d6d3d2; }
+h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; color: #2a2726; }
+h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #433f3e; }
+.meta { color: #7a7573; font-size: 0.85rem; margin-bottom: 4px; }
+.meta strong { color: #5e5a58; }
+.meta code { background: #eceae8; padding: 1px 5px; border-radius: 4px; font-size: 0.8rem; color: #433f3e; }
 .card {
-  background: #101010;
-  border: 1px solid #2e2c2b;
+  background: #f5f3f2;
+  border: 1px solid #d1cecb;
   border-radius: 12px;
   padding: 20px 24px;
   margin-bottom: 20px;
@@ -30,8 +30,8 @@ h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #d6d3d2; }
 .score-header { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
 .level-badge {
   display: inline-block;
-  background: #5c5855;
-  color: #eee;
+  background: #9a9592;
+  color: #f5f3f2;
   border-radius: 8px;
   padding: 6px 14px;
   font-size: 1rem;
@@ -39,13 +39,13 @@ h2 { font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: #d6d3d2; }
   white-space: nowrap;
 }
 .level-badge.l1 { background: #ef6f2e; }
-.level-badge.l2 { background: #edb200; color: #020202; }
-.level-badge.l3 { background: #00c758; color: #020202; }
-.level-badge.l4 { background: #3080ff; }
-.level-badge.l5 { background: #a855f7; }
-.pass-rate-label { font-size: 1.6rem; font-weight: 700; color: #eee; }
-.pass-rate-sub { color: #8a8380; font-size: 0.85rem; }
-.progress-bar-wrap { background: #2e2c2b; border-radius: 4px; height: 8px; margin-top: 12px; }
+.level-badge.l2 { background: #edb200; color: #2a2726; }
+.level-badge.l3 { background: #00c758; color: #2a2726; }
+.level-badge.l4 { background: #3080ff; color: #fff; }
+.level-badge.l5 { background: #a855f7; color: #fff; }
+.pass-rate-label { font-size: 1.6rem; font-weight: 700; color: #2a2726; }
+.pass-rate-sub { color: #7a7573; font-size: 0.85rem; }
+.progress-bar-wrap { background: #d1cecb; border-radius: 4px; height: 8px; margin-top: 12px; }
 .progress-bar { height: 8px; border-radius: 4px; background: #00bb7f; }
 table { width: 100%; border-collapse: collapse; }
 th {
@@ -55,19 +55,19 @@ th {
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #8a8380;
-  border-bottom: 2px solid #3d3a39;
+  color: #7a7573;
+  border-bottom: 2px solid #d1cecb;
 }
-td { padding: 8px 10px; border-bottom: 1px solid #2e2c2b; font-size: 0.9rem; vertical-align: top; color: #d6d3d2; }
+td { padding: 8px 10px; border-bottom: 1px solid #e0deda; font-size: 0.9rem; vertical-align: top; color: #5e5a58; }
 tr:last-child td { border-bottom: none; }
-tr:hover td { background: rgba(255,255,255,0.02); }
-.status-pass { color: #00c758; font-weight: 700; }
-.status-fail { color: #fb2c36; font-weight: 700; }
-.status-skip { color: #5c5855; }
-.achieved-yes { color: #00c758; font-weight: 600; }
-.achieved-no { color: #5c5855; }
+tr:hover td { background: rgba(42,39,38,0.015); }
+.status-pass { color: #16a34a; font-weight: 700; }
+.status-fail { color: #dc2626; font-weight: 700; }
+.status-skip { color: #9a9592; }
+.achieved-yes { color: #16a34a; font-weight: 600; }
+.achieved-no { color: #9a9592; }
 .mini-bar-wrap {
-  background: #2e2c2b;
+  background: #d1cecb;
   border-radius: 3px;
   height: 5px;
   width: 80px;
@@ -75,11 +75,11 @@ tr:hover td { background: rgba(255,255,255,0.02); }
   vertical-align: middle;
   margin-right: 6px;
 }
-.mini-bar { height: 5px; border-radius: 3px; background: #00c758; }
+.mini-bar { height: 5px; border-radius: 3px; background: #16a34a; }
 .criteria-id {
   font-family: ui-monospace, 'Geist Mono', monospace;
   font-size: 0.78rem;
-  color: #8a8380;
+  color: #7a7573;
   white-space: nowrap;
 }
 .mode-badge {
@@ -90,20 +90,20 @@ tr:hover td { background: rgba(255,255,255,0.02); }
   border-radius: 10px;
   white-space: nowrap;
 }
-.mode-rule { background: #00c75833; color: #00c758; }
-.mode-llm { background: #3080ff33; color: #3080ff; }
-.mode-fallback { background: #ef6f2e1a; color: #ef6f2e; }
+.mode-rule { background: #16a34a18; color: #16a34a; }
+.mode-llm { background: #2563eb18; color: #2563eb; }
+.mode-fallback { background: #ea580c12; color: #ea580c; }
 .suggestion {
   padding: 10px 14px;
-  border-left: 3px solid #3d3a39;
+  border-left: 3px solid #d1cecb;
   margin-bottom: 10px;
   border-radius: 0 6px 6px 0;
 }
-.suggestion.high { border-color: #fb2c36; background: #fb2c3610; }
-.suggestion.medium { border-color: #ef6f2e; background: #ef6f2e10; }
-.suggestion.low { border-color: #3080ff; background: #3080ff10; }
-.suggestion-title { font-weight: 600; margin-bottom: 2px; color: #d6d3d2; }
-.suggestion-desc { color: #a49d9a; font-size: 0.88rem; }
+.suggestion.high { border-color: #dc2626; background: #dc26260a; }
+.suggestion.medium { border-color: #ea580c; background: #ea580c0a; }
+.suggestion.low { border-color: #2563eb; background: #2563eb0a; }
+.suggestion-title { font-weight: 600; margin-bottom: 2px; color: #433f3e; }
+.suggestion-desc { color: #7a7573; font-size: 0.88rem; }
 .priority-badge {
   display: inline-block;
   font-size: 0.7rem;
@@ -114,12 +114,12 @@ tr:hover td { background: rgba(255,255,255,0.02); }
   vertical-align: middle;
   text-transform: uppercase;
 }
-.priority-high { background: #fb2c3620; color: #fb2c36; }
-.priority-medium { background: #ef6f2e20; color: #ef6f2e; }
-.priority-low { background: #3080ff20; color: #3080ff; }
+.priority-high { background: #dc262612; color: #dc2626; }
+.priority-medium { background: #ea580c12; color: #ea580c; }
+.priority-low { background: #2563eb12; color: #2563eb; }
 .evidence {
   font-size: 0.82rem;
-  color: #a49d9a;
+  color: #7a7573;
   font-family: ui-monospace, 'Geist Mono', monospace;
   word-break: break-word;
   white-space: pre-wrap;
@@ -128,18 +128,18 @@ tr:hover td { background: rgba(255,255,255,0.02); }
 .suggestion-inline {
   margin-top: 6px;
   padding: 6px 10px;
-  background: #ef6f2e10;
-  border-left: 3px solid #ef6f2e;
+  background: #ea580c08;
+  border-left: 3px solid #ea580c;
   border-radius: 0 6px 6px 0;
   font-size: 0.82rem;
-  color: #a49d9a;
+  color: #7a7573;
   font-family: system-ui, sans-serif;
   white-space: normal;
 }
-tr.row-fail td { background: #fb2c3608; }
-tr.row-fail:hover td { background: #fb2c3610; }
-tr.row-skip td { background: rgba(255,255,255,0.01); }
-tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
+tr.row-fail td { background: #dc26260a; }
+tr.row-fail:hover td { background: #dc262610; }
+tr.row-skip td { background: rgba(42,39,38,0.01); }
+tr.row-skip:hover td { background: rgba(42,39,38,0.02); }
 .stats-row {
   display: flex;
   gap: 20px;
@@ -151,12 +151,12 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
   align-items: center;
   gap: 6px;
   font-size: 0.85rem;
-  color: #8a8380;
+  color: #7a7573;
 }
 .stat-count { font-weight: 700; font-size: 1rem; }
-.stat-pass { color: #00c758; }
-.stat-fail { color: #fb2c36; }
-.stat-skip { color: #5c5855; }
+.stat-pass { color: #16a34a; }
+.stat-fail { color: #dc2626; }
+.stat-skip { color: #9a9592; }
 .level-cards {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -167,21 +167,21 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
   text-align: center;
   padding: 18px 10px 14px;
   border-radius: 12px;
-  border: 1px solid #2e2c2b;
-  background: #1f1d1c;
+  border: 1px solid #d1cecb;
+  background: #f5f3f2;
   transition: box-shadow 0.15s;
 }
-.level-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
-.level-card.lc-achieved { border-color: #00c75880; background: #00c7580a; }
+.level-card:hover { box-shadow: 0 2px 12px rgba(42,39,38,0.08); }
+.level-card.lc-achieved { border-color: #16a34a80; background: #16a34a08; }
 .level-card-num {
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #5c5855;
+  color: #9a9592;
   margin-bottom: 10px;
 }
-.lc-achieved .level-card-num { color: #a49d9a; }
+.lc-achieved .level-card-num { color: #5e5a58; }
 .level-card-circle {
   width: 80px;
   height: 80px;
@@ -192,7 +192,7 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
   margin: 0 auto 12px;
 }
 .level-card-inner {
-  background: #1f1d1c;
+  background: #f5f3f2;
   width: 62px;
   height: 62px;
   border-radius: 50%;
@@ -201,17 +201,17 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
   justify-content: center;
   font-weight: 700;
   font-size: 1rem;
-  color: #eee;
+  color: #2a2726;
 }
 .level-card-name {
   font-weight: 600;
   font-size: 0.88rem;
-  color: #d6d3d2;
+  color: #433f3e;
   margin-bottom: 4px;
 }
 .level-card-count {
   font-size: 0.8rem;
-  color: #5c5855;
+  color: #9a9592;
   margin-bottom: 6px;
 }
 .level-card-status { font-size: 0.78rem; }
@@ -219,7 +219,7 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
 .level-card-status .achieved-no { font-size: 0.78rem; }
 .threshold-note {
   text-align: center;
-  color: #5c5855;
+  color: #9a9592;
   font-size: 0.78rem;
   margin-top: 10px;
 }
@@ -231,11 +231,11 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
 .pillar-card {
   padding: 18px 20px;
   border-radius: 12px;
-  border: 1px solid #2e2c2b;
-  background: #1f1d1c;
+  border: 1px solid #d1cecb;
+  background: #f5f3f2;
   transition: box-shadow 0.15s;
 }
-.pillar-card:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.3); }
+.pillar-card:hover { box-shadow: 0 2px 12px rgba(42,39,38,0.08); }
 .pillar-card-header {
   display: flex;
   align-items: center;
@@ -248,10 +248,10 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
   gap: 8px;
 }
 .pillar-card-icon { font-size: 1.3rem; }
-.pillar-card-name { font-weight: 600; font-size: 0.95rem; color: #d6d3d2; }
-.pillar-card-pct { font-weight: 700; font-size: 1.3rem; color: #eee; }
+.pillar-card-name { font-weight: 600; font-size: 0.95rem; color: #433f3e; }
+.pillar-card-pct { font-weight: 700; font-size: 1.3rem; color: #2a2726; }
 .pillar-card-bar-wrap {
-  background: #2e2c2b;
+  background: #d1cecb;
   border-radius: 5px;
   height: 10px;
   width: 100%;
@@ -267,24 +267,24 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
   justify-content: space-between;
   align-items: center;
   font-size: 0.82rem;
-  color: #5c5855;
+  color: #9a9592;
 }
-.pillar-card-counts { font-size: 0.82rem; color: #5c5855; }
+.pillar-card-counts { font-size: 0.82rem; color: #9a9592; }
 .pillar-card-status { font-size: 0.78rem; font-weight: 600; }
 .pillar-card-status.ps-good { color: #2e7d32; }
 .pillar-card-status.ps-warn { color: #ef6c00; }
 .pillar-card-status.ps-low { color: #c62828; }
-.empty-note { color: #5c5855; font-style: italic; padding: 12px 0; }
+.empty-note { color: #9a9592; font-style: italic; padding: 12px 0; }
 .tab-list {
   display: flex;
   gap: 0;
-  border-bottom: 2px solid #2e2c2b;
+  border-bottom: 2px solid #d1cecb;
   margin-bottom: 0;
 }
 .tab-btn {
   background: none;
   border: none;
-  color: #8a8380;
+  color: #7a7573;
   font-size: 0.85rem;
   font-weight: 600;
   padding: 10px 20px;
@@ -297,27 +297,27 @@ tr.row-skip:hover td { background: rgba(255,255,255,0.03); }
   gap: 6px;
   white-space: nowrap;
 }
-.tab-btn:hover { color: #d6d3d2; }
-.tab-btn.active { color: #eee; border-bottom-color: #3080ff; }
+.tab-btn:hover { color: #433f3e; }
+.tab-btn.active { color: #2a2726; border-bottom-color: #2563eb; }
 .tab-btn-icon { font-size: 1rem; }
 .tab-btn-count {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #5c5855;
-  background: #2e2c2b;
+  color: #7a7573;
+  background: #e0deda;
   padding: 1px 7px;
   border-radius: 10px;
 }
-.tab-btn.active .tab-btn-count { background: #3080ff22; color: #3080ff; }
+.tab-btn.active .tab-btn-count { background: #2563eb15; color: #2563eb; }
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 footer {
-  color: #5c5855;
+  color: #9a9592;
   font-size: 0.78rem;
   text-align: center;
   margin-top: 32px;
   padding-top: 16px;
-  border-top: 1px solid #2e2c2b;
+  border-top: 1px solid #d1cecb;
 }
 </style>
 </head>

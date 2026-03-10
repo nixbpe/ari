@@ -287,7 +287,7 @@ func (r *HTMLReporter) Report(ctx context.Context, report *Report, w io.Writer) 
 				color = "#ef6f2e"
 			}
 			return template.CSS(fmt.Sprintf(
-				"background: conic-gradient(%s 0%% %d%%, #2e2c2b %d%% 100%%)",
+				"background: conic-gradient(%s 0%% %d%%, #d1cecb %d%% 100%%)",
 				color, pct, pct,
 			))
 		},
