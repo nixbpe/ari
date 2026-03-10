@@ -20,11 +20,17 @@ cmd/ari/main.go              — CLI entry point, flag parsing, pipeline wiring
 internal/
   scanner/                   — Repository scanning, language detection
   checker/                   — Checker interface, registry, runner
-    all/                     — RegisterAll() — registers all 40 checkers
+    all/                     — RegisterAll() — registers all 72 checkers
+    helpers.go               — Shared helpers: CIWorkflowContains, DepFileContains, FileExistsAny, FileContentContains
     style/                   — 12 Style & Validation checkers
     build/                   — 13 Build System checkers
     testing/                 — 8 Testing checkers
     docs/                    — 7 Documentation checkers
+    devenv/                  — 7 Dev Environment checkers
+    observability/           — 8 Debugging & Observability checkers
+    security/                — 7 Security checkers
+    taskdiscovery/           — 5 Task Discovery checkers
+    analytics/               — 5 Product & Analytics checkers
   scorer/                    — 5-level maturity scoring with gated progression
   llm/                       — Multi-provider LLM interface with fallback
   reporter/                  — HTML, JSON, Text reporters

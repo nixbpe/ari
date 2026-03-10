@@ -4,7 +4,7 @@
 
 ## What is ari?
 
-ari scans a local repository and evaluates it across 40 criteria in 4 pillars, 
+ari scans a local repository and evaluates it across 72 criteria in 9 pillars, 
 assigning a maturity level from 1 (Functional) to 5 (Autonomous).
 
 ## Installation
@@ -118,6 +118,58 @@ Progression is gated: you must achieve ≥80% at each level before advancing.
 | automated_doc_generation | L3 | Documentation auto-generated |
 | service_flow_documented | L4 | Service flow diagrams present |
 | api_schema_docs | L4 | API schema documented |
+
+### Dev Environment (7 criteria)
+| ID | Level | Description |
+|----|-------|-------------|
+| env_template | L1 | Environment template file present |
+| devcontainer | L2 | Dev container configuration present |
+| version_pinning | L2 | Runtime version pinned |
+| local_services_setup | L3 | Local services setup via Docker Compose |
+| ide_config | L3 | IDE configuration shared |
+| devcontainer_quality | L4 | Dev container has post-create commands and features |
+| database_schema | L4 | Database schema or migrations present |
+
+### Debugging & Observability (8 criteria)
+| ID | Level | Description |
+|----|-------|-------------|
+| structured_logging | L2 | Structured logging library configured |
+| health_checks | L2 | Health check endpoints present |
+| error_tracking | L3 | Error tracking service integrated |
+| distributed_tracing | L3 | Distributed tracing configured |
+| metrics_collection | L3 | Metrics collection configured |
+| alerting_configured | L4 | Alerting rules configured |
+| profiling_instrumentation | L4 | Profiling instrumentation present |
+| runbooks_documented | L5 | Runbooks documented |
+
+### Security (7 criteria)
+| ID | Level | Description |
+|----|-------|-------------|
+| security_policy | L1 | SECURITY.md present |
+| gitignore_comprehensive | L1 | .gitignore covers secrets and IDE files |
+| codeowners | L2 | CODEOWNERS file present |
+| dep_update_automation | L2 | Dependency update automation configured |
+| secret_scanning_config | L3 | Secret scanning configured |
+| sast_config | L3 | Static analysis security testing configured |
+| dependency_audit_ci | L4 | Dependency audit runs in CI |
+
+### Task Discovery (5 criteria)
+| ID | Level | Description |
+|----|-------|-------------|
+| contributing_guide | L1 | CONTRIBUTING.md present |
+| issue_templates | L2 | GitHub issue templates present |
+| pr_template | L2 | Pull request template present |
+| issue_labeling_system | L3 | Issue labeling system configured |
+| backlog_structure_docs | L4 | Backlog structure and triage process documented |
+
+### Product & Analytics (5 criteria)
+| ID | Level | Description |
+|----|-------|-------------|
+| analytics_sdk | L2 | Analytics SDK integrated |
+| tracking_plan_docs | L3 | Tracking plan documented |
+| experiment_infrastructure | L3 | Experiment/feature flag infrastructure present |
+| product_metrics_docs | L4 | Product metrics and KPIs documented |
+| error_to_insight_pipeline | L4 | Error-to-insight pipeline configured |
 
 ## LLM Configuration
 
