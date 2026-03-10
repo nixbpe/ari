@@ -110,7 +110,7 @@ func (r *Runner) runOne(ctx context.Context, repo fs.FS, lang Language, ch Check
 	if out.Name == "" {
 		out.Name = ch.Name()
 	}
-	if out.Pillar < PillarStyleValidation || out.Pillar > PillarDocumentation {
+	if out.Pillar < PillarStyleValidation || out.Pillar > PillarProductAnalytics {
 		out.Pillar = ch.Pillar()
 	}
 	if out.Level == 0 {

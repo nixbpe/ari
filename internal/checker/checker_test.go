@@ -54,6 +54,11 @@ func TestPillarString(t *testing.T) {
 		{checker.PillarBuildSystem, "Build System"},
 		{checker.PillarTesting, "Testing"},
 		{checker.PillarDocumentation, "Documentation"},
+		{checker.PillarDevEnvironment, "Dev Environment"},
+		{checker.PillarObservability, "Debugging & Observability"},
+		{checker.PillarSecurity, "Security"},
+		{checker.PillarTaskDiscovery, "Task Discovery"},
+		{checker.PillarProductAnalytics, "Product & Analytics"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.want, func(t *testing.T) {

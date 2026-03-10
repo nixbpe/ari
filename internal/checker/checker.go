@@ -56,7 +56,7 @@ func (l Level) String() string {
 	}
 }
 
-// Pillar represents one of the four evaluation pillars
+// Pillar represents one of the nine evaluation pillars
 type Pillar int
 
 const (
@@ -64,6 +64,11 @@ const (
 	PillarBuildSystem
 	PillarTesting
 	PillarDocumentation
+	PillarDevEnvironment
+	PillarObservability
+	PillarSecurity
+	PillarTaskDiscovery
+	PillarProductAnalytics
 )
 
 func (p Pillar) String() string {
@@ -76,6 +81,16 @@ func (p Pillar) String() string {
 		return "Testing"
 	case PillarDocumentation:
 		return "Documentation"
+	case PillarDevEnvironment:
+		return "Dev Environment"
+	case PillarObservability:
+		return "Debugging & Observability"
+	case PillarSecurity:
+		return "Security"
+	case PillarTaskDiscovery:
+		return "Task Discovery"
+	case PillarProductAnalytics:
+		return "Product & Analytics"
 	default:
 		return "Unknown"
 	}
