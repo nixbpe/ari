@@ -10,7 +10,7 @@ import (
 )
 
 // RegisterAll registers all 40 checkers into the registry.
-// If eval is non-nil, LLM-capable checkers (naming_consistency, code_modularization) will use it.
+// If eval is non-nil, LLM-capable checkers will use it for enhanced evaluation.
 func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 	// Style & Validation — 12 checkers
 	mustRegister(r, &style.LintConfigChecker{})
@@ -34,7 +34,7 @@ func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 	mustRegister(r, &build.ReleaseAutomationChecker{})
 	mustRegister(r, &build.DeploymentFrequencyChecker{})
 	mustRegister(r, &build.VCSCliToolsChecker{})
-	mustRegister(r, &build.AgenticDevelopmentChecker{})
+	mustRegister(r, &build.AgenticDevelopmentChecker{Evaluator: eval})
 	mustRegister(r, &build.AutomatedPRReviewChecker{})
 	mustRegister(r, &build.BuildPerformanceTrackingChecker{})
 	mustRegister(r, &build.FeatureFlagInfrastructureChecker{})
@@ -43,7 +43,7 @@ func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 
 	// Testing — 8 checkers
 	mustRegister(r, &checktesting.UnitTestsExistChecker{})
-	mustRegister(r, &checktesting.UnitTestsRunnableChecker{})
+	mustRegister(r, &checktesting.UnitTestsRunnableChecker{Evaluator: eval})
 	mustRegister(r, &checktesting.TestNamingConventionsChecker{})
 	mustRegister(r, &checktesting.TestIsolationChecker{})
 	mustRegister(r, &checktesting.IntegrationTestsExistChecker{})
@@ -53,9 +53,9 @@ func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 
 	// Documentation — 7 checkers
 	mustRegister(r, &docs.ReadmeChecker{Evaluator: eval})
-	mustRegister(r, &docs.AgentsMdChecker{})
+	mustRegister(r, &docs.AgentsMdChecker{Evaluator: eval})
 	mustRegister(r, &docs.DocumentationFreshnessChecker{})
-	mustRegister(r, &docs.SkillsChecker{})
+	mustRegister(r, &docs.SkillsChecker{Evaluator: eval})
 	mustRegister(r, &docs.AutomatedDocGenerationChecker{})
 	mustRegister(r, &docs.ServiceFlowDocumentedChecker{})
 	mustRegister(r, &docs.ApiSchemaDocsChecker{})

@@ -6,9 +6,12 @@ import (
 	"io/fs"
 
 	"github.com/nixbpe/ari/internal/checker"
+	"github.com/nixbpe/ari/internal/llm"
 )
 
-type AgentsMdChecker struct{}
+type AgentsMdChecker struct {
+	Evaluator llm.Evaluator
+}
 
 func (c *AgentsMdChecker) ID() checker.CheckerID  { return "agents_md" }
 func (c *AgentsMdChecker) Pillar() checker.Pillar { return checker.PillarDocumentation }
@@ -34,28 +37,66 @@ func (c *AgentsMdChecker) Check(ctx context.Context, repo fs.FS, lang checker.La
 		Name:       c.Name(),
 		Level:      c.Level(),
 		Pillar:     c.Pillar(),
-		Mode:       "rule-based",
 		Suggestion: c.Suggestion(),
 	}
 
+	passed, evidence, content := c.ruleCheck(repo)
+
+	if c.Evaluator == nil || content == "" {
+		result.Passed = passed
+		result.Evidence = evidence
+		result.Mode = "rule-based"
+		return result, nil
+	}
+
+	prompt := fmt.Sprintf(
+		"Evaluate the quality of this AI agent documentation for a %s project.\n"+
+			"Rule-based finding: %s\nContent (truncated):\n%s\n\n"+
+			"A good agent doc (AGENTS.md/CLAUDE.md) should have:\n"+
+			"1. Build commands (exact, backtick-wrapped, copy-paste ready)\n"+
+			"2. Test commands (how to run tests)\n"+
+			"3. Architecture overview (project structure, key modules)\n"+
+			"4. Coding conventions (naming, patterns, style rules)\n"+
+			"5. Specific, actionable instructions (not vague prose)\n\n"+
+			"Does this doc provide enough guidance for an AI coding agent to work effectively in this repo?\n"+
+			`Respond with JSON only: {"passed": bool, "evidence": "brief explanation of what's present/missing", "confidence": 0.0}`,
+		lang.String(), evidence, content,
+	)
+	evalResult, err := c.Evaluator.Evaluate(ctx, prompt)
+	if err != nil || evalResult == nil {
+		result.Passed = passed
+		result.Evidence = evidence
+		result.Mode = "rule-based"
+		return result, nil
+	}
+
+	result.Passed = evalResult.Passed
+	result.Evidence = evalResult.Evidence
+	result.Mode = evalResult.Mode
+	if result.Mode == "" {
+		result.Mode = "llm"
+	}
+	return result, nil
+}
+
+func (c *AgentsMdChecker) ruleCheck(repo fs.FS) (bool, string, string) {
 	for _, name := range agentDocCandidates {
 		data, err := fs.ReadFile(repo, name)
 		if err != nil {
 			continue
 		}
 
-		if len(data) < 100 {
-			result.Passed = false
-			result.Evidence = fmt.Sprintf("Found %s but content is too short (%d chars, need 100+)", name, len(data))
-			return result, nil
+		content := string(data)
+		if len(content) > 4000 {
+			content = content[:4000]
 		}
 
-		result.Passed = true
-		result.Evidence = fmt.Sprintf("Found %s — AI agent documentation present", name)
-		return result, nil
+		if len(data) < 100 {
+			return false, fmt.Sprintf("Found %s but content is too short (%d chars, need 100+)", name, len(data)), content
+		}
+
+		return true, fmt.Sprintf("Found %s — AI agent documentation present", name), content
 	}
 
-	result.Passed = false
-	result.Evidence = "No AI agent documentation found"
-	return result, nil
+	return false, "No AI agent documentation found", ""
 }
