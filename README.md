@@ -7,6 +7,16 @@
 ari scans a local repository and evaluates it across 72 criteria in 4 pillars,
 assigning a maturity level from 1 (Functional) to 5 (Autonomous).
 
+### Objective
+
+The goal of ari is to give teams a clear, actionable picture of how well their codebase supports AI-assisted development. By scoring repositories across four pillars — **Context & Intent**, **Environment & Infra**, **Constraints & Governance**, and **Verification & Feedback** — ari identifies gaps that slow down AI coding agents and provides concrete suggestions to close them. The end result is a codebase that both humans and AI agents can navigate, build, and ship in confidently.
+
+### Example Report
+
+<p align="center">
+  <img src="docs/screenshort-report.png" alt="ari HTML report" width="700" />
+</p>
+
 ## Installation
 
 ### From source
