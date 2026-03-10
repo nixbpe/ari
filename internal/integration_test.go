@@ -53,8 +53,8 @@ func TestFullPipelineGoRepo(t *testing.T) {
 	if len(report.CriteriaResults) == 0 {
 		t.Fatal("no criteria results")
 	}
-	if len(report.CriteriaResults) != 40 {
-		t.Errorf("expected 40 criteria, got %d", len(report.CriteriaResults))
+	if len(report.CriteriaResults) != 48 {
+		t.Errorf("expected 48 criteria, got %d", len(report.CriteriaResults))
 	}
 	if int(score.Level) < 1 {
 		t.Errorf("expected level >= 1 for sample-go-repo, got %d", int(score.Level))

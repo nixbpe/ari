@@ -4,12 +4,13 @@ import (
 	"github.com/nixbpe/ari/internal/checker"
 	"github.com/nixbpe/ari/internal/checker/build"
 	"github.com/nixbpe/ari/internal/checker/docs"
+	"github.com/nixbpe/ari/internal/checker/observability"
 	"github.com/nixbpe/ari/internal/checker/style"
 	checktesting "github.com/nixbpe/ari/internal/checker/testing"
 	"github.com/nixbpe/ari/internal/llm"
 )
 
-// RegisterAll registers all 40 checkers into the registry.
+// RegisterAll registers all 48 checkers into the registry.
 // If eval is non-nil, LLM-capable checkers will use it for enhanced evaluation.
 func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 	// Style & Validation — 12 checkers
@@ -59,6 +60,16 @@ func RegisterAll(r *checker.Registry, eval llm.Evaluator) {
 	mustRegister(r, &docs.AutomatedDocGenerationChecker{})
 	mustRegister(r, &docs.ServiceFlowDocumentedChecker{})
 	mustRegister(r, &docs.ApiSchemaDocsChecker{})
+
+	// Debugging & Observability — 8 checkers
+	mustRegister(r, &observability.StructuredLoggingChecker{})
+	mustRegister(r, &observability.HealthChecksChecker{})
+	mustRegister(r, &observability.ErrorTrackingChecker{})
+	mustRegister(r, &observability.DistributedTracingChecker{})
+	mustRegister(r, &observability.MetricsCollectionChecker{})
+	mustRegister(r, &observability.AlertingConfiguredChecker{})
+	mustRegister(r, &observability.ProfilingInstrumentationChecker{})
+	mustRegister(r, &observability.RunbooksDocumentedChecker{Evaluator: eval})
 }
 
 func mustRegister(r *checker.Registry, ch checker.Checker) {
